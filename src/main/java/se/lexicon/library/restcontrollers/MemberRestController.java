@@ -20,28 +20,27 @@ import se.lexicon.library.services.members.MemberManagementService;
 @RestController
 @RequestMapping("/member")
 public class MemberRestController {
-		
-		@Autowired
-		MemberManagementService memberService;
-		
-		@PostMapping("/create/{name}/{phone}")
-		public  ResponseEntity<Boolean> create(@PathVariable("name") String name, @PathVariable("phone") String phone) {
-			
-			Member newMember;
-			List<Loan> loans = new ArrayList<Loan>();
-			loans.add(new Loan());
-			newMember=new Member(LocalDate.now(), new ContactInfo(name, phone), null, loans);
-//			newMember=new Member(LocalDate.now(), null, loans);
-						memberService.createMember(newMember);
-	//		return new ResponseEntity<Boolean>(HttpStatus.BAD_REQUEST);
 
-			return ResponseEntity.ok(true);
+	@Autowired
+	MemberManagementService memberService;
 
-}
-		
-/*		@RequestMapping("/all")
-		public List<Member> getAll() {
-			return memberService.getList();
-		}
-*/
+	@PostMapping("/create/{name}/{adress}/{phone}/{email}")
+	public ResponseEntity<Boolean> create(@PathVariable("name") String name, @PathVariable("adress") String adress,
+			@PathVariable("phone") String phone, @PathVariable("email") String email) {
+
+		Member newMember;
+		List<Loan> loans = new ArrayList<Loan>();
+		loans.add(new Loan());
+		newMember = new Member(LocalDate.now(), new ContactInfo(name, adress, phone, email), null, loans);
+		memberService.createMember(newMember);
+		// return new ResponseEntity<Boolean>(HttpStatus.BAD_REQUEST);
+
+		return ResponseEntity.ok(true);
+
+	}
+
+	/*
+	 * @RequestMapping("/all") public List<Member> getAll() { return
+	 * memberService.getList(); }
+	 */
 }

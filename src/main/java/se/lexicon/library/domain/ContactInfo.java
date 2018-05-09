@@ -7,12 +7,14 @@ import javax.persistence.Id;
 
 @Entity
 public class ContactInfo {
-	// TODO  now mock
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
+	private String adress;
 	private String phone;
+	private String email;
+
 
 	
 	public ContactInfo() {
@@ -20,11 +22,15 @@ public class ContactInfo {
 	}
 
 
-	public ContactInfo(String name, String phone) {
+
+	public ContactInfo(String name, String adress, String phone, String email) {
 		super();
 		this.name = name;
+		this.adress = adress;
 		this.phone = phone;
+		this.email = email;
 	}
+
 
 
 	public String getName() {
@@ -32,9 +38,23 @@ public class ContactInfo {
 	}
 
 
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
+
+
+	public String getAdress() {
+		return adress;
+	}
+
+
+
+	public void setAdress(String adress) {
+		this.adress = adress;
+	}
+
 
 
 	public String getPhone() {
@@ -42,9 +62,23 @@ public class ContactInfo {
 	}
 
 
+
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 
 
 	public Integer getId() {
@@ -52,11 +86,6 @@ public class ContactInfo {
 	}
 
 
-	@Override
-	public String toString() {
-		return "ContactInfo [id=" + id + ", name=" + name + ", phone=" + phone + "]";
-	}
-	
 	
 	
 }
