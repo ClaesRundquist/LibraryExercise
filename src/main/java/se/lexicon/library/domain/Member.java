@@ -9,19 +9,23 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Member {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private LocalDate since;
+
+	@OneToOne(cascade = CascadeType.ALL)
 	private ContactInfo contactInfo;
+	@OneToOne(cascade = CascadeType.ALL)
 	private LibraryCard libraryCard;
-	
-	@OneToMany(cascade=CascadeType.ALL)
-	private List<Loan> loans;	
+
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Loan> loans;
 
 	// Needed by JPA
 	public Member() {
@@ -36,6 +40,14 @@ public class Member {
 		this.loans = loans;
 	}
 
+	public ContactInfo getContactInfo() {
+		return contactInfo;
+	}
+
+	public void setContactInfo(ContactInfo contactInfo) {
+		this.contactInfo = contactInfo;
+	}
+
 	public void addLoan(Loan loan) {
 		this.loans.add(loan);
 	}
@@ -44,25 +56,15 @@ public class Member {
 		return id;
 	}
 
-/* needed???
- * 	public void setId(Integer id) {
-		this.id = id;
-	}
-*/
+	/*
+	 * needed??? public void setId(Integer id) { this.id = id; }
+	 */
 	public LocalDate getSince() {
 		return since;
 	}
 
 	public void setSince(LocalDate since) {
 		this.since = since;
-	}
-
-	public ContactInfo getContactInfo() {
-		return contactInfo;
-	}
-
-	public void setContactInfo(ContactInfo contactInfo) {
-		this.contactInfo = contactInfo;
 	}
 
 	public LibraryCard getLibraryCard() {
@@ -80,13 +82,9 @@ public class Member {
 	public void setLoans(List<Loan> loans) {
 		this.loans = loans;
 	}
-
-	@Override
-	public String toString() {
-		return "Member [id=" + id + ", since=" + since + ", contactInfo=" + contactInfo + ", libraryCard=" + libraryCard
-				+ ", loans=" + loans + "]";
-	}
-	
-	
-	
+	/*
+	 * @Override public String toString() { return "Member [id=" + id + ", since=" +
+	 * since + ", contactInfo=" + contactInfo + ", libraryCard=" + libraryCard +
+	 * ", loans=" + loans + "]"; }
+	 */
 }

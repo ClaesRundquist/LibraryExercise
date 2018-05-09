@@ -2,14 +2,20 @@ package se.lexicon.library.services.members;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import se.lexicon.library.domain.ContactInfo;
 import se.lexicon.library.domain.Loan;
 import se.lexicon.library.domain.Member;
 import se.lexicon.library.repositories.MemberRepository;
 
+@Transactional
+@Service
 public class MemberManagementServiceMockImpl implements MemberManagementService {
 
-	
+	@Autowired
 	private MemberRepository memberRepository;
 	
 	public MemberManagementServiceMockImpl() {

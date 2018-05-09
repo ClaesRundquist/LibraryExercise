@@ -2,9 +2,11 @@ package se.lexicon.library.services.members;
 
 import java.util.List;
 
+
 import se.lexicon.library.domain.ContactInfo;
 import se.lexicon.library.domain.Loan;
 import se.lexicon.library.domain.Member;
+
 
 public interface MemberManagementService {
 	public void createMember(Member member);

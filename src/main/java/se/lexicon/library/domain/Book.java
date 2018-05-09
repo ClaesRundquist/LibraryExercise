@@ -1,5 +1,6 @@
 package se.lexicon.library.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,13 +10,13 @@ import javax.persistence.OneToOne;
 @Entity
 public class Book {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)	
+	@GeneratedValue(strategy=GenerationType.IDENTITY)	
 	private Integer id;
 	private String ISBN;
 	private String title;
 	private String Author;
 	private String Gengre;
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	private Location location;
 
 	
