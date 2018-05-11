@@ -6,8 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import se.lexicon.library.domain.ContactInfo;
-import se.lexicon.library.domain.Loan;
+import se.lexicon.library.domain.LibraryCard;
 import se.lexicon.library.domain.Member;
 import se.lexicon.library.repositories.MemberRepository;
 
@@ -17,7 +16,7 @@ public class MemberManagementServiceMockImpl implements MemberManagementService 
 
 	@Autowired
 	private MemberRepository memberRepository;
-	
+
 	public MemberManagementServiceMockImpl() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -26,13 +25,9 @@ public class MemberManagementServiceMockImpl implements MemberManagementService 
 	@Override
 	public void createMember(Member member) {
 		// TODO Auto-generated method stub
+		// Library card assignment (Id generation) is mock implementation. Id will be read from printing on physical card, not generated here.
+		member.setLibraryCard(new LibraryCard(member.getId()+1000_000));
 		memberRepository.save(member);
-	}
-
-	@Override
-	public void createLoan(Member member, Loan loan) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -48,13 +43,19 @@ public class MemberManagementServiceMockImpl implements MemberManagementService 
 	}
 
 	@Override
-	public void updateMember(Member changedMember, ContactInfo changedContactInfo) throws MemberNotFoundException {
+	public void deleteMember(Member member) throws MemberNotFoundException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void deleteMember(Member member) throws MemberNotFoundException {
+	public Member searchForMemberByLibraryCard(String libraryCardId) throws MemberNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateMember(Member changedMember) throws MemberNotFoundException {
 		// TODO Auto-generated method stub
 
 	}

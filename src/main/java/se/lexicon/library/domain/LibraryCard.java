@@ -8,12 +8,17 @@ import javax.persistence.Id;
 @Entity
 public class LibraryCard {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//card id printed on card, not auto generated.
 	Integer id;
 
 	public LibraryCard() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public LibraryCard(Integer id) {
+		super();
+		this.id = id;
 	}
 
 	public Integer getId() {

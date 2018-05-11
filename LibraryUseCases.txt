@@ -1,0 +1,64 @@
+A = Version .9
+B = Version 2
+C = Version 3
+
+
+Book
+Create
+A Register Book (Copy)
+	serarch book repository
+	if needed add book to book repository
+		type in ISBN title and other book attributes
+	create copy of book found in book repository
+	assign loanPeriod and location to copy of book
+
+A Update Book  (update specific copy of book)
+
+Read
+A Search book
+
+Update
+
+Delete
+A Delete Book (Copy)
+---------
+
+Loan
+Create
+A Create Loan
+	get book Id			bookId is attached physically to book 
+	get library card number		Member must have a library card in order to make loan.
+	print receipt
+		lender (Member)
+		date
+		book title
+		book id
+		return date (derived from date plus period)
+
+Read
+B Search Loan (*Member *Due Date)
+
+Update
+C Extend Loan
+
+Delete
+A Return Book
+
+
+-----
+Member
+Create
+A Create Member
+A Mock
+
+Read
+A Search for Member (+Profile)
+
+Update
+A Update Profile
+C Register Card
+	Find Member
+	Attach card to Member		card id printed on card, not auto generated.
+A Delete Member
+
+

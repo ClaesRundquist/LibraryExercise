@@ -1,5 +1,7 @@
 package se.lexicon.library.domain;
 
+import java.time.Period;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,26 +16,29 @@ public class Book {
 	private Integer id;
 	private String ISBN;
 	private String title;
-	private String Author;
-	private String Gengre;
+	private String author;
+	private String gengre;
 	@OneToOne(cascade=CascadeType.ALL)
 	private Location location;
-
+	private Period loanPeriod;
 	
 	public Book() {
 		super();
 	}
 
 
-	public Book(Integer id, String iSBN, String title, String author, String gengre, Location location) {
+
+	public Book(String iSBN, String title, String author, String gengre, Location location, Period loanPeriod) {
 		super();
-		this.id = id;
-		ISBN = iSBN;
+		this.ISBN = iSBN;
 		this.title = title;
-		Author = author;
-		Gengre = gengre;
+		this.author = author;
+		this.gengre = gengre;
 		this.location = location;
+		this.loanPeriod = loanPeriod;
 	}
+
+
 
 	public Integer getId() {
 		return id;
@@ -45,7 +50,7 @@ public class Book {
 
 
 	public void setISBN(String iSBN) {
-		ISBN = iSBN;
+		this.ISBN = iSBN;
 	}
 
 
@@ -60,22 +65,22 @@ public class Book {
 
 
 	public String getAuthor() {
-		return Author;
+		return author;
 	}
 
 
 	public void setAuthor(String author) {
-		Author = author;
+		author = author;
 	}
 
 
 	public String getGengre() {
-		return Gengre;
+		return gengre;
 	}
 
 
 	public void setGengre(String gengre) {
-		Gengre = gengre;
+		gengre = gengre;
 	}
 
 
@@ -88,14 +93,26 @@ public class Book {
 		this.location = location;
 	}
 
+	
 
-	@Override
-	public String toString() {
-		return "Book [id=" + id + ", ISBN=" + ISBN + ", title=" + title + ", Author=" + Author + ", Gengre=" + Gengre
-				+ ", location=" + location + "]";
+	public Period getLoanPeriod() {
+		return loanPeriod;
 	}
 
 
 
-	
+	public void setLoanPeriod(Period loanPeriod) {
+		this.loanPeriod = loanPeriod;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Book [id=" + id + ", ISBN=" + ISBN + ", title=" + title + ", Author=" + author + ", Gengre=" + gengre
+				+ ", location=" + location + ", loanPeriod=" + loanPeriod + "]";
+	}
+
+
+
 }
