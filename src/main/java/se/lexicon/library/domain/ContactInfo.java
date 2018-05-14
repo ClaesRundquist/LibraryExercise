@@ -10,7 +10,6 @@ public class ContactInfo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String name;
 	private String adress;
 	private String phone;
 	private String email;
@@ -23,24 +22,11 @@ public class ContactInfo {
 
 
 
-	public ContactInfo(String name, String adress, String phone, String email) {
+	public ContactInfo(String adress, String phone, String email) {
 		super();
-		this.name = name;
 		this.adress = adress;
 		this.phone = phone;
 		this.email = email;
-	}
-
-
-
-	public String getName() {
-		return name;
-	}
-
-
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 
@@ -86,6 +72,10 @@ public class ContactInfo {
 	}
 
 
-	
+
+	@Override
+	public String toString() {
+		return "ContactInfo [id=" + id + ", adress=" + adress + ", phone=" + phone + ", email=" + email + "]";
+	}	
 	
 }

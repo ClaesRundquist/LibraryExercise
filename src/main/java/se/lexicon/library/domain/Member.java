@@ -11,12 +11,18 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import se.lexicon.library.restcontrollers.SimpleMember;
+
 @Entity
+//@JsonIgnoreProperties("id")
 public class Member {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	private String name;
 	private LocalDate since;
 
 	@OneToOne(cascade = CascadeType.ALL)
@@ -32,12 +38,30 @@ public class Member {
 		super();
 	}
 
-	public Member(LocalDate since, ContactInfo contactInfo, LibraryCard libraryCard, List<Loan> loans) {
+	public Member(String name, LocalDate since, ContactInfo contactInfo, LibraryCard libraryCard, List<Loan> loans) {
 		super();
+		this.name = name;
 		this.since = since;
 		this.contactInfo = contactInfo;
 		this.libraryCard = libraryCard;
 		this.loans = loans;
+	}
+
+	public Member(SimpleMember simpleMember) {
+		this.name = simpleMember.getName();
+		this.since = LocalDate.now();
+		this.contactInfo = new ContactInfo(simpleMember.getAdress(), simpleMember.getPhone(), simpleMember.getEmail());
+		this.libraryCard = null;
+		this.loans = null;
+
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public ContactInfo getContactInfo() {
@@ -82,9 +106,11 @@ public class Member {
 	public void setLoans(List<Loan> loans) {
 		this.loans = loans;
 	}
-	/*
-	 * @Override public String toString() { return "Member [id=" + id + ", since=" +
-	 * since + ", contactInfo=" + contactInfo + ", libraryCard=" + libraryCard +
-	 * ", loans=" + loans + "]"; }
-	 */
+
+	@Override
+	public String toString() {
+		return "Member [id=" + id + ", name=" + name + ", since=" + since + ", contactInfo=" + contactInfo
+				+ ", libraryCard=" + libraryCard + ", loans=" + loans + "]";
+	}
+
 }
