@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import se.lexicon.library.domain.LibraryCard;
+import se.lexicon.library.domain.Loan;
 import se.lexicon.library.domain.Member;
 import se.lexicon.library.services.members.MemberManagementService;
 import se.lexicon.library.services.members.MemberNotFoundException;
@@ -31,11 +33,20 @@ public class MemberRestController {
 
 		// newMember=modelMapper.map()
 
-		Member newMember = new Member(simpleMember);
-		return ResponseEntity.ok(memberService.createMember(newMember));
+		return ResponseEntity.ok(memberService.createMember(simpleMember));
 
 	}
+/*
+	@PostMapping("/createloan")
+	public ResponseEntity<Loan> createLoan(@RequestBody SimpleLoan simpleLoan) {
+		// ModelMapper modelMapper =new ModelMapper();
 
+		// newMember=modelMapper.map()
+		return ResponseEntity.ok(memberService.createLoan(loan));
+
+	}
+*/
+	
 	@GetMapping("/findbyname/{name}")
 	public ResponseEntity<MemberCollection> findByName(@PathVariable("name") String name) {
 

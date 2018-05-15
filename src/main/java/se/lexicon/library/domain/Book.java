@@ -70,7 +70,7 @@ public class Book {
 
 
 	public void setAuthor(String author) {
-		author = author;
+		this.author = author;
 	}
 
 
@@ -80,7 +80,7 @@ public class Book {
 
 
 	public void setGengre(String gengre) {
-		gengre = gengre;
+		this.gengre = gengre;
 	}
 
 

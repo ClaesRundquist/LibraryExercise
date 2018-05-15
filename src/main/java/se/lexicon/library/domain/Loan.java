@@ -7,7 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+
+import se.lexicon.library.restcontrollers.SimpleLoan;
 
 @Entity
 public class Loan {
@@ -20,7 +23,9 @@ public class Loan {
 	private LocalDate lended;
 	private Period loanPeriod;
 	private Integer extendCount; // period may be extended n times.
-
+	@OneToOne
+	private Member member;
+	
 	public Loan() {
 		super();
 	}
@@ -31,6 +36,16 @@ public class Loan {
 		this.lended = lended;
 		this.loanPeriod = loanPeriod;
 		this.extendCount = extendCount;
+	}
+
+	
+	public Loan(SimpleLoan simpleLoan) {
+		super();
+		this.book = simpleLoan.getBook();
+		this.lended = LocalDate.now();
+		this.loanPeriod = this.book.getLoanPeriod();
+		this.extendCount = 0;
+		this.member = simpleLoan.getMember();
 	}
 
 	public Book getBook() {

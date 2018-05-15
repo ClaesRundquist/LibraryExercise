@@ -5,10 +5,14 @@ import java.util.Optional;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 
+import se.lexicon.library.domain.Loan;
 import se.lexicon.library.domain.Member;
+import se.lexicon.library.restcontrollers.SimpleLoan;
+import se.lexicon.library.restcontrollers.SimpleMember;
 
 public interface MemberManagementService {
-	public Member createMember(Member newMember);
+	public Member createMember(SimpleMember newMember);
+	public Loan createLoan(SimpleLoan newLoan);
 
 	public Optional<Member> searchForMemberById(Integer memberId) throws MemberNotFoundException;
 

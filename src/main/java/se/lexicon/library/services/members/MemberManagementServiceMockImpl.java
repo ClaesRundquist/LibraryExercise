@@ -3,14 +3,17 @@ package se.lexicon.library.services.members;
 import java.util.List;
 import java.util.Optional;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import se.lexicon.library.domain.LibraryCard;
+import se.lexicon.library.domain.Loan;
 import se.lexicon.library.domain.Member;
+import se.lexicon.library.repositories.LoanRepository;
 import se.lexicon.library.repositories.MemberRepository;
+import se.lexicon.library.restcontrollers.SimpleLoan;
+import se.lexicon.library.restcontrollers.SimpleMember;
 
 @Transactional
 @Service
@@ -18,6 +21,8 @@ public class MemberManagementServiceMockImpl implements MemberManagementService 
 
 	@Autowired
 	private MemberRepository memberRepository;
+	@Autowired
+	private LoanRepository LoanRepository;
 
 	public MemberManagementServiceMockImpl() {
 		super();
@@ -25,12 +30,20 @@ public class MemberManagementServiceMockImpl implements MemberManagementService 
 	}
 
 	@Override
-	public Member createMember(Member member) {
+	public Member createMember(SimpleMember simpleMember) {
 		// Library card assignment (Id generation) is mock implementation. Id will be
 		// read from printing on physical card, not generated here.
-			memberRepository.save(member);
-			member.setLibraryCard(new LibraryCard(member.getId() + 1000_000));
-		return (member);
+		Member newMember = new Member(simpleMember);
+		memberRepository.save(newMember);
+		newMember.setLibraryCard(new LibraryCard(newMember.getId() + 1000_000));
+		return (newMember);
+	}
+
+	@Override
+	public Loan createLoan(SimpleLoan simpleLoan) {
+		Loan newLoan = new Loan(simpleLoan);
+		LoanRepository.save(newLoan);
+		return (newLoan);
 	}
 
 	@Override
@@ -46,7 +59,7 @@ public class MemberManagementServiceMockImpl implements MemberManagementService 
 	@Override
 	public Member searchForMemberByLibraryCard(Integer libraryCardId) throws MemberNotFoundException {
 		// TODO Auto-generated method stub
-//		memberRepository.
+		// memberRepository.
 		return null;
 	}
 
@@ -54,7 +67,6 @@ public class MemberManagementServiceMockImpl implements MemberManagementService 
 	public List<Member> getAll() {
 		return memberRepository.findAll();
 	}
-	
 
 	@Override
 	public void updateMember(Member changedMember) throws MemberNotFoundException {
