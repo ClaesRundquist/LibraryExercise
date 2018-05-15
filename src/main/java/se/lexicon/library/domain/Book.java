@@ -2,12 +2,10 @@ package se.lexicon.library.domain;
 
 import java.time.Period;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Book {
@@ -18,8 +16,7 @@ public class Book {
 	private String title;
 	private String author;
 	private String gengre;
-	@OneToOne(cascade=CascadeType.ALL)
-	private Location location;
+	private String location;
 	private Period loanPeriod;
 	
 	public Book() {
@@ -28,7 +25,7 @@ public class Book {
 
 
 
-	public Book(String iSBN, String title, String author, String gengre, Location location, Period loanPeriod) {
+	public Book(String iSBN, String title, String author, String gengre, String location, Period loanPeriod) {
 		super();
 		this.ISBN = iSBN;
 		this.title = title;
@@ -84,12 +81,12 @@ public class Book {
 	}
 
 
-	public Location getLocation() {
+	public String getLocation() {
 		return location;
 	}
 
 
-	public void setLocation(Location location) {
+	public void setLocation(String location) {
 		this.location = location;
 	}
 

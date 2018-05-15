@@ -29,23 +29,20 @@ public class MemberRestController {
 
 	@PostMapping("/create")
 	public ResponseEntity<Member> create(@RequestBody SimpleMember simpleMember) {
-		// ModelMapper modelMapper =new ModelMapper();
-
-		// newMember=modelMapper.map()
 
 		return ResponseEntity.ok(memberService.createMember(simpleMember));
 
 	}
-/*
+
 	@PostMapping("/createloan")
 	public ResponseEntity<Loan> createLoan(@RequestBody SimpleLoan simpleLoan) {
 		// ModelMapper modelMapper =new ModelMapper();
 
 		// newMember=modelMapper.map()
-		return ResponseEntity.ok(memberService.createLoan(loan));
+		return ResponseEntity.ok(memberService.createLoan(simpleLoan));
 
 	}
-*/
+
 	
 	@GetMapping("/findbyname/{name}")
 	public ResponseEntity<MemberCollection> findByName(@PathVariable("name") String name) {

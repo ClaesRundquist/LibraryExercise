@@ -15,7 +15,6 @@ import javax.persistence.OneToOne;
 import se.lexicon.library.restcontrollers.SimpleMember;
 
 @Entity
-//@JsonIgnoreProperties("id")
 public class Member {
 
 	@Id

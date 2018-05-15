@@ -22,7 +22,7 @@ public class MemberManagementServiceMockImpl implements MemberManagementService 
 	@Autowired
 	private MemberRepository memberRepository;
 	@Autowired
-	private LoanRepository LoanRepository;
+	private LoanRepository loanRepository;
 
 	public MemberManagementServiceMockImpl() {
 		super();
@@ -41,9 +41,12 @@ public class MemberManagementServiceMockImpl implements MemberManagementService 
 
 	@Override
 	public Loan createLoan(SimpleLoan simpleLoan) {
+		Optional<Member> member=memberRepository.findById(simpleLoan.getMember().getId());
 		Loan newLoan = new Loan(simpleLoan);
-		LoanRepository.save(newLoan);
-		return (newLoan);
+//		member.get().addLoan(newLoan);
+//		return (loanRepository.save(newLoan));
+		member.get().addLoan(loanRepository.save(newLoan));
+		return (member.get().getLoans().get(0));
 	}
 
 	@Override

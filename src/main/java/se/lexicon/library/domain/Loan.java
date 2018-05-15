@@ -23,7 +23,7 @@ public class Loan {
 	private LocalDate lended;
 	private Period loanPeriod;
 	private Integer extendCount; // period may be extended n times.
-	@OneToOne
+	@ManyToOne
 	private Member member;
 	
 	public Loan() {
