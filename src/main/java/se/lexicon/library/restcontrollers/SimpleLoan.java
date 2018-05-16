@@ -1,9 +1,11 @@
 package se.lexicon.library.restcontrollers;
 
+
 import se.lexicon.library.domain.Book;
 import se.lexicon.library.domain.Member;
 
 public class SimpleLoan {
+
 	private Book book;
 	private Member member;
 
@@ -16,6 +18,7 @@ public class SimpleLoan {
 		this.book = book;
 		this.member = member;
 	}
+
 
 	public Book getBook() {
 		return book;

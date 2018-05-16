@@ -1,7 +1,8 @@
 package se.lexicon.library.domain;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import se.lexicon.library.restcontrollers.SimpleMember;
 
@@ -28,15 +30,18 @@ public class Member {
 	@OneToOne(cascade = CascadeType.ALL)
 	private LibraryCard libraryCard;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<Loan> loans;
+	@JsonManagedReference
+	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+	private Set<Loan> loans=new HashSet<>();
 
 	// Needed by JPA
 	public Member() {
 		super();
 	}
 
-	public Member(String name, LocalDate since, ContactInfo contactInfo, LibraryCard libraryCard, List<Loan> loans) {
+
+
+	public Member(String name, LocalDate since, ContactInfo contactInfo, LibraryCard libraryCard, Set<Loan> loans) {
 		super();
 		this.name = name;
 		this.since = since;
@@ -45,12 +50,14 @@ public class Member {
 		this.loans = loans;
 	}
 
+
+
 	public Member(SimpleMember simpleMember) {
 		this.name = simpleMember.getName();
 		this.since = LocalDate.now();
 		this.contactInfo = new ContactInfo(simpleMember.getAdress(), simpleMember.getPhone(), simpleMember.getEmail());
 		this.libraryCard = null;
-		this.loans = null;
+		this.loans = new HashSet<Loan>();
 
 	}
 
@@ -97,11 +104,11 @@ public class Member {
 		this.libraryCard = libraryCard;
 	}
 
-	public List<Loan> getLoans() {
+	public Set<Loan> getLoans() {
 		return loans;
 	}
 
-	public void setLoans(List<Loan> loans) {
+	public void setLoans(Set<Loan> loans) {
 		this.loans = loans;
 	}
 

@@ -7,8 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import se.lexicon.library.restcontrollers.SimpleLoan;
 
@@ -18,27 +22,33 @@ public class Loan {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@OneToOne
+	@ManyToOne
 	private Book book;
 	private LocalDate lended;
 	private Period loanPeriod;
 	private Integer extendCount; // period may be extended n times.
 	@ManyToOne
+	@JoinColumn (name="member_id")
+	@JsonBackReference
 	private Member member;
 	
 	public Loan() {
 		super();
 	}
 
-	public Loan(Book book, LocalDate lended, Period loanPeriod, Integer extendCount) {
+
+	
+	public Loan(Book book, LocalDate lended, Period loanPeriod, Integer extendCount, Member member) {
 		super();
 		this.book = book;
 		this.lended = lended;
 		this.loanPeriod = loanPeriod;
 		this.extendCount = extendCount;
+		this.member = member;
 	}
 
-	
+
+
 	public Loan(SimpleLoan simpleLoan) {
 		super();
 		this.book = simpleLoan.getBook();
@@ -80,6 +90,15 @@ public class Loan {
 		this.extendCount = extendCount;
 	}
 
+	
+	public Member getMember() {
+		return member;
+	}
+
+	public void setMember(Member member) {
+		this.member = member;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -87,8 +106,10 @@ public class Loan {
 	@Override
 	public String toString() {
 		return "Loan [id=" + id + ", book=" + book + ", lended=" + lended + ", loanPeriod=" + loanPeriod
-				+ ", extendCount=" + extendCount + "]";
+				+ ", extendCount=" + extendCount + ", member=" + member + "]";
 	}
+
+
 
 	
 }
