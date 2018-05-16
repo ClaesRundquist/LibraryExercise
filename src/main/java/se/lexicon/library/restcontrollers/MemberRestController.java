@@ -36,9 +36,7 @@ public class MemberRestController {
 
 	@PostMapping("/createloan")
 	public ResponseEntity<Loan> createLoan(@RequestBody SimpleLoan simpleLoan) {
-		// ModelMapper modelMapper =new ModelMapper();
 
-		// newMember=modelMapper.map()
 		return ResponseEntity.ok(memberService.createLoan(simpleLoan));
 
 	}
@@ -49,7 +47,6 @@ public class MemberRestController {
 
 		MemberCollection res;
 		res = new MemberCollection(memberService.searchForMembersByName(name));
-		// return new ResponseEntity<Boolean>(HttpStatus.BAD_REQUEST);
 
 		return ResponseEntity.ok(res);
 
@@ -62,7 +59,6 @@ public class MemberRestController {
 		try {
 			res = memberService.searchForMemberById(Integer.valueOf(memberId));
 		} catch (MemberNotFoundException e) {
-			// TODO Auto-generated catch block
 			return new ResponseEntity<Optional<Member>>(HttpStatus.BAD_REQUEST);
 		}
 
@@ -103,7 +99,6 @@ public class MemberRestController {
 		try {
 			memberService.deleteMember(memberId);
 		} catch (EmptyResultDataAccessException e) {
-			// TODO Auto-generated catch block
 			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
 		}
 		

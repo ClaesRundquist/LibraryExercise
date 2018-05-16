@@ -12,10 +12,10 @@ public class Book {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)	
 	private Integer id;
-	private String ISBN;
+	private String isbn;
 	private String title;
 	private String author;
-	private String gengre;
+	private String genre;
 	private String location;
 	private Period loanPeriod;
 	
@@ -25,14 +25,24 @@ public class Book {
 
 
 
-	public Book(String iSBN, String title, String author, String gengre, String location, Period loanPeriod) {
+	public Book(String isbn, String title, String author, String genre, String location, Period loanPeriod) {
 		super();
-		this.ISBN = iSBN;
+		this.isbn = isbn;
 		this.title = title;
 		this.author = author;
-		this.gengre = gengre;
+		this.genre = genre;
 		this.location = location;
 		this.loanPeriod = loanPeriod;
+	}
+
+	public Book(Book book) {
+		super();
+		this.isbn = book.isbn;
+		this.title = book.title;
+		this.author = book.author;
+		this.genre = book.genre;
+		this.location = book.location;
+		this.loanPeriod = book.loanPeriod;
 	}
 
 
@@ -41,13 +51,13 @@ public class Book {
 		return id;
 	}
 
-	public String getISBN() {
-		return ISBN;
+	public String getIsbn() {
+		return isbn;
 	}
 
 
-	public void setISBN(String iSBN) {
-		this.ISBN = iSBN;
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
 	}
 
 
@@ -71,13 +81,13 @@ public class Book {
 	}
 
 
-	public String getGengre() {
-		return gengre;
+	public String getGenre() {
+		return genre;
 	}
 
 
-	public void setGengre(String gengre) {
-		this.gengre = gengre;
+	public void setGenre(String genre) {
+		this.genre = genre;
 	}
 
 
@@ -106,7 +116,7 @@ public class Book {
 
 	@Override
 	public String toString() {
-		return "Book [id=" + id + ", ISBN=" + ISBN + ", title=" + title + ", Author=" + author + ", Gengre=" + gengre
+		return "Book [id=" + id + ", ISBN=" + isbn + ", title=" + title + ", Author=" + author + ", Genre=" + genre
 				+ ", location=" + location + ", loanPeriod=" + loanPeriod + "]";
 	}
 

@@ -45,7 +45,7 @@ public class MemberManagementServiceMockImpl implements MemberManagementService 
 //		member.get().addLoan(newLoan);
 //		return (loanRepository.save(newLoan));
 		
-		return (loanRepository.save(newLoan));
+		return loanRepository.save(newLoan);
 	}
 
 	@Override

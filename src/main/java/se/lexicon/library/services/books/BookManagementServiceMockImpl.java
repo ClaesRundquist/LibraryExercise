@@ -20,26 +20,46 @@ public class BookManagementServiceMockImpl implements BookManagementService {
 	
 	@Override
 	public Book createBook(Book newBook) {
-		bookRepository.save(newBook);
-		return newBook;
+
+		return bookRepository.save(newBook);
+	}
+
+	@Override
+	public Book cloneBook(String isbn) throws BookNotFoundException {
+
+		List<Book> foundBook = bookRepository.findByIsbn(isbn);
+		System.out.println(isbn+foundBook);
+		if (!foundBook.isEmpty()) {
+			Book newCopy = new Book(foundBook.get(0));
+			return bookRepository.save(newCopy);
+		} else {
+			throw new BookNotFoundException();
+
+		}
+		
 	}
 
 	@Override
 	public Book updateBook(Book updatedBook) throws BookNotFoundException {
-		bookRepository.save(updatedBook);
-		return updatedBook;
+		
+		return bookRepository.save(updatedBook);
 	}
 
 	@Override
-	public Optional<Book> searchForBookById(String bookId) throws BookNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+	public Optional<Book> searchForBookById(Integer bookId) throws BookNotFoundException {
+		return bookRepository.findById(bookId);
+	}
+
+	
+	
+	@Override
+	public List<Book> searchForBooksByIsbn(String isbn) {
+		return bookRepository.findByIsbn(isbn);
 	}
 
 	@Override
 	public List<Book> searchForBooksByTitle(String title) {
-		// TODO Auto-generated method stub
-		return null;
+		return bookRepository.findByTitle(title);
 	}
 
 	@Override
@@ -50,8 +70,7 @@ public class BookManagementServiceMockImpl implements BookManagementService {
 
 	@Override
 	public void deleteBook(Integer bookId) throws EmptyResultDataAccessException {
-		// TODO Auto-generated method stub
-
+		bookRepository.deleteById(bookId);
 	}
 
 }

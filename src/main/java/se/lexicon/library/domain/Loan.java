@@ -7,12 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import se.lexicon.library.restcontrollers.SimpleLoan;
 
@@ -27,9 +22,8 @@ public class Loan {
 	private LocalDate lended;
 	private Period loanPeriod;
 	private Integer extendCount; // period may be extended n times.
+
 	@ManyToOne
-	@JoinColumn (name="member_id")
-	@JsonBackReference
 	private Member member;
 	
 	public Loan() {

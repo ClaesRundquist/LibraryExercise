@@ -7,17 +7,19 @@ Book
 Create
 A Register Book (Copy)
 	serarch book repository
-	if needed add book to book repository
-		type in ISBN title and other book attributes
-	create copy of book found in book repository
+	(clone) register new copy of book if found in book repository
+	otherwise create book
 	assign loanPeriod and location to copy of book
-
-A Update Book  (update specific copy of book)
+A Clone book
 
 Read
 A Search book
+	Search by Title
+	Search by ISBN
+	Search by Author
 
 Update
+A Update Book  (update specific copy of book)
 
 Delete
 A Delete Book (Copy)

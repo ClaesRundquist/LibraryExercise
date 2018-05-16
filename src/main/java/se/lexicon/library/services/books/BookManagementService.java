@@ -10,9 +10,13 @@ import se.lexicon.library.domain.Book;
 public interface BookManagementService {
 	public Book createBook(Book newBook);
 
+	public Book cloneBook(String isbn) throws BookNotFoundException;
+
 	public Book updateBook(Book updatedBook) throws BookNotFoundException;
 
-	public Optional<Book> searchForBookById(String bookId) throws BookNotFoundException;
+	public Optional<Book> searchForBookById(Integer bookId) throws BookNotFoundException;
+
+	public List<Book> searchForBooksByIsbn(String isbn);
 
 	public List<Book> searchForBooksByTitle(String title);
 

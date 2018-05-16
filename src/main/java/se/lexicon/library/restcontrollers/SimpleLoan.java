@@ -5,7 +5,7 @@ import se.lexicon.library.domain.Book;
 import se.lexicon.library.domain.Member;
 
 public class SimpleLoan {
-
+	
 	private Book book;
 	private Member member;
 
