@@ -13,6 +13,7 @@ import se.lexicon.library.domain.LibraryCard;
 import se.lexicon.library.domain.Loan;
 import se.lexicon.library.domain.Member;
 import se.lexicon.library.repositories.BookRepository;
+import se.lexicon.library.repositories.LibraryCardRepository;
 import se.lexicon.library.repositories.MemberRepository;
 import se.lexicon.library.restcontrollers.SimpleLoan;
 import se.lexicon.library.restcontrollers.SimpleMember;
@@ -25,6 +26,8 @@ public class MemberManagementServiceMockImpl implements MemberManagementService 
 	private MemberRepository memberRepository;
 	@Autowired
 	private BookRepository bookRepository;
+	@Autowired
+	private LibraryCardRepository libraryCardRepository;
 
 	public MemberManagementServiceMockImpl() {
 		super();
@@ -33,32 +36,37 @@ public class MemberManagementServiceMockImpl implements MemberManagementService 
 
 	@Override
 	public Member createMember(SimpleMember simpleMember) {
+		Member newMember = new Member(simpleMember);
+		// persist member
+		memberRepository.save(newMember);
+
 		// Library card assignment (Id generation) is mock implementation. Id will be
 		// read from printing on physical card, not generated here.
-		Member newMember = new Member(simpleMember);
+		newMember.setLibraryCard(new LibraryCard(newMember.getId() + 1000_000, newMember));
+		// update with library card.
 		memberRepository.save(newMember);
-		newMember.setLibraryCard(new LibraryCard(newMember.getId() + 1000_000));
 		return (newMember);
 	}
 
 	@Override
 	public void createLoan(LoanWrapper loanWrap) {
 
-		Book book=bookRepository.findById(loanWrap.getBookId()).get();
-		Member member=memberRepository.findById(loanWrap.getMemberId()).get();
+		Book book = bookRepository.findById(loanWrap.getBookId()).get();
+		Member member = memberRepository.findById(loanWrap.getMemberId()).get();
 
 		SimpleLoan simpleLoan = new SimpleLoan(book, member);
 		// Loan knows what data to add.
 		Loan newLoan = new Loan(simpleLoan);
-		
+
 		member.addLoan(newLoan);
 
 		memberRepository.save(member);
 	}
 
 	@Override
-	public Optional<Member> searchForMemberById(Integer memberId) throws MemberNotFoundException {
-		return memberRepository.findById(memberId);
+	public Optional<Member> searchForMemberById(Integer memberId) {
+		Optional<Member> res = memberRepository.findById(memberId);
+		return res;
 	}
 
 	@Override
@@ -68,9 +76,22 @@ public class MemberManagementServiceMockImpl implements MemberManagementService 
 
 	@Override
 	public Member searchForMemberByLibraryCard(Integer libraryCardId) throws MemberNotFoundException {
-		// TODO Auto-generated method stub
-		// memberRepository.
-		return null;
+
+		Optional<LibraryCard> libraryCard = libraryCardRepository.findById(libraryCardId);
+		if (!libraryCard.isPresent()) {
+
+			throw new MemberNotFoundException("Library card not found");
+		} else {
+
+			if (libraryCard.get().isValid()) {
+
+				Member member = memberRepository.findById(libraryCard.get().getMember().getId()).get();
+				return member;
+			} else {
+
+				throw new MemberNotFoundException("Invalid library card");
+			}
+		}
 	}
 
 	@Override

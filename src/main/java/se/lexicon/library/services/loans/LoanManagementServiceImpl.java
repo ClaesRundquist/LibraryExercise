@@ -2,6 +2,7 @@ package se.lexicon.library.services.loans;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import se.lexicon.library.repositories.LibraryCardRepository;
 import se.lexicon.library.repositories.LoanRepository;
 import se.lexicon.library.repositories.MemberRepository;
 import se.lexicon.library.restcontrollers.SimpleLoan;
+import se.lexicon.library.services.members.MemberNotFoundException;
 
 @Transactional
 @Service
@@ -34,26 +36,26 @@ public class LoanManagementServiceImpl implements LoanManagementService {
 	private LibraryCardRepository libraryCardRepository;
 
 	@Override
-	public Loan createLoan(LoanWrapper loanWrap) {
+	public Loan createLoan(LoanWrapper loanWrap) throws LibraryCardNotFoundException {
 		Book book = bookRepository.findById(loanWrap.getBookId()).get();
-		LibraryCard libraryCard = libraryCardRepository.findById(loanWrap.getLibraryCardId()).get();
+		Optional<LibraryCard> libraryCard = libraryCardRepository.findById(loanWrap.getLibraryCardId());
+		if (!libraryCard.isPresent()) {
 
-		if (libraryCard.isValid()) {
-System.out.println("Card valid");
-			Member member = memberRepository.findById(libraryCard.getMember().getId()).get();
+			throw new LibraryCardNotFoundException("Library card not found");
+		} else if (libraryCard.get().isValid()) {
+			Member member = memberRepository.getOne(libraryCard.get().getMember().getId());
 
 			SimpleLoan simpleLoan = new SimpleLoan(book, member);
-			// Loan knows what data to add.
+			// Loan knows what data to add (date etc).
 			Loan newLoan = new Loan(simpleLoan);
-
+			loanRepository.save(newLoan);
 			member.addLoan(newLoan);
 
 			memberRepository.save(member);
-
+			return newLoan;
 		} else {
-			// throw LibraryCardPassedDueDateException;
+			throw new LibraryCardNotFoundException("Invalid library card");
 		}
-		return null;
 	}
 
 	@Override

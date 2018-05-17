@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import se.lexicon.library.restcontrollers.SimpleLoan;
@@ -22,7 +21,7 @@ public class Loan {
 
 	@ManyToOne
 	private Book book;
-	private LocalDate lended;
+	private LocalDate lent;
 	private Period loanPeriod;
 	private Integer extendCount; // period may be extended n times.
 
@@ -36,10 +35,10 @@ public class Loan {
 
 
 	
-	public Loan(Book book, LocalDate lended, Period loanPeriod, Integer extendCount, Member member) {
+	public Loan(Book book, LocalDate lent, Period loanPeriod, Integer extendCount, Member member) {
 		super();
 		this.book = book;
-		this.lended = lended;
+		this.lent = lent;
 		this.loanPeriod = loanPeriod;
 		this.extendCount = extendCount;
 		this.member = member;
@@ -50,7 +49,7 @@ public class Loan {
 	public Loan(SimpleLoan simpleLoan) {
 		super();
 		this.book = simpleLoan.getBook();
-		this.lended = LocalDate.now();
+		this.lent = LocalDate.now();
 		this.loanPeriod = this.book.getLoanPeriod();
 		this.extendCount = 0;
 		this.member = simpleLoan.getMember();
@@ -64,12 +63,12 @@ public class Loan {
 		this.book = book;
 	}
 
-	public LocalDate getLended() {
-		return lended;
+	public LocalDate getLent() {
+		return lent;
 	}
 
-	public void setLended(LocalDate lended) {
-		this.lended = lended;
+	public void setLent(LocalDate lent) {
+		this.lent = lent;
 	}
 
 	public Period getLoanPeriod() {
@@ -101,13 +100,13 @@ public class Loan {
 		return id;
 	}
 
+
+
 	@Override
 	public String toString() {
-		return "Loan [id=" + id + ", book=" + book + ", lended=" + lended + ", loanPeriod=" + loanPeriod
-				+ ", extendCount=" + extendCount + ", member=" + member + "]";
+		return "Loan [id=" + id + ", book=" + book + ", lent=" + lent + ", loanPeriod=" + loanPeriod + ", extendCount="
+				+ extendCount + ", member=" + member + "]";
 	}
 
 
-
-	
 }

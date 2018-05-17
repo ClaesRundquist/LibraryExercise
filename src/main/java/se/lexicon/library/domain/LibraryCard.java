@@ -17,7 +17,7 @@ public class LibraryCard {
 	private Long period=3L; // Valid 3 years.
 
 	@OneToOne
-//	@JsonManagedReference
+	@JsonManagedReference
 	private Member member;
 	
 
@@ -25,10 +25,11 @@ public class LibraryCard {
 		super();
 	}
 
-	public LibraryCard(Integer id) {
+	public LibraryCard(Integer id, Member member) {
 		super();
 		this.id = id;
 		this.issued=LocalDate.now();
+		this.member = member;
 	}
 
 	public Integer getId() {

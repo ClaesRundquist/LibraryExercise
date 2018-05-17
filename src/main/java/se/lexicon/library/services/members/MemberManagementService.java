@@ -14,7 +14,7 @@ public interface MemberManagementService {
 	// TODO return Loan to make receipt printout possible.
 	public void createLoan(LoanWrapper loanWrap);
 
-	public Optional<Member> searchForMemberById(Integer memberId) throws MemberNotFoundException;
+	public Optional<Member> searchForMemberById(Integer memberId);
 
 	public Member searchForMemberByLibraryCard(Integer libraryCardId) throws MemberNotFoundException;
 

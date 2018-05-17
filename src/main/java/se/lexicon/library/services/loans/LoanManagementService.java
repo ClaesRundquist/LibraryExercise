@@ -6,7 +6,7 @@ import java.util.List;
 import se.lexicon.library.domain.Loan;
 
 public interface LoanManagementService {
-	public Loan createLoan(LoanWrapper loanWrap);
+	public Loan createLoan(LoanWrapper loanWrap) throws LibraryCardNotFoundException;
 
 	public List<Loan> getAll();
 	

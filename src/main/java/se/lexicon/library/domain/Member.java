@@ -27,6 +27,7 @@ public class Member {
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private ContactInfo contactInfo;
+	@JsonBackReference
 	@OneToOne(cascade = CascadeType.ALL)
 	private LibraryCard libraryCard;
 

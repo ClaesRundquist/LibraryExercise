@@ -43,7 +43,6 @@ public class MemberRestController {
 
 	}
 
-	
 	@GetMapping("/findbyname/{name}")
 	public ResponseEntity<MembersWrapper> findByName(@PathVariable("name") String name) {
 
@@ -55,20 +54,27 @@ public class MemberRestController {
 	}
 
 	@GetMapping("/findbyid/{memberId}")
-	public ResponseEntity<Optional<Member>> findById(@PathVariable("memberId") String memberId) {
+	public ResponseEntity<Optional<Member>> findById(@PathVariable("memberId") Integer memberId) {
 
 		Optional<Member> res;
-		try {
-			res = memberService.searchForMemberById(Integer.valueOf(memberId));
-		} catch (MemberNotFoundException e) {
-			return new ResponseEntity<Optional<Member>>(HttpStatus.BAD_REQUEST);
-		}
-
-		if (res.isPresent() == true) {
+		res = memberService.searchForMemberById(memberId);
+		if (res.isPresent()) {
 			return ResponseEntity.ok(res);
-
 		} else {
 			return new ResponseEntity<Optional<Member>>(HttpStatus.NOT_FOUND);
+		}
+
+	}
+
+	@GetMapping("/findbycardid/{libraryCardId}")
+	public ResponseEntity<Member> findByLibraryCardId(@PathVariable("libraryCardId") Integer libraryCardId) {
+		try {
+			Member res;
+			res = memberService.searchForMemberByLibraryCard(libraryCardId);
+			return ResponseEntity.ok(res);
+		} catch (MemberNotFoundException e) {
+//			System.out.println(e.getMessage());
+			return new ResponseEntity<Member>(HttpStatus.NOT_FOUND);
 		}
 
 	}
@@ -76,7 +82,7 @@ public class MemberRestController {
 	@GetMapping("/all")
 	public ResponseEntity<MembersWrapper> getAll() {
 		MembersWrapper res;
-		res=new MembersWrapper(memberService.getAll());
+		res = new MembersWrapper(memberService.getAll());
 
 		return ResponseEntity.ok(res);
 
@@ -90,12 +96,10 @@ public class MemberRestController {
 			// TODO Auto-generated catch block
 			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
 		}
-		
-		return ResponseEntity.ok(true);		
+
+		return ResponseEntity.ok(true);
 	}
-	
-	
-	
+
 	@DeleteMapping("/delete/{memberId}")
 	public ResponseEntity<Boolean> delete(@PathVariable("memberId") Integer memberId) {
 		try {
@@ -103,8 +107,8 @@ public class MemberRestController {
 		} catch (EmptyResultDataAccessException e) {
 			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
 		}
-		
-		return ResponseEntity.ok(true);		
+
+		return ResponseEntity.ok(true);
 	}
 
 }
