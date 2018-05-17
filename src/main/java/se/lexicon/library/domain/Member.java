@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import se.lexicon.library.restcontrollers.SimpleMember;
 
@@ -29,6 +30,7 @@ public class Member {
 	@OneToOne(cascade = CascadeType.ALL)
 	private LibraryCard libraryCard;
 
+	@JsonBackReference
 	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
 	private Set<Loan> loans=new HashSet<>();
 

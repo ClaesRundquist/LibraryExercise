@@ -9,6 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import se.lexicon.library.restcontrollers.SimpleLoan;
 
 @Entity
@@ -24,6 +27,7 @@ public class Loan {
 	private Integer extendCount; // period may be extended n times.
 
 	@ManyToOne
+	@JsonManagedReference
 	private Member member;
 	
 	public Loan() {

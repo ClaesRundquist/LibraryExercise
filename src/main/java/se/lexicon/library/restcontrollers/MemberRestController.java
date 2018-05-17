@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import se.lexicon.library.domain.LibraryCard;
 import se.lexicon.library.domain.Loan;
 import se.lexicon.library.domain.Member;
+import se.lexicon.library.services.members.LoanWrapper;
 import se.lexicon.library.services.members.MemberManagementService;
 import se.lexicon.library.services.members.MemberNotFoundException;
 
@@ -35,18 +36,19 @@ public class MemberRestController {
 	}
 
 	@PostMapping("/createloan")
-	public ResponseEntity<Loan> createLoan(@RequestBody SimpleLoan simpleLoan) {
+	public ResponseEntity<Void> createLoan(@RequestBody LoanWrapper loanWrap) {
 
-		return ResponseEntity.ok(memberService.createLoan(simpleLoan));
+		memberService.createLoan(loanWrap);
+		return new ResponseEntity<>(HttpStatus.ACCEPTED);
 
 	}
 
 	
 	@GetMapping("/findbyname/{name}")
-	public ResponseEntity<MemberCollection> findByName(@PathVariable("name") String name) {
+	public ResponseEntity<MembersWrapper> findByName(@PathVariable("name") String name) {
 
-		MemberCollection res;
-		res = new MemberCollection(memberService.searchForMembersByName(name));
+		MembersWrapper res;
+		res = new MembersWrapper(memberService.searchForMembersByName(name));
 
 		return ResponseEntity.ok(res);
 
@@ -72,9 +74,9 @@ public class MemberRestController {
 	}
 
 	@GetMapping("/all")
-	public ResponseEntity<MemberCollection> getAll() {
-		MemberCollection res;
-		res=new MemberCollection(memberService.getAll());
+	public ResponseEntity<MembersWrapper> getAll() {
+		MembersWrapper res;
+		res=new MembersWrapper(memberService.getAll());
 
 		return ResponseEntity.ok(res);
 

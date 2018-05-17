@@ -10,5 +10,5 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
 
 	public List<Member> findByName(String name);
 	
-	
+	public Optional<Member> findByLibraryCardId(Integer libraryCardId);
 }

@@ -4,14 +4,14 @@ import java.util.List;
 
 import se.lexicon.library.domain.Book;
 
-public class BookCollection {
+public class BooksWrapper {
 	List<Book> books;
 
-	public BookCollection() {
+	public BooksWrapper() {
 		super();
 	}
 
-	public BookCollection(List<Book> books) {
+	public BooksWrapper(List<Book> books) {
 		super();
 		this.books = books;
 	}
@@ -26,7 +26,7 @@ public class BookCollection {
 
 	@Override
 	public String toString() {
-		return "BookCollection [books=" + books + "]";
+		return "BooksWrapper [books=" + books + "]";
 	}
 
 }

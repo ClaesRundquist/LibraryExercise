@@ -4,16 +4,16 @@ import java.util.List;
 
 import se.lexicon.library.domain.Member;
 
-public class MemberCollection {
+public class MembersWrapper {
 	List<Member> members;
 
 	
-	public MemberCollection() {
+	public MembersWrapper() {
 		super();
 	}
 
 
-	public MemberCollection(List<Member> members) {
+	public MembersWrapper(List<Member> members) {
 		super();
 		this.members = members;
 	}
@@ -31,7 +31,7 @@ public class MemberCollection {
 
 	@Override
 	public String toString() {
-		return "Members [members=" + members + "]";
+		return "MembersWrapper [members=" + members + "]";
 	}
 	
 }

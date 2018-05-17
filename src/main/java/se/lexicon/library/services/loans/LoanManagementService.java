@@ -4,15 +4,15 @@ import java.time.LocalDate;
 import java.util.List;
 
 import se.lexicon.library.domain.Loan;
-import se.lexicon.library.domain.Member;
 
 public interface LoanManagementService {
-	// return Loan to make receipt printout possible.
-	public Loan createLoan(Integer libraryCardId, Integer bookId);
+	public Loan createLoan(LoanWrapper loanWrap);
 
+	public List<Loan> getAll();
+	
 	public Loan searchForLoanById(String loanId) throws LoanNotFoundException;
 
-	public List<Loan> searchForLoansByMember(Member member);
+	public List<Loan> searchForLoansByMember(Integer memberId);
 
 	public List<Loan> searchForLoansByLibraryCard(Integer libraryCardId);
 
@@ -22,11 +22,4 @@ public interface LoanManagementService {
 
 	// public Loan extendLoan(Loan loan) throws LoanNotFoundException;
 
-	/*
-	 * private Integer id;
-	 * 
-	 * @OneToOne private Book book; private LocalDate lended; private Period
-	 * loanPeriod; private Integer extendCount; // period may be extended n times.
-	 * 
-	 */
 }

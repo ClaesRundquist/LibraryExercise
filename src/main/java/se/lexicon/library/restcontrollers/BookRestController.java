@@ -44,20 +44,20 @@ public class BookRestController {
 	}
 
 	@GetMapping("/findbytitle/{title}")
-	public ResponseEntity<BookCollection> findByTitle(@PathVariable("title") String title) {
+	public ResponseEntity<BooksWrapper> findByTitle(@PathVariable("title") String title) {
 
-		BookCollection res;
-		res = new BookCollection(bookService.searchForBooksByTitle(title));
+		BooksWrapper res;
+		res = new BooksWrapper(bookService.searchForBooksByTitle(title));
 
 		return ResponseEntity.ok(res);
 
 	}
 
 	@GetMapping("/findbyisbn/{isbn}")
-	public ResponseEntity<BookCollection> findByIsbn(@PathVariable("isbn") String isbn) {
+	public ResponseEntity<BooksWrapper> findByIsbn(@PathVariable("isbn") String isbn) {
 
-		BookCollection res;
-		res = new BookCollection(bookService.searchForBooksByIsbn(isbn));
+		BooksWrapper res;
+		res = new BooksWrapper(bookService.searchForBooksByIsbn(isbn));
 
 		return ResponseEntity.ok(res);
 

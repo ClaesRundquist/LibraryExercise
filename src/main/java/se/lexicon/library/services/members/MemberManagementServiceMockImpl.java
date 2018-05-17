@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import se.lexicon.library.domain.Book;
 import se.lexicon.library.domain.LibraryCard;
 import se.lexicon.library.domain.Loan;
 import se.lexicon.library.domain.Member;
-import se.lexicon.library.repositories.LoanRepository;
+import se.lexicon.library.repositories.BookRepository;
 import se.lexicon.library.repositories.MemberRepository;
 import se.lexicon.library.restcontrollers.SimpleLoan;
 import se.lexicon.library.restcontrollers.SimpleMember;
@@ -22,7 +24,7 @@ public class MemberManagementServiceMockImpl implements MemberManagementService 
 	@Autowired
 	private MemberRepository memberRepository;
 	@Autowired
-	private LoanRepository loanRepository;
+	private BookRepository bookRepository;
 
 	public MemberManagementServiceMockImpl() {
 		super();
@@ -40,12 +42,18 @@ public class MemberManagementServiceMockImpl implements MemberManagementService 
 	}
 
 	@Override
-	public Loan createLoan(SimpleLoan simpleLoan) {
+	public void createLoan(LoanWrapper loanWrap) {
+
+		Book book=bookRepository.findById(loanWrap.getBookId()).get();
+		Member member=memberRepository.findById(loanWrap.getMemberId()).get();
+
+		SimpleLoan simpleLoan = new SimpleLoan(book, member);
+		// Loan knows what data to add.
 		Loan newLoan = new Loan(simpleLoan);
-//		member.get().addLoan(newLoan);
-//		return (loanRepository.save(newLoan));
 		
-		return loanRepository.save(newLoan);
+		member.addLoan(newLoan);
+
+		memberRepository.save(member);
 	}
 
 	@Override
