@@ -13,7 +13,7 @@ public interface MemberManagementService {
 
 	public Optional<Member> searchForMemberById(Integer memberId);
 	
-	public Member addLibraryCard(AddLibraryCardWrapper setCardWrap) throws MemberNotFoundException;
+	public Member addLibraryCard(AddLibraryCardWrapper addCardWrap) throws MemberNotFoundException;
 	
 	public Member searchForMemberByLibraryCard(Integer libraryCardId) throws MemberNotFoundException;
 

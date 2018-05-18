@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+
 import se.lexicon.library.domain.Loan;
 
 public interface LoanManagementService {
@@ -11,7 +12,7 @@ public interface LoanManagementService {
 
 	public List<Loan> getAll();
 	
-	public Optional<Loan> searchForLoanById(Integer loanId) throws LoanNotFoundException;
+	public Optional<Loan> searchForLoanByBookId(Integer bookId) throws LoanNotFoundException;
 
 	public List<Loan> searchForLoansByMember(Integer memberId);
 
@@ -19,7 +20,7 @@ public interface LoanManagementService {
 
 	public List<Loan> searchForLoansByDueDate(LocalDate dueDate);
 
-	public void deleteLoan(String loanId) throws LoanNotFoundException;
+	public void returnBook(Integer bookId) throws LoanNotFoundException;
 
 	// public Loan extendLoan(Loan loan) throws LoanNotFoundException;
 

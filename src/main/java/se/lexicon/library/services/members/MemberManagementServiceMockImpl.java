@@ -45,9 +45,9 @@ public class MemberManagementServiceMockImpl implements MemberManagementService 
 	}
 
 	@Override
-	public Member addLibraryCard(AddLibraryCardWrapper setCardWrap) throws MemberNotFoundException {
-		Member member = memberRepository.getOne(setCardWrap.getMemberId());
-		LibraryCard libraryCard = libraryCardRepository.save(new LibraryCard(setCardWrap.getLibraryCardId(), member));
+	public Member addLibraryCard(AddLibraryCardWrapper addCardWrap) throws MemberNotFoundException {
+		Member member = memberRepository.getOne(addCardWrap.getMemberId());
+		LibraryCard libraryCard = libraryCardRepository.save(new LibraryCard(addCardWrap.getLibraryCardId(), member));
 		member.setLibraryCard(libraryCard);
 		Member res=memberRepository.save(member);
 		

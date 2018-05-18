@@ -113,10 +113,5 @@ public class Member {
 		this.loans = loans;
 	}
 
-	@Override
-	public String toString() {
-		return "Member [id=" + id + ", name=" + name + ", since=" + since + ", contactInfo=" + contactInfo
-				+ ", libraryCard=" + libraryCard + ", loans=" + loans + "]";
-	}
 
 }

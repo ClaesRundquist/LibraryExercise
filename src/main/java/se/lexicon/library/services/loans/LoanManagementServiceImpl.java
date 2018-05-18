@@ -69,15 +69,25 @@ public class LoanManagementServiceImpl implements LoanManagementService {
 	}
 
 	@Override
-	public Optional<Loan> searchForLoanById(Integer loanId) throws LoanNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+	public Optional<Loan> searchForLoanByBookId(Integer bookId) throws LoanNotFoundException {
+		Optional<Book> book = bookRepository.findById(bookId);
+		if (!book.isPresent()) {
+
+			throw new LoanNotFoundException("Book not found");
+		}
+		Optional<Loan> res = loanRepository.findByBook(book.get());
+		return res;
 	}
 
 	@Override
 	public List<Loan> searchForLoansByMember(Integer memberId) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Member> member = memberRepository.findById(memberId);
+		if (!member.isPresent()) {
+
+//			throw new LoanNotFoundException("Member not found");
+		}
+		List<Loan> res = loanRepository.findByMember(member.get());
+		return res;
 	}
 
 	@Override
@@ -93,9 +103,12 @@ public class LoanManagementServiceImpl implements LoanManagementService {
 	}
 
 	@Override
-	public void deleteLoan(String loanId) throws LoanNotFoundException {
-		// TODO Auto-generated method stub
-
+	public void returnBook(Integer bookId) throws LoanNotFoundException {
+		Optional<Loan> loan=searchForLoanByBookId(bookId);
+		if (loan.isPresent()) {
+			// maybe mark overdue loans as returned here in future verions...
+			loanRepository.deleteById(loan.get().getId());
+		}
 	}
 
 }
