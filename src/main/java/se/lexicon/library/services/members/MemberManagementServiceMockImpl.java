@@ -8,14 +8,10 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import se.lexicon.library.domain.Book;
 import se.lexicon.library.domain.LibraryCard;
-import se.lexicon.library.domain.Loan;
 import se.lexicon.library.domain.Member;
-import se.lexicon.library.repositories.BookRepository;
 import se.lexicon.library.repositories.LibraryCardRepository;
 import se.lexicon.library.repositories.MemberRepository;
-import se.lexicon.library.restcontrollers.SimpleLoan;
 import se.lexicon.library.restcontrollers.SimpleMember;
 
 @Transactional
@@ -24,8 +20,6 @@ public class MemberManagementServiceMockImpl implements MemberManagementService 
 
 	@Autowired
 	private MemberRepository memberRepository;
-	@Autowired
-	private BookRepository bookRepository;
 	@Autowired
 	private LibraryCardRepository libraryCardRepository;
 
@@ -38,30 +32,28 @@ public class MemberManagementServiceMockImpl implements MemberManagementService 
 	public Member createMember(SimpleMember simpleMember) {
 		Member newMember = new Member(simpleMember);
 		// persist member
-		memberRepository.save(newMember);
+		Member member=memberRepository.save(newMember);
 
 		// Library card assignment (Id generation) is mock implementation. Id will be
 		// read from printing on physical card, not generated here.
-		newMember.setLibraryCard(new LibraryCard(newMember.getId() + 1000_000, newMember));
-		// update with library card.
-		memberRepository.save(newMember);
-		return (newMember);
+//		LibraryCard libraryCard = libraryCardRepository.save(new LibraryCard(newMember.getId() + 1000_000, newMember));
+	
+//		member.setLibraryCard(libraryCard);
+		
+//		member=memberRepository.save(member);
+		return (member);
 	}
 
 	@Override
-	public void createLoan(LoanWrapper loanWrap) {
-
-		Book book = bookRepository.findById(loanWrap.getBookId()).get();
-		Member member = memberRepository.findById(loanWrap.getMemberId()).get();
-
-		SimpleLoan simpleLoan = new SimpleLoan(book, member);
-		// Loan knows what data to add.
-		Loan newLoan = new Loan(simpleLoan);
-
-		member.addLoan(newLoan);
-
-		memberRepository.save(member);
+	public Member addLibraryCard(AddLibraryCardWrapper setCardWrap) throws MemberNotFoundException {
+		Member member = memberRepository.getOne(setCardWrap.getMemberId());
+		LibraryCard libraryCard = libraryCardRepository.save(new LibraryCard(setCardWrap.getLibraryCardId(), member));
+		member.setLibraryCard(libraryCard);
+		Member res=memberRepository.save(member);
+		
+		return res;
 	}
+	
 
 	@Override
 	public Optional<Member> searchForMemberById(Integer memberId) {
@@ -104,10 +96,6 @@ public class MemberManagementServiceMockImpl implements MemberManagementService 
 		memberRepository.save(changedMember);
 	}
 
-	@Override
-	public void deleteMember(Member member) throws EmptyResultDataAccessException {
-		memberRepository.delete(member);
-	}
 
 	@Override
 	public void deleteMember(Integer memberId) throws EmptyResultDataAccessException {

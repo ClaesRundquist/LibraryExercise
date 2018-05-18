@@ -11,24 +11,23 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 public class LibraryCard {
 	@Id
-	//card id printed on card, not auto generated.
+	// card id printed on card, not auto generated.
 	private Integer id;
 	private LocalDate issued;
-	private Long period=3L; // Valid 3 years.
+	private Long period = 3L; // Valid 3 years.
 
 	@OneToOne
 	@JsonManagedReference
 	private Member member;
-	
 
 	public LibraryCard() {
 		super();
 	}
 
-	public LibraryCard(Integer id, Member member) {
+	public LibraryCard(Integer libraryCardId, Member member) {
 		super();
-		this.id = id;
-		this.issued=LocalDate.now();
+		this.id = libraryCardId;
+		this.issued = LocalDate.now();
 		this.member = member;
 	}
 

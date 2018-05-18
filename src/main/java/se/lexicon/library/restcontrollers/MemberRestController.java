@@ -8,16 +8,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import se.lexicon.library.domain.LibraryCard;
 import se.lexicon.library.domain.Loan;
 import se.lexicon.library.domain.Member;
-import se.lexicon.library.services.members.LoanWrapper;
+import se.lexicon.library.services.loans.CreateLoanException;
+import se.lexicon.library.services.loans.LoanWrapper;
+import se.lexicon.library.services.members.AddLibraryCardWrapper;
 import se.lexicon.library.services.members.MemberManagementService;
 import se.lexicon.library.services.members.MemberNotFoundException;
 
@@ -35,14 +37,25 @@ public class MemberRestController {
 
 	}
 
-	@PostMapping("/createloan")
-	public ResponseEntity<Void> createLoan(@RequestBody LoanWrapper loanWrap) {
 
-		memberService.createLoan(loanWrap);
-		return new ResponseEntity<>(HttpStatus.ACCEPTED);
+	@PatchMapping("/addlibrarycard")
+	public ResponseEntity<?> addLibraryCard(@RequestBody AddLibraryCardWrapper addCardWrap) {
+
+		try {
+			Member res;
+			res = memberService.addLibraryCard(addCardWrap);
+			return ResponseEntity
+		            .status(HttpStatus.ACCEPTED)                 
+		            .body(res);
+		} catch (MemberNotFoundException e) {
+			e.printStackTrace(); // see note 2
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+		}
 
 	}
-
+	
+	
+	
 	@GetMapping("/findbyname/{name}")
 	public ResponseEntity<MembersWrapper> findByName(@PathVariable("name") String name) {
 
@@ -88,17 +101,6 @@ public class MemberRestController {
 
 	}
 
-	@DeleteMapping("/delete")
-	public ResponseEntity<Boolean> delete(@RequestBody Member member) {
-		try {
-			memberService.deleteMember(member);
-		} catch (EmptyResultDataAccessException e) {
-			// TODO Auto-generated catch block
-			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
-		}
-
-		return ResponseEntity.ok(true);
-	}
 
 	@DeleteMapping("/delete/{memberId}")
 	public ResponseEntity<Boolean> delete(@PathVariable("memberId") Integer memberId) {

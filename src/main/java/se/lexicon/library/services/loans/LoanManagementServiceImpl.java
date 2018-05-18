@@ -17,7 +17,6 @@ import se.lexicon.library.repositories.LibraryCardRepository;
 import se.lexicon.library.repositories.LoanRepository;
 import se.lexicon.library.repositories.MemberRepository;
 import se.lexicon.library.restcontrollers.SimpleLoan;
-import se.lexicon.library.services.members.MemberNotFoundException;
 
 @Transactional
 @Service
@@ -36,16 +35,22 @@ public class LoanManagementServiceImpl implements LoanManagementService {
 	private LibraryCardRepository libraryCardRepository;
 
 	@Override
-	public Loan createLoan(LoanWrapper loanWrap) throws LibraryCardNotFoundException {
-		Book book = bookRepository.findById(loanWrap.getBookId()).get();
+	public Loan createLoan(LoanWrapper loanWrap) throws CreateLoanException {
+		Optional<Book> book = bookRepository.findById(loanWrap.getBookId());
+		if (!book.isPresent()) {
+
+			throw new CreateLoanException("Book not found");
+		}
+		
 		Optional<LibraryCard> libraryCard = libraryCardRepository.findById(loanWrap.getLibraryCardId());
+
 		if (!libraryCard.isPresent()) {
 
-			throw new LibraryCardNotFoundException("Library card not found");
+			throw new CreateLoanException("Library card not found");
 		} else if (libraryCard.get().isValid()) {
 			Member member = memberRepository.getOne(libraryCard.get().getMember().getId());
 
-			SimpleLoan simpleLoan = new SimpleLoan(book, member);
+			SimpleLoan simpleLoan = new SimpleLoan(book.get(), member);
 			// Loan knows what data to add (date etc).
 			Loan newLoan = new Loan(simpleLoan);
 			loanRepository.save(newLoan);
@@ -54,7 +59,7 @@ public class LoanManagementServiceImpl implements LoanManagementService {
 			memberRepository.save(member);
 			return newLoan;
 		} else {
-			throw new LibraryCardNotFoundException("Invalid library card");
+			throw new CreateLoanException("Invalid library card");
 		}
 	}
 
@@ -64,7 +69,7 @@ public class LoanManagementServiceImpl implements LoanManagementService {
 	}
 
 	@Override
-	public Loan searchForLoanById(String loanId) throws LoanNotFoundException {
+	public Optional<Loan> searchForLoanById(Integer loanId) throws LoanNotFoundException {
 		// TODO Auto-generated method stub
 		return null;
 	}

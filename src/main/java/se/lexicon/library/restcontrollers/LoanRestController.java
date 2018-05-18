@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import se.lexicon.library.domain.Loan;
-import se.lexicon.library.services.loans.LibraryCardNotFoundException;
+import se.lexicon.library.services.loans.CreateLoanException;
 import se.lexicon.library.services.loans.LoanManagementService;
 import se.lexicon.library.services.loans.LoanWrapper;
 
@@ -22,24 +22,25 @@ public class LoanRestController {
 	LoanManagementService loanService;
 
 	@PostMapping("/create")
-	public ResponseEntity<Loan> createLoan(@RequestBody LoanWrapper loanWrap) {
-		
+	public ResponseEntity<?> createLoan(@RequestBody LoanWrapper loanWrap) {
 
 		try {
 			Loan res;
 			res = loanService.createLoan(loanWrap);
-			return ResponseEntity.ok(res);
-		} catch (LibraryCardNotFoundException e) {
-			return new ResponseEntity<Loan>(HttpStatus.NOT_FOUND);
+			return ResponseEntity
+		            .status(HttpStatus.CREATED)                 
+		            .body(res);
+		} catch (CreateLoanException e) {
+			e.printStackTrace(); // see note 2
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
 		}
 
 	}
 
-	
 	@GetMapping("/all")
 	public ResponseEntity<LoansWrapper> getAll() {
 		LoansWrapper res;
-		res=new LoansWrapper(loanService.getAll());
+		res = new LoansWrapper(loanService.getAll());
 
 		return ResponseEntity.ok(res);
 
