@@ -13,10 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import se.lexicon.library.domain.Loan;
+import se.lexicon.library.domain.Member;
 import se.lexicon.library.services.loans.CreateLoanException;
 import se.lexicon.library.services.loans.LoanManagementService;
 import se.lexicon.library.services.loans.LoanNotFoundException;
 import se.lexicon.library.services.loans.LoanWrapper;
+import se.lexicon.library.services.members.MemberManagementService;
+import se.lexicon.library.services.members.MemberNotFoundException;
 
 @RestController
 @RequestMapping("/loan")
@@ -24,7 +27,10 @@ public class LoanRestController {
 
 	@Autowired
 	LoanManagementService loanService;
+	@Autowired
+	MemberManagementService memberService;
 
+	
 	@PostMapping("/create")
 	public ResponseEntity<?> createLoan(@RequestBody LoanWrapper loanWrap) {
 
@@ -75,6 +81,22 @@ public class LoanRestController {
 
 	}
 	
+	@GetMapping("/findbycardid/{libraryCardId}")
+	public ResponseEntity<LoansWrapper> findByLibraryCardId(@PathVariable("libraryCardId") Integer libraryCardId) {
+		try {
+			Member member;
+			member = memberService.searchForMemberByLibraryCard(libraryCardId);
+			LoansWrapper res;
+			res = new LoansWrapper(loanService.searchForLoansByMember(member.getId()));
+
+			return ResponseEntity.ok(res);
+		} catch (MemberNotFoundException e) {
+
+			return new ResponseEntity<LoansWrapper>(HttpStatus.NOT_FOUND);
+		}
+
+	}
+
 	
 	@GetMapping("/all")
 	public ResponseEntity<LoansWrapper> getAll() {

@@ -17,6 +17,7 @@ import se.lexicon.library.repositories.LibraryCardRepository;
 import se.lexicon.library.repositories.LoanRepository;
 import se.lexicon.library.repositories.MemberRepository;
 import se.lexicon.library.restcontrollers.SimpleLoan;
+import se.lexicon.library.services.members.MemberNotFoundException;
 
 @Transactional
 @Service
@@ -91,14 +92,27 @@ public class LoanManagementServiceImpl implements LoanManagementService {
 	}
 
 	@Override
-	public List<Loan> searchForLoansByLibraryCard(Integer libraryCardId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Loan> searchForLoansByLibraryCard(Integer libraryCardId) throws LoanNotFoundException {
+
+		Optional<LibraryCard> libraryCard = libraryCardRepository.findById(libraryCardId);
+		if (!libraryCard.isPresent()) {
+
+			throw new LoanNotFoundException("Library card not found");
+		} else {
+
+			if (libraryCard.get().isValid()) {
+
+				List<Loan> loans = searchForLoansByMember(libraryCard.get().getMember().getId());
+				return loans;
+			} else {
+
+				throw new LoanNotFoundException("Invalid library card");
+			}
+		}
 	}
 
 	@Override
 	public List<Loan> searchForLoansByDueDate(LocalDate dueDate) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

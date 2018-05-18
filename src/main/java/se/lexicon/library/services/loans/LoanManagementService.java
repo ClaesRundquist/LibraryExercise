@@ -16,7 +16,7 @@ public interface LoanManagementService {
 
 	public List<Loan> searchForLoansByMember(Integer memberId);
 
-	public List<Loan> searchForLoansByLibraryCard(Integer libraryCardId);
+	public List<Loan> searchForLoansByLibraryCard(Integer libraryCardId) throws LoanNotFoundException;
 
 	public List<Loan> searchForLoansByDueDate(LocalDate dueDate);
 
