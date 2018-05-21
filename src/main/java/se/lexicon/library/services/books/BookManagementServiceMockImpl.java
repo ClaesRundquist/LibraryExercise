@@ -33,7 +33,7 @@ public class BookManagementServiceMockImpl implements BookManagementService {
 			Book newCopy = new Book(foundBook.get(0));
 			return bookRepository.save(newCopy);
 		} else {
-			throw new BookNotFoundException();
+			throw new BookNotFoundException("Book not found");
 
 		}
 		

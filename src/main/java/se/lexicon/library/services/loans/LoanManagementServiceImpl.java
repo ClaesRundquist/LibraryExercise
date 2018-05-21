@@ -60,7 +60,7 @@ public class LoanManagementServiceImpl implements LoanManagementService {
 			memberRepository.save(member);
 			return newLoan;
 		} else {
-			throw new CreateLoanException("Invalid library card");
+			throw new InvalidLibraryCardException("Invalid library card");
 		}
 	}
 
@@ -122,6 +122,9 @@ public class LoanManagementServiceImpl implements LoanManagementService {
 		if (loan.isPresent()) {
 			// maybe mark overdue loans as returned here in future verions...
 			loanRepository.deleteById(loan.get().getId());
+		} else {
+
+			throw new LoanNotFoundException("Loan not found");
 		}
 	}
 

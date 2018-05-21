@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,74 +31,52 @@ public class LoanRestController {
 	@Autowired
 	MemberManagementService memberService;
 
-	
 	@PostMapping("/create")
-	public ResponseEntity<?> createLoan(@RequestBody LoanWrapper loanWrap) {
+	public ResponseEntity<Loan> createLoan(@RequestBody LoanWrapper loanWrap) throws CreateLoanException {
 
-		try {
-			Loan res;
-			res = loanService.createLoan(loanWrap);
-			return ResponseEntity
-		            .status(HttpStatus.CREATED)                 
-		            .body(res);
-		} catch (CreateLoanException e) {
-			e.printStackTrace(); // see note 2
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-		}
+		Loan res;
+		res = loanService.createLoan(loanWrap);
+		return ResponseEntity.ok(res);
 
 	}
 
-	
 	@GetMapping("/findbybookid/{bookId}")
-		public ResponseEntity<Loan> findByBookId(@PathVariable("bookId") Integer bookId) {
-			try {
-				Loan res;
-				res = loanService.searchForLoanByBookId(bookId).get();
-				return ResponseEntity.ok(res);
-			} catch (LoanNotFoundException e) {
-				return new ResponseEntity<Loan>(HttpStatus.NOT_FOUND);
-			}
+	public ResponseEntity<Loan> findByBookId(@PathVariable("bookId") Integer bookId) throws LoanNotFoundException {
 
-		}
-	
-	@GetMapping("/returnBook/{bookId}")
-	public ResponseEntity<Void> returnBook(@PathVariable("bookId") Integer bookId) {
-		try {
-			loanService.returnBook(bookId);
-			return new ResponseEntity<Void>( HttpStatus.OK );
-		} catch (LoanNotFoundException e) {
-			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-		}
+		Loan res;
+		res = loanService.searchForLoanByBookId(bookId).get();
+		return ResponseEntity.ok(res);
 
 	}
-	
+
+	@PutMapping("/returnbook/{bookId}")
+	public ResponseEntity<Void> returnBook(@PathVariable("bookId") Integer bookId) throws LoanNotFoundException {
+
+		loanService.returnBook(bookId);
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+
 	@GetMapping("/findbymemberid/{memberId}")
 	public ResponseEntity<LoansWrapper> findByMember(@PathVariable("memberId") Integer memberId) {
 
 		LoansWrapper res;
 		res = new LoansWrapper(loanService.searchForLoansByMember(memberId));
-
 		return ResponseEntity.ok(res);
 
 	}
-	
+
 	@GetMapping("/findbycardid/{libraryCardId}")
-	public ResponseEntity<LoansWrapper> findByLibraryCardId(@PathVariable("libraryCardId") Integer libraryCardId) {
-		try {
-			Member member;
+	public ResponseEntity<LoansWrapper> findByLibraryCardId(@PathVariable("libraryCardId") Integer libraryCardId) throws MemberNotFoundException {
+
+		Member member;
 			member = memberService.searchForMemberByLibraryCard(libraryCardId);
 			LoansWrapper res;
 			res = new LoansWrapper(loanService.searchForLoansByMember(member.getId()));
 
 			return ResponseEntity.ok(res);
-		} catch (MemberNotFoundException e) {
-
-			return new ResponseEntity<LoansWrapper>(HttpStatus.NOT_FOUND);
-		}
 
 	}
 
-	
 	@GetMapping("/all")
 	public ResponseEntity<LoansWrapper> getAll() {
 		LoansWrapper res;

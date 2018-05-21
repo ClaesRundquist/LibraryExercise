@@ -34,12 +34,12 @@ public class BookRestController {
 	}
 
 	@PostMapping("/clone")
-	public ResponseEntity<Optional<Book>> clone(@RequestBody String isbn) {
-		try {
+	public ResponseEntity<Optional<Book>> clone(@RequestBody String isbn) throws BookNotFoundException {
+//		try {
 			return ResponseEntity.ok(Optional.of(bookService.cloneBook(isbn)));
-		} catch (BookNotFoundException e) {
-			return new ResponseEntity<Optional<Book>>(HttpStatus.NOT_FOUND);
-		}
+//		} catch (BookNotFoundException e) {
+//			return new ResponseEntity<Optional<Book>>(HttpStatus.NOT_FOUND);
+//		}
 
 	}
 
