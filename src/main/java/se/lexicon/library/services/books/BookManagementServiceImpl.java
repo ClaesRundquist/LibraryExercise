@@ -13,11 +13,11 @@ import se.lexicon.library.repositories.BookRepository;
 
 @Transactional
 @Service
-public class BookManagementServiceMockImpl implements BookManagementService {
+public class BookManagementServiceImpl implements BookManagementService {
 
 	@Autowired
 	private BookRepository bookRepository;
-	
+
 	@Override
 	public Book createBook(Book newBook) {
 
@@ -28,7 +28,7 @@ public class BookManagementServiceMockImpl implements BookManagementService {
 	public Book cloneBook(String isbn) throws BookNotFoundException {
 
 		List<Book> foundBook = bookRepository.findByIsbn(isbn);
-		System.out.println(isbn+foundBook);
+		System.out.println(isbn + foundBook);
 		if (!foundBook.isEmpty()) {
 			Book newCopy = new Book(foundBook.get(0));
 			return bookRepository.save(newCopy);
@@ -36,40 +36,47 @@ public class BookManagementServiceMockImpl implements BookManagementService {
 			throw new BookNotFoundException("Book not found");
 
 		}
-		
+
 	}
 
 	@Override
 	public Book updateBook(Book updatedBook) throws BookNotFoundException {
-		
+
 		return bookRepository.save(updatedBook);
 	}
 
 	@Override
 	public Optional<Book> searchForBookById(Integer bookId) throws BookNotFoundException {
+
 		return bookRepository.findById(bookId);
 	}
 
-	
-	
 	@Override
 	public List<Book> searchForBooksByIsbn(String isbn) {
+
 		return bookRepository.findByIsbn(isbn);
 	}
 
 	@Override
 	public List<Book> searchForBooksByTitle(String title) {
+
 		return bookRepository.findByTitle(title);
 	}
 
 	@Override
 	public List<Book> searchForBooksByAuthor(String author) {
-		// TODO Auto-generated method stub
-		return null;
+
+		return bookRepository.findByAuthor(author);
+	}
+
+	public List<Book> getAll() {
+
+		return bookRepository.findAll();
 	}
 
 	@Override
 	public void deleteBook(Integer bookId) throws EmptyResultDataAccessException {
+
 		bookRepository.deleteById(bookId);
 	}
 

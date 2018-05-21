@@ -1,3 +1,7 @@
+grant all on db_example.* to 'springuser'@'localhost';
+
+grant select, insert, delete, update on db_example.* to 'springuser'@'localhost';
+
 A = Version .9
 B = Version 2
 C = Version 3

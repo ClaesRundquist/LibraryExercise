@@ -37,31 +37,21 @@ public class MemberRestController {
 
 	}
 
-
 	@PatchMapping("/addlibrarycard")
-	public ResponseEntity<?> addLibraryCard(@RequestBody AddLibraryCardWrapper addCardWrap) {
+	public ResponseEntity<?> addLibraryCard(@RequestBody AddLibraryCardWrapper addCardWrap)
+			throws MemberNotFoundException {
 
-		try {
-			Member res;
-			res = memberService.addLibraryCard(addCardWrap);
-			return ResponseEntity
-		            .status(HttpStatus.ACCEPTED)                 
-		            .body(res);
-		} catch (MemberNotFoundException e) {
-			e.printStackTrace(); // see note 2
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-		}
+		Member res;
+		res = memberService.addLibraryCard(addCardWrap);
+		return ResponseEntity.ok(res);
 
 	}
-	
-	
-	
+
 	@GetMapping("/findbyname/{name}")
 	public ResponseEntity<MembersWrapper> findByName(@PathVariable("name") String name) {
 
 		MembersWrapper res;
 		res = new MembersWrapper(memberService.searchForMembersByName(name));
-
 		return ResponseEntity.ok(res);
 
 	}
@@ -80,36 +70,32 @@ public class MemberRestController {
 	}
 
 	@GetMapping("/findbycardid/{libraryCardId}")
-	public ResponseEntity<Member> findByLibraryCardId(@PathVariable("libraryCardId") Integer libraryCardId) {
-		try {
-			Member res;
-			res = memberService.searchForMemberByLibraryCard(libraryCardId);
-			return ResponseEntity.ok(res);
-		} catch (MemberNotFoundException e) {
-//			System.out.println(e.getMessage());
-			return new ResponseEntity<Member>(HttpStatus.NOT_FOUND);
-		}
+	public ResponseEntity<Member> findByLibraryCardId(@PathVariable("libraryCardId") Integer libraryCardId)
+			throws MemberNotFoundException {
+
+		Member res;
+		res = memberService.searchForMemberByLibraryCard(libraryCardId);
+		return ResponseEntity.ok(res);
 
 	}
 
 	@GetMapping("/all")
 	public ResponseEntity<MembersWrapper> getAll() {
+
 		MembersWrapper res;
 		res = new MembersWrapper(memberService.getAll());
-
 		return ResponseEntity.ok(res);
 
 	}
 
-
 	@DeleteMapping("/delete/{memberId}")
 	public ResponseEntity<Boolean> delete(@PathVariable("memberId") Integer memberId) {
+
 		try {
 			memberService.deleteMember(memberId);
 		} catch (EmptyResultDataAccessException e) {
 			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
 		}
-
 		return ResponseEntity.ok(true);
 	}
 

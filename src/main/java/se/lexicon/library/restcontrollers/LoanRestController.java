@@ -66,14 +66,15 @@ public class LoanRestController {
 	}
 
 	@GetMapping("/findbycardid/{libraryCardId}")
-	public ResponseEntity<LoansWrapper> findByLibraryCardId(@PathVariable("libraryCardId") Integer libraryCardId) throws MemberNotFoundException {
+	public ResponseEntity<LoansWrapper> findByLibraryCardId(@PathVariable("libraryCardId") Integer libraryCardId)
+			throws MemberNotFoundException {
 
 		Member member;
-			member = memberService.searchForMemberByLibraryCard(libraryCardId);
-			LoansWrapper res;
-			res = new LoansWrapper(loanService.searchForLoansByMember(member.getId()));
+		member = memberService.searchForMemberByLibraryCard(libraryCardId);
+		LoansWrapper res;
+		res = new LoansWrapper(loanService.searchForLoansByMember(member.getId()));
 
-			return ResponseEntity.ok(res);
+		return ResponseEntity.ok(res);
 
 	}
 

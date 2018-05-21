@@ -1,5 +1,6 @@
 package se.lexicon.library.restcontrollers;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,11 +36,7 @@ public class BookRestController {
 
 	@PostMapping("/clone")
 	public ResponseEntity<Optional<Book>> clone(@RequestBody String isbn) throws BookNotFoundException {
-//		try {
-			return ResponseEntity.ok(Optional.of(bookService.cloneBook(isbn)));
-//		} catch (BookNotFoundException e) {
-//			return new ResponseEntity<Optional<Book>>(HttpStatus.NOT_FOUND);
-//		}
+		return ResponseEntity.ok(Optional.of(bookService.cloneBook(isbn)));
 
 	}
 
@@ -64,14 +61,10 @@ public class BookRestController {
 	}
 
 	@GetMapping("/findbyid/{bookId}")
-	public ResponseEntity<Optional<Book>> findById(@PathVariable("bookId") String bookId) {
+	public ResponseEntity<Optional<Book>> findById(@PathVariable("bookId") Integer bookId) throws BookNotFoundException {
 
 		Optional<Book> res;
-		try {
-			res = bookService.searchForBookById(Integer.valueOf(bookId));
-		} catch (BookNotFoundException e) {
-			return new ResponseEntity<Optional<Book>>(HttpStatus.BAD_REQUEST);
-		}
+		res = bookService.searchForBookById(bookId);
 
 		if (res.isPresent() == true) {
 			return ResponseEntity.ok(res);
@@ -82,14 +75,32 @@ public class BookRestController {
 
 	}
 
-	@PatchMapping("/update")
-	public ResponseEntity<Book> update(@RequestBody Book book) {
+	
+	@GetMapping("/findbyauthor/{bookId}")
+	public ResponseEntity<BooksWrapper> findByAuthor(@PathVariable("bookId") String author) throws BookNotFoundException {
 
-		try {
-			return ResponseEntity.ok(bookService.updateBook(book));
-		} catch (BookNotFoundException e) {
-			return new ResponseEntity<Book>(HttpStatus.NOT_FOUND);
-		}
+		BooksWrapper res;
+		res = new BooksWrapper(bookService.searchForBooksByAuthor(author));
+
+		return ResponseEntity.ok(res);
+
+	}
+	
+	@GetMapping("/all")
+	public ResponseEntity<BooksWrapper> getAll() {
+		BooksWrapper res;
+		res = new BooksWrapper(bookService.getAll());
+
+		return ResponseEntity.ok(res);
+
+	}
+
+	
+	
+	@PatchMapping("/update")
+	public ResponseEntity<Book> update(@RequestBody Book book) throws BookNotFoundException {
+
+		return ResponseEntity.ok(bookService.updateBook(book));
 
 	}
 
