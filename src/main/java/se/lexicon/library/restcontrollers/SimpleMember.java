@@ -1,7 +1,6 @@
 package se.lexicon.library.restcontrollers;
 
 
-import se.lexicon.library.domain.ContactInfo;
 
 public class SimpleMember {
 	private String name;

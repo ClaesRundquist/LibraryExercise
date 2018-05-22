@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Create and Search Form</title>
+	<link rel="stylesheet" type="text/css" href="./css/forms.css">
+</head>
+<body>
+	<div id="createSearchForm">
+		<form id="createBookForm" method="post"
+			th:action="@{/createSearchForm}" th:object="${Member}">
+
+			<table id="bookTable">
+				<tr>
+					<td><label for="id">Book Id</label></td>
+					<td><input class="disabled" type="text" name="id" id="id"
+						disabled="disabled" value="11" /> <br /></td>
+				</tr>
+				<tr>
+					<td><label for="isbn">ISBN</label></td>
+					<td><input class="searchField" type="text" name="isbn"
+						id="isbn" /> <br /></td>
+				</tr>
+				<tr>
+					<td><label for="title">Title</label></td>
+					<td><input class="searchField" type="text" name="title"
+						id="title" /> <br /></td>
+				</tr>
+				<tr>
+					<td><label for="author">Author</label></td>
+					<td><input class="searchField" type="text" name="author"
+						id="author" /> <br /></td>
+				</tr>
+				<tr>
+					<td><label for="gengre">Genre</label></td>
+					<td><input type="text" name="genre" id="genre" /> <br /></td>
+				</tr>
+				<tr>
+					<td><label for="location">Location</label></td>
+					<td><input type="text" name="location" id="location" /> <br /></td>
+				</tr>
+				<tr>
+					<td><label for="loanperiod">Loan period</label></td>
+					<td><input type="text" name="loanperiod" id="location" /> <br /></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td align="right"><input type="submit" value="Create" /></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<div id="result"></div>
+</body>
+
+</html>

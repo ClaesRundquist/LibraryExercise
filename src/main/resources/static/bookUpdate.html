@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>dskgjkdjg</title>
+		<link rel="stylesheet" type="text/css" href="./css/forms.css">
+
+	</head>
+	<body>
+		<div id="updateForm">
+		<form id="createBookForm" method="post" action="http://localhost:8080/book/create/">
+	
+		<table id="bookTable">
+			<tr>
+			<td><label for="id">Book Id</label></td>
+			<td><input class="disabled" type="text" name="id" id="id" disabled="disabled" value="11"/> <br /></td></td>
+			</tr>
+			<tr>
+			<td><label for="isbn">ISBN</label></td>
+			<td><input onchange='{this.style.backgroundColor="#f2ee85";}' type="text" name="isbn" id="isbn" /> <br /></td>
+			</tr>
+			<tr>
+			<td><label for="title">Title</label></td>
+			<td><input onchange='{this.style.backgroundColor="#f2ee85";}' type="text" name="title" id="title" /> <br /></td>
+			</tr>
+			<tr>
+			<td><label for="author">Author</label></td>
+			<td><input onchange='{this.style.backgroundColor="#f2ee85";}' type="text" name="author" id="author" /> <br /></td>
+			</tr>
+			<tr>
+			<td><label for="gengre">Genre</label></td>
+			<td><input onchange='{this.style.backgroundColor="#f2ee85";}' type="text" name="genre" id="genre" /> <br /></td>
+			</tr>
+			<tr>
+			<td><label for="location">Location</label></td>
+			<td><input onchange='{this.style.backgroundColor="#f2ee85";}' type="text" name="location" id="location" /> <br /></td>
+			</tr>
+			<tr>
+			<td><label for="loanperiod">Loan period</label></td>
+			<td><input onchange='{this.style.backgroundColor="#f2ee85";}' type="text" name="loanperiod" id="location" /> <br /></td>
+			</tr>
+			<td></td>
+			<td align="right"><input type="submit" value="Update" /></td>
+		</table>
+			</form>
+		</div>
+		<div id="result"></div>
+	</body>
+	<script>
+
+</html>

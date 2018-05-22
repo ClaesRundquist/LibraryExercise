@@ -1,6 +1,5 @@
 package se.lexicon.library.restcontrollers;
 
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -57,7 +56,7 @@ public class LoanRestController {
 	}
 
 	@GetMapping("/findbymemberid/{memberId}")
-	public ResponseEntity<LoansWrapper> findByMember(@PathVariable("memberId") Integer memberId) {
+	public ResponseEntity<LoansWrapper> findByMember(@PathVariable("memberId") Integer memberId) throws MemberNotFoundException {
 
 		LoansWrapper res;
 		res = new LoansWrapper(loanService.searchForLoansByMember(memberId));

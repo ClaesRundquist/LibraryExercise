@@ -20,11 +20,16 @@ public class RestControllerExceptionHandler {
 		return new ResponseEntity<String>(e.getMessage(), HttpStatus.FORBIDDEN);
 	}
 
-	@ExceptionHandler({ MemberNotFoundException.class, LoanNotFoundException.class, BookNotFoundException.class,
-			CreateLoanException.class })
+	@ExceptionHandler({ LoanNotFoundException.class, BookNotFoundException.class, CreateLoanException.class })
 	public ResponseEntity<String> handleException(Exception e) {
 
 		return new ResponseEntity<String>(e.getMessage(), HttpStatus.NOT_FOUND);
+	}
+
+	@ExceptionHandler({ MemberNotFoundException.class })
+	public ResponseEntity<String> handleMemberException(Exception e) {
+
+		return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 	}
 
 }

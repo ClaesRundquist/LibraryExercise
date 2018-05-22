@@ -1,6 +1,5 @@
 package se.lexicon.library.restcontrollers;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +49,7 @@ public class BookRestController {
 
 	}
 
+	// this one return copies of books with designated ISBN
 	@GetMapping("/findbyisbn/{isbn}")
 	public ResponseEntity<BooksWrapper> findByIsbn(@PathVariable("isbn") String isbn) {
 
@@ -60,6 +60,7 @@ public class BookRestController {
 
 	}
 
+	// bookId is unique therefore one or zero books are returned.
 	@GetMapping("/findbyid/{bookId}")
 	public ResponseEntity<Optional<Book>> findById(@PathVariable("bookId") Integer bookId) throws BookNotFoundException {
 

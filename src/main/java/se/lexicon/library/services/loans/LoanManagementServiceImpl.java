@@ -17,6 +17,7 @@ import se.lexicon.library.repositories.LibraryCardRepository;
 import se.lexicon.library.repositories.LoanRepository;
 import se.lexicon.library.repositories.MemberRepository;
 import se.lexicon.library.restcontrollers.SimpleLoan;
+import se.lexicon.library.services.members.MemberNotFoundException;
 
 @Transactional
 @Service
@@ -80,11 +81,11 @@ public class LoanManagementServiceImpl implements LoanManagementService {
 	}
 
 	@Override
-	public List<Loan> searchForLoansByMember(Integer memberId) {
+	public List<Loan> searchForLoansByMember(Integer memberId) throws MemberNotFoundException {
 		Optional<Member> member = memberRepository.findById(memberId);
 		if (!member.isPresent()) {
 
-//			throw new LoanNotFoundException("Member not found");
+			throw new MemberNotFoundException("Member not does not exist");
 		}
 		List<Loan> res = loanRepository.findByMember(member.get());
 		return res;
@@ -100,8 +101,14 @@ public class LoanManagementServiceImpl implements LoanManagementService {
 		} else {
 
 			if (libraryCard.get().isValid()) {
-
-				List<Loan> loans = searchForLoansByMember(libraryCard.get().getMember().getId());
+				
+				List<Loan> loans;
+				try {
+					loans = searchForLoansByMember(libraryCard.get().getMember().getId());
+				} catch (MemberNotFoundException e) {
+					// if this happens there is inconsistency in database, an orphan library card...
+					throw new LoanNotFoundException(e.getMessage());
+				}
 				return loans;
 			} else {
 

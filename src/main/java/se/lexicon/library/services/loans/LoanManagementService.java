@@ -6,6 +6,7 @@ import java.util.Optional;
 
 
 import se.lexicon.library.domain.Loan;
+import se.lexicon.library.services.members.MemberNotFoundException;
 
 public interface LoanManagementService {
 	public Loan createLoan(LoanWrapper loanWrap) throws CreateLoanException;
@@ -14,7 +15,7 @@ public interface LoanManagementService {
 	
 	public Optional<Loan> searchForLoanByBookId(Integer bookId) throws LoanNotFoundException;
 
-	public List<Loan> searchForLoansByMember(Integer memberId);
+	public List<Loan> searchForLoansByMember(Integer memberId) throws MemberNotFoundException ;
 
 	public List<Loan> searchForLoansByLibraryCard(Integer libraryCardId) throws LoanNotFoundException;
 

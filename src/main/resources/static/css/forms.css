@@ -1,0 +1,60 @@
+#searchCreateForm {
+
+    background-color: #ffffc9;
+    opacity:0.92;
+	position:absolute;
+	left:8px;
+	top:16px;
+	font-family: verdana, "Lucida Grande", arial, helvetica, sans-serif;	
+	color:black;	
+	text-align: left;font-size: 16px;
+
+} 
+
+#updateForm {
+
+    background-color: #ffc9a5;
+    opacity:0.92;
+	position:absolute;
+	left:8px;
+	top:16px;
+	font-family: verdana, "Lucida Grande", arial, helvetica, sans-serif;	
+	color:black;	
+	text-align: left;font-size: 16px;
+
+} 
+
+.bookTable
+{
+	
+}
+.searchField:focus {background-color:#9bffc4;}
+
+.disabled
+{
+background-color: #d9e0dc;
+color: black;
+font-family: "Courier New", Verdana, Arial;
+}
+
+.modified
+{
+background-color: #f2ee85;
+color: black;
+font-family: Verdana, Arial;
+}
+
+.active
+{
+background-color: #9bffc4;
+color: black;
+font-family: Verdana, Arial;
+}
+
+.normal
+{
+background-color: #f7f7f7;
+color: black;
+font-family: Verdana, Arial;
+}
+

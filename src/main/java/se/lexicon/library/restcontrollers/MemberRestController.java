@@ -15,10 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import se.lexicon.library.domain.Loan;
 import se.lexicon.library.domain.Member;
-import se.lexicon.library.services.loans.CreateLoanException;
-import se.lexicon.library.services.loans.LoanWrapper;
 import se.lexicon.library.services.members.AddLibraryCardWrapper;
 import se.lexicon.library.services.members.MemberManagementService;
 import se.lexicon.library.services.members.MemberNotFoundException;
