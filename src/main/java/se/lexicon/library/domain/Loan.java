@@ -1,7 +1,6 @@
 package se.lexicon.library.domain;
 
 import java.time.LocalDate;
-import java.time.Period;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,8 +20,8 @@ public class Loan {
 
 	@ManyToOne
 	private Book book;
-	private LocalDate lent;
-	private Period loanPeriod;
+	private LocalDate dueDate;
+	private Long loanPeriod; // number of days.
 	private Integer extendCount; // period may be extended n times.
 
 	@ManyToOne
@@ -35,10 +34,10 @@ public class Loan {
 
 
 	
-	public Loan(Book book, LocalDate lent, Period loanPeriod, Integer extendCount, Member member) {
+	public Loan(Book book, LocalDate dueDate, Long loanPeriod, Integer extendCount, Member member) {
 		super();
 		this.book = book;
-		this.lent = lent;
+		this.dueDate = dueDate;
 		this.loanPeriod = loanPeriod;
 		this.extendCount = extendCount;
 		this.member = member;
@@ -49,8 +48,8 @@ public class Loan {
 	public Loan(SimpleLoan simpleLoan) {
 		super();
 		this.book = simpleLoan.getBook();
-		this.lent = LocalDate.now();
 		this.loanPeriod = this.book.getLoanPeriod();
+		this.dueDate = LocalDate.now().plusDays(this.getLoanPeriod());
 		this.extendCount = 0;
 		this.member = simpleLoan.getMember();
 	}
@@ -63,19 +62,23 @@ public class Loan {
 		this.book = book;
 	}
 
-	public LocalDate getLent() {
-		return lent;
+
+	public LocalDate getDueDate() {
+		return dueDate;
 	}
 
-	public void setLent(LocalDate lent) {
-		this.lent = lent;
+
+
+	public void setDueDate(LocalDate dueDate) {
+		this.dueDate = dueDate;
 	}
 
-	public Period getLoanPeriod() {
+
+	public Long getLoanPeriod() {
 		return loanPeriod;
 	}
 
-	public void setLoanPeriod(Period loanPeriod) {
+	public void setLoanPeriod(Long loanPeriod) {
 		this.loanPeriod = loanPeriod;
 	}
 
@@ -104,9 +107,10 @@ public class Loan {
 
 	@Override
 	public String toString() {
-		return "Loan [id=" + id + ", book=" + book + ", lent=" + lent + ", loanPeriod=" + loanPeriod + ", extendCount="
-				+ extendCount + ", member=" + member + "]";
+		return "Loan [id=" + id + ", book=" + book + ", dueDate=" + dueDate + ", loanPeriod=" + loanPeriod
+				+ ", extendCount=" + extendCount + ", member=" + member + "]";
 	}
+
 
 
 }

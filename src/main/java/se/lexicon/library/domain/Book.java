@@ -1,6 +1,5 @@
 package se.lexicon.library.domain;
 
-import java.time.Period;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +16,7 @@ public class Book {
 	private String author;
 	private String genre;
 	private String location;
-	private Period loanPeriod;
+	private Long loanPeriod; // number of days
 	
 	public Book() {
 		super();
@@ -25,7 +24,7 @@ public class Book {
 
 
 
-	public Book(String isbn, String title, String author, String genre, String location, Period loanPeriod) {
+	public Book(String isbn, String title, String author, String genre, String location, Long loanPeriod) {
 		super();
 		this.isbn = isbn;
 		this.title = title;
@@ -102,13 +101,13 @@ public class Book {
 
 	
 
-	public Period getLoanPeriod() {
+	public Long getLoanPeriod() {
 		return loanPeriod;
 	}
 
 
 
-	public void setLoanPeriod(Period loanPeriod) {
+	public void setLoanPeriod(Long loanPeriod) {
 		this.loanPeriod = loanPeriod;
 	}
 

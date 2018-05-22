@@ -17,7 +17,6 @@ import se.lexicon.library.repositories.LibraryCardRepository;
 import se.lexicon.library.repositories.LoanRepository;
 import se.lexicon.library.repositories.MemberRepository;
 import se.lexicon.library.restcontrollers.SimpleLoan;
-import se.lexicon.library.services.members.MemberNotFoundException;
 
 @Transactional
 @Service
