@@ -33,7 +33,8 @@ public class createSearchWebController {
 
 		Book res = bookService.createBook(book);
 		m.addAttribute("book", new Book());
-
+		m.addAttribute("res", res);
+		
 		return "bookCreate";
 	}
 }
