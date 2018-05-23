@@ -1,52 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="sv-se">
 <head>
 	<meta charset="utf-8">
-	<title>Create and Search Form</title>
-	<link rel="stylesheet" type="text/css" href="./css/forms.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">	<title>Create and Search Form</title>
+	<link rel="icon" href="../static/favicon.ico" th:href="@{/favicon.ico}" />
+	<link rel="stylesheet" type="text/css" href="../static/css/forms.css" th:href="@{/css/forms.css}">
 </head>
 <body>
 	<div id="createSearchForm">
 		<form id="createBookForm" method="post"
-			th:action="@{/createSearchForm}" th:object="${Member}">
+			th:action="@{/createSearchForm}" th:object="${book}">
 
 			<table id="bookTable">
 				<tr>
 					<td><label for="id">Book Id</label></td>
-					<td><input class="disabled" type="text" name="id" id="id"
-						disabled="disabled" value="11" /> <br /></td>
+					<td><input class="disabled" type="text" th:field="*{id}" 
+						disabled="disabled" /> <br /></td>
 				</tr>
 				<tr>
 					<td><label for="isbn">ISBN</label></td>
-					<td><input class="searchField" type="text" name="isbn"
-						id="isbn" /> <br /></td>
+					<td><input class="searchField" type="text" th:field="*{isbn}" /> <br /></td>
 				</tr>
 				<tr>
 					<td><label for="title">Title</label></td>
-					<td><input class="searchField" type="text" name="title"
-						id="title" /> <br /></td>
+					<td><input class="searchField" type="text" th:field="*{title}" /> <br /></td>
 				</tr>
 				<tr>
 					<td><label for="author">Author</label></td>
-					<td><input class="searchField" type="text" name="author"
-						id="author" /> <br /></td>
+					<td><input class="searchField" type="text" th:field="*{author}" /> <br /></td>
 				</tr>
 				<tr>
 					<td><label for="gengre">Genre</label></td>
-					<td><input type="text" name="genre" id="genre" /> <br /></td>
+					<td><input type="text" th:field="*{genre}" /> <br /></td>
 				</tr>
 				<tr>
 					<td><label for="location">Location</label></td>
-					<td><input type="text" name="location" id="location" /> <br /></td>
+					<td><input type="text" th:field="*{location}" /> <br /></td>
 				</tr>
 				<tr>
 					<td><label for="loanperiod">Loan period</label></td>
-					<td><input type="text" name="loanperiod" id="location" /> <br /></td>
+					<td><input type="text" th:field="*{loanPeriod}" /> <br /></td>
 				</tr>
+				<tr id="bookTableLast">
+					<td></td><td><input type="submit" id="create" value="Create" /></td>
 				<tr>
-					<td></td>
-					<td align="right"><input type="submit" value="Create" /></td>
-				</tr>
 			</table>
 		</form>
 	</div>
