@@ -367,7 +367,9 @@ template {
 
 } 
 
-
+#bookTable td {
+	width:400px;
+}
 #bookTableLast td {
 	text-align:right;
 }

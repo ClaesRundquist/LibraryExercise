@@ -5,6 +5,20 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">	<title>Create and Search Form</title>
 	<link rel="icon" href="../static/favicon.ico" th:href="@{/favicon.ico}" />
 	<link rel="stylesheet" type="text/css" href="../static/css/forms.css" th:href="@{/css/forms.css}">
+<script>
+function uuidv4() {
+  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+  )
+}
+
+function setUuid() {
+	document.getElementById("uuid").value=uuidv4();
+}
+
+</script>
+
+
 </head>
 <body>
 	<div id="createSearchForm">
@@ -42,7 +56,7 @@
 					<td><input type="text" th:field="*{loanPeriod}" /> <br /></td>
 				</tr>
 				<tr id="bookTableLast">
-					<td></td><td><input type="submit" id="create" value="Create" /></td>
+					<td></td><td><input type="submit" id="create" value="Create"/></td>
 				<tr>
 			</table>
 		</form>
