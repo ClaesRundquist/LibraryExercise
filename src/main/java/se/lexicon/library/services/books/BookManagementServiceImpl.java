@@ -19,18 +19,21 @@ public class BookManagementServiceImpl implements BookManagementService {
 	private BookRepository bookRepository;
 
 	@Override
-	public Book createBook(Book newBook) {
-
+	public Book createBook(Book newBook) throws NotUniqueException {
+		if (bookRepository.findByISBNLocationLoanPeriod(
+				newBook.getIsbn(), newBook.getLocation(),
+				newBook.getLoanPeriod()).isPresent() ) {
+			throw new NotUniqueException("Book with specified ISBN, location and loan period already exists, please use clone to make a copy!");
+		}
 		return bookRepository.save(newBook);
 	}
 
 	@Override
-	public Book cloneBook(String isbn) throws BookNotFoundException {
+	public Book cloneBook(Integer bookId) throws BookNotFoundException {
 
-		List<Book> foundBook = bookRepository.findByIsbn(isbn);
-		System.out.println(isbn + foundBook);
-		if (!foundBook.isEmpty()) {
-			Book newCopy = new Book(foundBook.get(0));
+		Optional<Book> foundBook = bookRepository.findById(bookId);
+		if (foundBook.isPresent()) {
+			Book newCopy = new Book(foundBook.get());
 			return bookRepository.save(newCopy);
 		} else {
 			throw new BookNotFoundException("Book not found");

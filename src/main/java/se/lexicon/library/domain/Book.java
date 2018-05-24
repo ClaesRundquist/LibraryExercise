@@ -16,7 +16,7 @@ public class Book {
 	private String author;
 	private String genre;
 	private String location;
-	private Long loanPeriod; // number of days
+	private Long loanPeriod=30L; // number of days
 	
 	public Book() {
 		super();

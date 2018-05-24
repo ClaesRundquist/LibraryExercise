@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import se.lexicon.library.domain.Book;
 import se.lexicon.library.services.books.BookManagementService;
 import se.lexicon.library.services.books.BookNotFoundException;
+import se.lexicon.library.services.books.NotUniqueException;
 
 @RestController
 @RequestMapping("/book")
@@ -27,15 +28,15 @@ public class BookRestController {
 	BookManagementService bookService;
 
 	@PostMapping("/create")
-	public ResponseEntity<Book> create(@RequestBody Book book) {
+	public ResponseEntity<Book> create(@RequestBody Book book) throws NotUniqueException {
 
 		return ResponseEntity.ok(bookService.createBook(book));
 
 	}
 
 	@PostMapping("/clone")
-	public ResponseEntity<Optional<Book>> clone(@RequestBody String isbn) throws BookNotFoundException {
-		return ResponseEntity.ok(Optional.of(bookService.cloneBook(isbn)));
+	public ResponseEntity<Optional<Book>> clone(@RequestBody Integer id) throws BookNotFoundException {
+		return ResponseEntity.ok(Optional.of(bookService.cloneBook(id)));
 
 	}
 

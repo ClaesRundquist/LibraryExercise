@@ -5,25 +5,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">	<title>Create and Search Form</title>
 	<link rel="icon" href="../static/favicon.ico" th:href="@{/favicon.ico}" />
 	<link rel="stylesheet" type="text/css" href="../static/css/forms.css" th:href="@{/css/forms.css}">
-<script>
-function uuidv4() {
-  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
-    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-  )
-}
 
-function setUuid() {
-	document.getElementById("uuid").value=uuidv4();
-}
-
-</script>
-
-
+	<title>Create Book</title>
 </head>
 <body>
-	<div id="createSearchForm">
+	<div id="createForm">
 		<form id="createBookForm" method="post"
-			th:action="@{/createSearchForm}" th:object="${book}">
+			th:action="@{/createForm}" th:object="${book}">
 
 			<table id="bookTable">
 				<tr>
@@ -33,7 +21,8 @@ function setUuid() {
 				</tr>
 				<tr>
 					<td><label for="isbn">ISBN</label></td>
-					<td><input class="searchField" type="text" th:field="*{isbn}" /> <br /></td>
+					<td><input class="searchField" type="text" th:field="*{isbn}" /> <br />
+					</td>
 				</tr>
 				<tr>
 					<td><label for="title">Title</label></td>
@@ -56,10 +45,11 @@ function setUuid() {
 					<td><input type="text" th:field="*{loanPeriod}" /> <br /></td>
 				</tr>
 				<tr id="bookTableLast">
-					<td></td><td><input type="submit" id="create" value="Create"/></td>
+					<td></td><td><input type="submit" id="create" value="create"/></td>
 				<tr>
 			</table>
 		</form>
+
 	</div>
 	<div th:text="${res}"></div>
 </body>

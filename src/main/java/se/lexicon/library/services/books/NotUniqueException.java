@@ -1,4 +1,4 @@
-package se.lexicon.library.controllers;
+package se.lexicon.library.services.books;
 
 public class NotUniqueException extends Exception {
 

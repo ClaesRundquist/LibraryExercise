@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import se.lexicon.library.controllers.NotUniqueException;
+import se.lexicon.library.services.books.NotUniqueException;
 
 	@ControllerAdvice(basePackages = { "se.lexicon.library.controllers" })
 	public class ThymeleafControllerExceptionHandler {
@@ -13,6 +13,6 @@ import se.lexicon.library.controllers.NotUniqueException;
 		@ExceptionHandler({ NotUniqueException.class })
 		public ResponseEntity<String> handleNotUniqueException(Exception e) {
 
-			return new ResponseEntity<String>(e.getMessage(), HttpStatus.FORBIDDEN);
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.CONFLICT);
 		}
 	}

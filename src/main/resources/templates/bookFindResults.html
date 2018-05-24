@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="sv-se">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">	<title>Create and Search Form</title>
+	<link rel="icon" href="../static/favicon.ico" th:href="@{/favicon.ico}" />
+	<link rel="stylesheet" type="text/css" href="../static/css/forms.css" th:href="@{/css/forms.css}">
+
+	<title>Find Book Results</title>
+</head>
+<body>
+
+	<div th:if="${bookList != null}">
+    	<h1>Results</h1>
+		<table id="bookResultsTable">
+  	     	<tr th:each="item : ${bookList}">
+  	     		<td>
+	    	   		<p  th:text="${item}">Item description here...</p>
+				</td>
+				<td>
+					<form  th:action="${ '/delete/' + item.id}" th:method="delete">
+ 						<input type="submit" />
+					</form>
+					<form  th:action="${ '/findToUpdate/' + item.id}" th:method="post">
+ 						<input type="submit" />
+					</form>
+					<form  th:action="${ '/clone/' + item.id}" th:method="post">
+ 						<input type="submit" />
+					</form>
+					
+				</td>
+			</tr>
+    	</table>
+	</div>
+
+</body>
+
+</html>

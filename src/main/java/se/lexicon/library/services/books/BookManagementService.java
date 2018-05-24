@@ -8,9 +8,9 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import se.lexicon.library.domain.Book;
 
 public interface BookManagementService {
-	public Book createBook(Book newBook);
+	public Book createBook(Book newBook) throws NotUniqueException;
 
-	public Book cloneBook(String isbn) throws BookNotFoundException;
+	public Book cloneBook(Integer bookId) throws BookNotFoundException;
 
 	public Book updateBook(Book updatedBook) throws BookNotFoundException;
 
