@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -50,13 +51,36 @@ public class createBookWebController {
 	}
 
 	@DeleteMapping("/delete/{id}")
-	public String getDelete(@PathVariable("id") Integer id, Model m) {
+	public String delete(@PathVariable("id") Integer id, Model m) {
 		Book book = new Book();
 		bookService.deleteBook(id);
 		m.addAttribute("book", book);
 		// TODO  redirect to appropriate page
 		return "bookCreate";
 	}
+
+	@GetMapping("/findToUpdate/{id}")
+	public String getUpdateForm(@PathVariable("id") Integer id, Model m) throws BookNotFoundException {
+		Optional<Book> book=bookService.searchForBookById(id);
+		if (!book.isPresent()) {
+			// concurrent deletes may cause this to happen, even though id is generated from database.
+			throw new BookNotFoundException("Book not found, deleted by another user?");
+		}
+		m.addAttribute("book", book);
+		return "bookUpdate";
+	}
+
+	@PatchMapping("/updateForm")
+	public String fillUpdateForm(Book book, Model m) throws BookNotFoundException {
+
+		Book res = bookService.updateBook(book);
+		m.addAttribute("book", res);
+		// TODO  maybe we should not return a result as ....
+	//	m.addAttribute("res", res);
+		return "bookUpdate";
+	}
+
+	
 	@PostMapping("/clone/{id}")
 	public String fillClone(@PathVariable("id") Integer id, Model m) throws BookNotFoundException {
 		Book book = bookService.cloneBook(id);

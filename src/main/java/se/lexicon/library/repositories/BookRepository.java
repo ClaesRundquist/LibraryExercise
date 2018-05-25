@@ -16,4 +16,5 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 	
 	@Query("select b from Book b where b.isbn = ?1 and b.location = ?2 and b.loanPeriod = ?3")
 	Optional<Book> findByISBNLocationLoanPeriod(String isbn, String location, Long loanPeriod);
+
 }

@@ -19,13 +19,17 @@
 				</td>
 				<td>
 					<form  th:action="${ '/delete/' + item.id}" th:method="delete">
- 						<input type="submit" />
+ 						<input type="submit" value="Delete" />
 					</form>
-					<form  th:action="${ '/findToUpdate/' + item.id}" th:method="post">
- 						<input type="submit" />
+				</td>
+				<td>
+					<form  th:action="${ '/findToUpdate/' + item.id}" th:method="get">
+					<input type="submit" value="Update" />
 					</form>
+				</td>
+				<td>
 					<form  th:action="${ '/clone/' + item.id}" th:method="post">
- 						<input type="submit" />
+ 						<input type="submit" value="Clone" />
 					</form>
 					
 				</td>

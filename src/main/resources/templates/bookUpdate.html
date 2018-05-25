@@ -11,16 +11,15 @@
 <title>Create Book</title>
 </head>
 <body>
-	<div id="createDiv">
-		<form id="createBookForm" method="post" th:action="@{/createForm}"
+	<div id="updateDiv">
+		<form id="updateBookForm" th:method="patch" th:action="@{/updateForm}"
 			th:object="${book}">
-			<div id=createFields>
+			<div id=updateFields>
 				<label for="id">Book Id</label>
-				<input class="disabled" type="text"
-					th:field="*{id}" disabled="disabled" />
+				<input class="disabled" type="text" th:field="*{id}"  />
 					<br />
 				<label for="isbn">ISBN</label>
-				<input class="createAltKeyField" type="text" th:field="*{isbn}" />
+				<input type="text" th:field="*{isbn}" />
 					<br />
 				<label for="title">Title</label>
 				<input type="text" th:field="*{title}" />
@@ -29,24 +28,22 @@
 				<input type="text" th:field="*{author}" />
 				<br />
 				<label for="gengre">Genre</label>
-				<input type="text"
-					th:field="*{genre}" />
+				<input type="text" th:field="*{genre}" />
 					<br />
 				<label for="location">Location</label>
-				<input class="createAltKeyField" type="text" th:field="*{location}" />
+				<input type="text" th:field="*{location}" />
 				<br />
 				<label for="loanperiod">Loan period</label>
-				<input class="createAltKeyField" type="text"
-					th:field="*{loanPeriod}" />
+				<input type="text" th:field="*{loanPeriod}" />
 				<br />
-				<div id="createFieldsSubmit">
-					<input type="submit" id="create" value="Create" />
+				<div id="updateFieldsSubmit">
+					<input type="submit" id="update" value="Update" />
 				</div>
 			</div>
 		</form>
 
 	</div>
-	<div th:text="${res}"></div>
+<!--  	<div th:text="${res}"></div> -->
 </body>
 
 </html>

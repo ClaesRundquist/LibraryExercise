@@ -340,7 +340,7 @@ template {
   display: none;
 }
 
-#createBookForm {
+#createDiv {
 
     background-color: #ffffc9;
     opacity:0.92;
@@ -353,7 +353,7 @@ template {
 	font-size: 2em;
 } 
 
-#updateForm {
+#updateDiv {
 
     background-color: #ffc9a5;
     opacity:0.92;
@@ -367,10 +367,7 @@ template {
 
 } 
 
-#bookTable td {
-	width:400px;
-}
-#bookTableLast td {
+#createFieldsSubmit,#updateFieldsSubmit {
 	text-align:right;
 }
 
