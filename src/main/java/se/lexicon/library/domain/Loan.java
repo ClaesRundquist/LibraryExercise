@@ -54,6 +54,12 @@ public class Loan {
 		this.member = simpleLoan.getMember();
 	}
 
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+
+
 	public Book getBook() {
 		return book;
 	}

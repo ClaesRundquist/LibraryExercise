@@ -78,8 +78,8 @@ public class BookRestController {
 	}
 
 	
-	@GetMapping("/findbyauthor/{bookId}")
-	public ResponseEntity<BooksWrapper> findByAuthor(@PathVariable("bookId") String author) throws BookNotFoundException {
+	@GetMapping("/findbyauthor/{author}")
+	public ResponseEntity<BooksWrapper> findByAuthor(@PathVariable("author") String author) throws BookNotFoundException {
 
 		BooksWrapper res;
 		res = new BooksWrapper(bookService.searchForBooksByAuthor(author));
@@ -87,6 +87,18 @@ public class BookRestController {
 		return ResponseEntity.ok(res);
 
 	}
+	
+	@PostMapping("/findlike")
+	public ResponseEntity<BooksWrapper> findLike(@RequestBody Book book) throws BookNotFoundException {
+
+		BooksWrapper res;
+		res = new BooksWrapper(bookService.searchForBooksLike(book));
+
+		return ResponseEntity.ok(res);
+
+	}
+	
+	
 	
 	@GetMapping("/all")
 	public ResponseEntity<BooksWrapper> getAll() {

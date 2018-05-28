@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -31,14 +32,18 @@ public class LibraryCard {
 		this.member = member;
 	}
 
+	
 	public Integer getId() {
 		return id;
 	}
 
+
+	@JsonGetter("isvalid")
 	public boolean isValid() {
 		return !LocalDate.now().isAfter((issued.plusYears(period)));
 	}
 
+	@JsonGetter("member")
 	public Member getMember() {
 		return member;
 	}
@@ -47,4 +52,10 @@ public class LibraryCard {
 		this.member = member;
 	}
 
+	@Override
+	public String toString() {
+		return "LibraryCard [id=" + id + ", issued=" + issued + ", period=" + period + ", member=" + member + "]";
+	}
+
+	
 }

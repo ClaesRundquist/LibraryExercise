@@ -70,8 +70,16 @@ public class BookManagementServiceImpl implements BookManagementService {
 	public List<Book> searchForBooksByAuthor(String author) {
 
 		return bookRepository.findByAuthor(author);
+		
 	}
 
+	@Override
+	public List<Book> searchForBooksLike(Book book) {
+
+		return bookRepository.findLikeISBNTitleAuthor(book.getIsbn()+"%", book.getTitle()+"%", book.getAuthor()+"%");
+		
+	}
+	
 	public List<Book> getAll() {
 
 		return bookRepository.findAll();

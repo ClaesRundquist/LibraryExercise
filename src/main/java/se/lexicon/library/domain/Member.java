@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import se.lexicon.library.restcontrollers.SimpleMember;
 
@@ -62,6 +63,17 @@ public class Member {
 
 	}
 
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+
+
 	public String getName() {
 		return name;
 	}
@@ -82,13 +94,7 @@ public class Member {
 		this.loans.add(loan);
 	}
 
-	public Integer getId() {
-		return id;
-	}
 
-	/*
-	 * needed??? public void setId(Integer id) { this.id = id; }
-	 */
 	public LocalDate getSince() {
 		return since;
 	}

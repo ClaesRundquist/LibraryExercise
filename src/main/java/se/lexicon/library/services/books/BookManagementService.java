@@ -22,9 +22,12 @@ public interface BookManagementService {
 
 	public List<Book> searchForBooksByAuthor(String author);
 
+	public List<Book> searchForBooksLike(Book book);
+
 	public List<Book> getAll();
 
 	public void deleteBook(Integer bookId) throws EmptyResultDataAccessException;
+
 
 
 }
