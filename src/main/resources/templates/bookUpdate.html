@@ -37,40 +37,15 @@
 				<input type="text" th:field="*{loanPeriod}" />
 				<br />
 				<div id="updateFieldsSubmit">
-					<input type="submit" id="update" value="Update" />
+					<input type="submit" id="update" value="Update" /><input type="button" id="searchITA" value="Search" />
 				</div>
 			</div>
 		</form>
 
 	</div>
   	<div id="res"></div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>
-
-
-function populate(frm, data) {
-	  $.each(data, function(key, value){
-	    $('[name='+key+']', frm).val(value);
-	  });
-	}
-
-	$("#searchTitle").click(
-
-    	function(){$.ajax({ 
-    	   type: "GET",
-    	   dataType: "text",
-    	   url: "http://localhost:8080/book/findbytitle/"+$('#title').val(),
-    	   success: function(data){        
-   // 		   $("#res").html(data);
-    		   populate('#updateBookForm', $.parseJSON(data).books[1]);
-    	   }
-    	})
-    	
-    });
-
-
-	
-</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="../static/jq.js" th:src="@{/jq.js}"></script>
 </body>
 
 </html>

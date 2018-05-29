@@ -367,7 +367,36 @@ template {
 
 } 
 
-#createFieldsSubmit,#updateFieldsSubmit {
+#searchDiv {
+
+    background-color: #66d9ff;
+    opacity:0.92;
+	position:absolute;
+	left:2%;
+	top:4%;
+	font-family: verdana, "Lucida Grande", arial, helvetica, sans-serif;	
+	color:black;	
+	text-align: left;
+	font-size: 2em;
+
+} 
+
+#searchITAFields {
+
+    background-color: ff99cc;
+    opacity:0.92;
+	position:absolute;
+	left:2%;
+	top:4%;
+	font-family: verdana, "Lucida Grande", arial, helvetica, sans-serif;	
+	color:black;	
+	text-align: left;
+	font-size: 2em;
+
+} 
+
+
+#createFieldsSubmit,#searchFieldsSubmit,#updateFieldsSubmit {
 	text-align:right;
 }
 

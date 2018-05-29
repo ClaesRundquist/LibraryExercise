@@ -43,6 +43,15 @@ public class createBookWebController {
 		return "bookCreate";
 	}
 
+
+	@GetMapping("/searchForm")
+	public String getSearchForm(Model m) {
+		Book book = new Book();
+		m.addAttribute("book", book);
+		return "bookSearch";
+	}
+
+	
 	@GetMapping("/findByISBNResults/{isbn}")
 	public String getByISBNForm(@PathVariable("isbn") String isbn, Model m) {
 		List<Book> books = bookService.searchForBooksByIsbn(isbn);
