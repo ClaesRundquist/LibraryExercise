@@ -65,7 +65,7 @@ public class createBookWebController {
 		bookService.deleteBook(id);
 		m.addAttribute("book", book);
 		// TODO  redirect to appropriate page
-		return "bookCreate";
+		return "bookSearch";
 	}
 
 	@GetMapping("/findToUpdate/{id}")

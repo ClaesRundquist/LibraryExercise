@@ -1,52 +1,48 @@
 <!DOCTYPE html>
 <html lang="sv-se">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Create and Search Form</title>
-<link rel="icon" href="../static/favicon.ico" th:href="@{/favicon.ico}" />
-<link rel="stylesheet" type="text/css" href="../static/css/forms.css"
-	th:href="@{/css/forms.css}">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Book Create Form</title>
+	<link rel="icon" href="../static/favicon.ico" th:href="@{/favicon.ico}" />
+	<link rel="stylesheet" type="text/css" href="../static/css/forms.css"
+		th:href="@{/css/forms.css}">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-<title>Create Book</title>
 </head>
 <body>
 	<div id="createDiv">
 		<form id="createBookForm" method="post" th:action="@{/createForm}"
 			th:object="${book}">
-			<div id=createFields>
+			<div id=createFields class="form-group">
 				<label for="id">Book Id</label>
-				<input class="disabled" type="text"
+				<input class="disabled form-control" type="text"
 					th:field="*{id}" disabled="disabled" />
-					<br />
 				<label for="isbn">ISBN</label>
-				<input class="createAltKeyField" type="text" th:field="*{isbn}" />
-					<br />
+				<input type="text" th:field="*{isbn}" class="form-control" />
 				<label for="title">Title</label>
-				<input type="text" th:field="*{title}" />
-					<br />
+				<input type="text" th:field="*{title}" class="form-control" />
 				<label for="author">Author</label>
-				<input type="text" th:field="*{author}" />
-				<br />
+				<input type="text" th:field="*{author}" class="form-control" />
 				<label for="gengre">Genre</label>
 				<input type="text"
-					th:field="*{genre}" />
-					<br />
+					th:field="*{genre}" class="form-control" />
 				<label for="location">Location</label>
-				<input class="createAltKeyField" type="text" th:field="*{location}" />
-				<br />
+				<input type="text" th:field="*{location}" class="form-control"/>
 				<label for="loanperiod">Loan period</label>
-				<input class="createAltKeyField" type="text"
-					th:field="*{loanPeriod}" />
-				<br />
-				<div id="createFieldsSubmit">
-					<input type="submit" id="create" value="Create" />
-				</div>
+				<input type="text" th:field="*{loanPeriod}" class="form-control"/>
+			</div>
+				
+			<div id="createFieldsSubmit">
+				<input type="submit" id="create" value="Create" />
 			</div>
 		</form>
 
 	</div>
 	<div th:text="${res}"></div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="../static/jq.js" th:src="@{/jq.js}"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 
 </html>

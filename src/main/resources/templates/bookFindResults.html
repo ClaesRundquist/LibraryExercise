@@ -2,41 +2,66 @@
 <html lang="sv-se">
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">	<title>Create and Search Form</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Book Search Form</title>
 	<link rel="icon" href="../static/favicon.ico" th:href="@{/favicon.ico}" />
-	<link rel="stylesheet" type="text/css" href="../static/css/forms.css" th:href="@{/css/forms.css}">
-
-	<title>Find Book Results</title>
+	<link rel="stylesheet" type="text/css" href="../static/css/forms.css"
+		th:href="@{/css/forms.css}">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
 </head>
 <body>
-
 	<div th:if="${bookList != null}">
     	<h1>Results</h1>
-		<table id="bookResultsTable">
+<table id="bookResultsTable" class="display" style="width:100%"></table>
+<!--  		<table id="bookResultsTable" class="table table-hover">
   	     	<tr th:each="item : ${bookList}">
-  	     		<td>
-	    	   		<p  th:text="${item}">Item description here...</p>
+  	     		<td class="rtId">
+	    	   		<p  th:text="${item.id}">Item description here...</p>
+				</td>
+  	     		<td class="rtTitle">
+	    	   		<p  th:text="${item.title}">Item description here...</p>
+				</td>
+  	     		<td class="rtAuthor">
+	    	   		<p  th:text="${item.author}">Item description here...</p>
+				</td>
+  	     		<td class="rtGenre">
+	    	   		<p  th:text="${item.genre}">Item description here...</p>
+				</td>
+  	     		<td class="rtISBN">
+	    	   		<p  th:text="${item.isbn}">Item description here...</p>
+				</td>
+  	     		<td class="rtLocation">
+	    	   		<p  th:text="${item.location}">Item description here...</p>
+				</td>
+  	     		<td class="rtLoanPeriod">
+	    	   		<p  th:text="${item.loanPeriod}">Item description here...</p>
 				</td>
 				<td>
 					<form  th:action="${ '/delete/' + item.id}" th:method="delete">
- 						<input type="submit" value="Delete" />
+ 						<input class="rtButtonDelete" type="submit" value="Delete" />
 					</form>
 				</td>
 				<td>
 					<form  th:action="${ '/findToUpdate/' + item.id}" th:method="get">
-					<input type="submit" value="Update" />
+						<input  class="rtButtonUpdate" type="submit" value="Update" />
 					</form>
 				</td>
 				<td>
 					<form  th:action="${ '/clone/' + item.id}" th:method="post">
- 						<input type="submit" value="Clone" />
+ 						<input  class="rtButtonClone" type="submit" value="Clone" />
 					</form>
 					
 				</td>
 			</tr>
     	</table>
+-->
 	</div>
 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="../static/jq.js" th:src="@{/jq.js}"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 
 </html>
+

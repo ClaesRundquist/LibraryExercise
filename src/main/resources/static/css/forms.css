@@ -344,9 +344,8 @@ template {
 
     background-color: #ffffc9;
     opacity:0.92;
-	position:absolute;
-	left:2%;
-	top:4%;
+	left:5%;
+	top:5%;
 	font-family: verdana, "Lucida Grande", arial, helvetica, sans-serif;	
 	color:black;	
 	text-align: left;
@@ -357,9 +356,8 @@ template {
 
     background-color: #ffc9a5;
     opacity:0.92;
-	position:absolute;
-	left:2%;
-	top:4%;
+	left:5%;
+	top:5%;
 	font-family: verdana, "Lucida Grande", arial, helvetica, sans-serif;	
 	color:black;	
 	text-align: left;
@@ -369,11 +367,10 @@ template {
 
 #searchDiv {
 
-    background-color: #66d9ff;
-    opacity:0.92;
-	position:absolute;
-	left:2%;
-	top:4%;
+	background-color: #66d9ff;
+	opacity:0.92;
+	left:5%;
+	top:5%;
 	font-family: verdana, "Lucida Grande", arial, helvetica, sans-serif;	
 	color:black;	
 	text-align: left;
@@ -383,16 +380,8 @@ template {
 
 #searchITAFields {
 
-    background-color: ff99cc;
-    opacity:0.92;
-	position:absolute;
-	left:2%;
-	top:4%;
-	font-family: verdana, "Lucida Grande", arial, helvetica, sans-serif;	
-	color:black;	
-	text-align: left;
-	font-size: 2em;
-
+    background-color: #ff99cc;
+	
 } 
 
 
@@ -400,6 +389,36 @@ template {
 	text-align:right;
 }
 
+.rtButtonDelete {
+    background-color: #ff8080;
+	style="width:8%";	
+}
+.rtButtonUpdate {
+    background-color: #ffc9a5;
+	style="width:8%";	
+}
+.rtButtonClone {
+    background-color: #ffffc9;
+	style="width:8%";	
+}
+.rtId {
+	style="width:8%";	
+}
+.rtTitle {
+	style="width:19%";	
+}
+.rtAuthor {
+	style="width:19%";	
+}
+.rtGenre {
+	style="width:10%";	
+}
+.rtISBN {
+	style="width:12%";	
+}
+.rtLocation {
+	style="width:8%";	
+}
 .searchField:focus {background-color:#9bffc4;}
 
 .disabled
