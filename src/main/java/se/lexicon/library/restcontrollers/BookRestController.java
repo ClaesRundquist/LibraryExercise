@@ -65,15 +65,8 @@ public class BookRestController {
 	@GetMapping("/findbyid/{bookId}")
 	public ResponseEntity<Optional<Book>> findById(@PathVariable("bookId") Integer bookId) throws BookNotFoundException {
 
-		Optional<Book> res;
-		res = bookService.searchForBookById(bookId);
+		return ResponseEntity.ok(bookService.searchForBookById(bookId));
 
-		if (res.isPresent() == true) {
-			return ResponseEntity.ok(res);
-
-		} else {
-			return new ResponseEntity<Optional<Book>>(HttpStatus.NOT_FOUND);
-		}
 
 	}
 

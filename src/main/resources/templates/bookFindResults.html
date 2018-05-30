@@ -13,8 +13,7 @@
 <body>
 	<div th:if="${bookList != null}">
     	<h1>Results</h1>
-<table id="bookResultsTable" class="display" style="width:100%"></table>
-<!--  		<table id="bookResultsTable" class="table table-hover">
+  		<table id="bookResultsTable1" class="table table-hover">
   	     	<tr th:each="item : ${bookList}">
   	     		<td class="rtId">
 	    	   		<p  th:text="${item.id}">Item description here...</p>
@@ -55,11 +54,13 @@
 				</td>
 			</tr>
     	</table>
--->
+	<table id="bookResultsTable" class="display" style="width:100%"></table>
+
 	</div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="../static/jq.js" th:src="@{/jq.js}"></script>
+  	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 

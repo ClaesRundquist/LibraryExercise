@@ -49,8 +49,7 @@ public class BookManagementServiceImpl implements BookManagementService {
 	}
 
 	@Override
-	public Optional<Book> searchForBookById(Integer bookId) throws BookNotFoundException {
-
+	public Optional<Book> searchForBookById(Integer bookId) {
 		return bookRepository.findById(bookId);
 	}
 

@@ -14,32 +14,28 @@
 	<div id="updateDiv">
 		<form id="updateBookForm" th:method="patch" th:action="@{/updateForm}"
 			th:object="${book}">
-			<div id=updateFields>
+			<div id=updateFields class="form-group">
 				<label for="id">Book Id</label>
-				<input class="disabled" type="text" th:field="*{id}"  />
-					<br />
+				<input class="disabled form-control" type="text"
+					th:field="*{id}" readonly="readonly" />
 				<label for="isbn">ISBN</label>
-				<input type="text" th:field="*{isbn}" />
-					<br />
+				<input type="text" th:field="*{isbn}" class="form-control" />
 				<label for="title">Title</label>
-				<input type="text" th:field="*{title}" /> <input type="button" id="searchTitle" value="Search" />
-					<br />
+				<input type="text" th:field="*{title}" class="form-control" />
 				<label for="author">Author</label>
-				<input type="text" th:field="*{author}" />
-				<br />
-				<label for="gengre">Genre</label>
-				<input type="text" th:field="*{genre}" />
-					<br />
+				<input type="text" th:field="*{author}" class="form-control" />
+				<label for="genre">Genre</label>
+				<input type="text" th:field="*{genre}" class="form-control" />
 				<label for="location">Location</label>
-				<input type="text" th:field="*{location}" />
-				<br />
-				<label for="loanperiod">Loan period</label>
-				<input type="text" th:field="*{loanPeriod}" />
-				<br />
-				<div id="updateFieldsSubmit">
-					<input type="submit" id="update" value="Update" /><input type="button" id="searchITA" value="Search" />
-				</div>
+				<input type="text" th:field="*{location}" class="form-control"/>
+				<label for="loanPeriod">Loan period</label>
+				<input type="text" th:field="*{loanPeriod}" class="form-control"/>
 			</div>
+
+			<div id="updateFieldsSubmit">
+				<input type="submit" id="update" value="Update" class="btn btn-default" />
+			</div>
+
 		</form>
 
 	</div>

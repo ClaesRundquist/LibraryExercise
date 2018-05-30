@@ -14,7 +14,7 @@ public interface BookManagementService {
 
 	public Book updateBook(Book updatedBook) throws BookNotFoundException;
 
-	public Optional<Book> searchForBookById(Integer bookId) throws BookNotFoundException;
+	public Optional<Book> searchForBookById(Integer bookId);
 
 	public List<Book> searchForBooksByIsbn(String isbn);
 

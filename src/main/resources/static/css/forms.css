@@ -385,7 +385,7 @@ template {
 } 
 
 
-#createFieldsSubmit,#searchFieldsSubmit,#updateFieldsSubmit {
+#createFieldsSubmit,.searchFieldsSubmit,#updateFieldsSubmit {
 	text-align:right;
 }
 

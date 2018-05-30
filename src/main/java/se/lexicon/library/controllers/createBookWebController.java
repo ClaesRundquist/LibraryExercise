@@ -75,7 +75,7 @@ public class createBookWebController {
 			// concurrent deletes may cause this to happen, even though id is generated from database.
 			throw new BookNotFoundException("Book not found, deleted by another user?");
 		}
-		m.addAttribute("book", book);
+		m.addAttribute("book", book.get());
 		return "bookUpdate";
 	}
 
@@ -85,7 +85,6 @@ public class createBookWebController {
 		Book res = bookService.updateBook(book);
 		m.addAttribute("book", res);
 		// TODO  maybe we should not return a result as ....
-	//	m.addAttribute("res", res);
 		return "bookUpdate";
 	}
 
