@@ -5,12 +5,43 @@ function populate(frm, data) {
 	});
 }
 
-
-function clearBookResultsTable() {
+function createBookResultsTable(data) {
+	var content=[];
+	if (data=="null") {
+		; // do nothing, empty array will be passed to DataTable constructor.
+	} else if (data.books == undefined) {
+		// single row with book data
+		var cRow = [];
+		cRow.push('<button data-id="'+data.id+'">delete</button>');
+		cRow.push(data.id);
+		cRow.push(data.isbn);
+		cRow.push(data.title);
+		cRow.push(data.author);
+		cRow.push(data.genre);
+		cRow.push(data.location);
+		cRow.push(data.loanPeriod);
+		content.push(cRow);
+	} else {
+		// Array of books.
+		$.each(data.books, function(key, value) {
+			var cRow = [];
+			cRow.push('<button data-id="'+value.id+'">delete</button>');
+			cRow.push(value.id);
+			cRow.push(value.isbn);
+			cRow.push(value.title);
+			cRow.push(value.author);
+			cRow.push(value.genre);
+			cRow.push(value.location);
+			cRow.push(value.loanPeriod);
+			content.push(cRow);
+		});		
+	}
 	$('#bookResultsTable').DataTable({
 		destroy : true,
-		data : [],
+		data : content,
 		columns : [ {
+			title : "Operation"
+		}, {
 			title : "Id"
 		}, {
 			title : "Title"
@@ -26,6 +57,8 @@ function clearBookResultsTable() {
 			title : "LoanPeriod"
 		} ]
 	});
+
+
 }
 
 $("#searchId").click(
@@ -37,42 +70,7 @@ function() {
 		dataType : "text",
 		url : "http://localhost:8080/book/findbyid/" + $('#id').val(),
 		success : function(data) {
-			if (data == "null") {
-				clearBookResultsTable();
-			} else {
-
-				var jsData = [];
-				value = JSON.parse(data);
-				var jsRow = [];
-				jsRow.push(value.id);
-				jsRow.push(value.isbn);
-				jsRow.push(value.title);
-				jsRow.push(value.author);
-				jsRow.push(value.genre);
-				jsRow.push(value.location);
-				jsRow.push(value.loanPeriod);
-				jsData.push(jsRow);
-				
-				$('#bookResultsTable').DataTable({
-					destroy : true,
-					data : jsData,
-					columns : [ {
-						title : "Id"
-					}, {
-						title : "Title"
-					}, {
-						title : "Author"
-					}, {
-						title : "Genre"
-					}, {
-						title : "ISBN"
-					}, {
-						title : "Loacation"
-					}, {
-						title : "LoanPeriod"
-					} ]
-				});
-			}
+			createBookResultsTable(data=="null" ? null : JSON.parse(data));
 		},
 		failure : function(errMsg) {
 			$("#res").html(errMsg);
@@ -95,42 +93,7 @@ $("#searchITA").click(
 				data : body,
 				url : "http://localhost:8080/book/findlike",
 				success : function(data) {
-					if (JSON.parse(data).books == "") {
-						clearBookResultsTable();
-					} else {
-						var jsData = [];
-						$.each(JSON.parse(data).books, function(key, value) {
-							var jsRow = [];
-							jsRow.push(value.id+'<button data-id="'+value.id+'">delete</button>');
-							jsRow.push(value.isbn);
-							jsRow.push(value.title);
-							jsRow.push(value.author);
-							jsRow.push(value.genre);
-							jsRow.push(value.location);
-							jsRow.push(value.loanPeriod);
-							jsData.push(jsRow);
-						});
-
-						$('#bookResultsTable').DataTable({
-							destroy : true,
-							data : jsData,
-							columns : [ {
-								title : "Id"
-							}, {
-								title : "Title"
-							}, {
-								title : "Author"
-							}, {
-								title : "Genre"
-							}, {
-								title : "ISBN"
-							}, {
-								title : "Loacation"
-							}, {
-								title : "LoanPeriod"
-							} ]
-						});
-					}
+					createBookResultsTable(JSON.parse(data));
 				}
 			});
 
