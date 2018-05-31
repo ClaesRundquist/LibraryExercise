@@ -25,7 +25,12 @@ public class createBookWebController {
 	@Autowired
 	BookManagementService bookService;
 
+	@GetMapping("/home")
+	public String getHomePage(Model m) {
+		return "home";
+	}
 
+	
 	@GetMapping("/createForm")
 	public String getCreateForm(Model m) {
 		Book book = new Book();

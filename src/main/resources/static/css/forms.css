@@ -482,6 +482,21 @@ font-family: Verdana, Arial;
 }
 
 
+
+/* Navigation at home page */
+#homeBook {
+	background-color: #ffffcc;
+	display: inline-block;	
+}
+
+#homeMember {
+	background-color: #80c1ff;
+	display: inline-block;	
+}
+
+#homeBody {
+  background-color: #cce6ff;
+}
 /* ************************************************************************************************* */
 /* **** responsive menu from https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_topnav *** */
 .topnav {
