@@ -5,13 +5,24 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Book Search Form</title>
 	<link rel="icon" href="../static/favicon.ico" th:href="@{/favicon.ico}" />
-	<link rel="stylesheet" type="text/css" href="../static/css/forms.css"
-		th:href="@{/css/forms.css}">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../static/css/forms.css" th:href="@{/css/forms.css}">
+	
 
 </head>
 <body>
+	<div class="topnav" id="myTopnav">
+		<a href="#home" class="colorHome">Home</a>
+		<a href="../templates/bookSearch.html" th:href="@{/searchForm}" class="colorSearch" >Search book</a>
+		<a href="../templates/bookCreate.html" th:href="@{/createForm}" class="colorCreate" >Create book</a>
+		<a href="#help" class="colorHelp" >Help</a>
+		<a href="javascript:void(0);" class="icon" >
+			<i id="myBurger" class="fa fa-bars"></i>
+		</a>
+	</div>
+
 	<div id="searchDiv">
 		<form id="searchBookForm" th:method="get" th:action="@{/searchForm}"
 			th:object="${book}">

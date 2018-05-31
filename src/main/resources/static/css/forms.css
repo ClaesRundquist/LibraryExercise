@@ -340,6 +340,15 @@ template {
   display: none;
 }
 
+
+/* Library exercise custom CSS */
+
+/* Override bold label from "Bootstrap" */
+label {
+	font-size: 0.7em;
+	font-weight: normal;
+	}
+	
 #createDiv {
 
     background-color: #ffffc9;
@@ -388,6 +397,29 @@ template {
 #createFieldsSubmit,.searchFieldsSubmit,#updateFieldsSubmit {
 	text-align:right;
 }
+
+
+.colorSearch  {
+    background-color: #66d9ff;
+	
+}
+
+.deleteButton,.colorDelete {
+    background-color: #ff8080;
+	
+}
+
+.updateButton,.colorUpdate {
+    background-color: #ffc9a5;
+	
+}
+
+.cloneButton,.colorCreate  {
+    background-color: #ffffc9;
+	
+}
+
+
 
 .rtButtonDelete {
     background-color: #ff8080;
@@ -449,3 +481,60 @@ color: black;
 font-family: Verdana, Arial;
 }
 
+
+/* ************************************************************************************************* */
+/* **** responsive menu from https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_topnav *** */
+.topnav {
+  overflow: hidden;
+  background-color: #3399ff;
+}
+
+.topnav a {
+  float: left;
+  display: block;
+  color: Black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.colorHome {
+  background-color: #3399ff;
+}
+
+.colorHelp {
+  background-color: #ffcce6;
+}
+
+
+.topnav .icon {
+  display: none;
+}
+
+@media screen and (max-width: 600px) {
+  .topnav a:not(:first-child) {display: none;}
+  .topnav a.icon {
+    float: right;
+    display: block;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .topnav.responsive {position: relative;}
+  .topnav.responsive .icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .topnav.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+}
