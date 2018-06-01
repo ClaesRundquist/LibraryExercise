@@ -78,6 +78,86 @@ function createBookResultsTable(data) {
 
 }
 
+function createMemberResultsTable(data) {
+	var content=[];
+	if (data==null) {
+		; // do nothing, empty array will be passed to DataTable constructor.
+	} else if (data.members == undefined) {
+		// single row with book data
+		var cRow = [];
+		cRow.push('<span><button class="deleteButton btn btn-default" data-id="'+data.id+'">Delete</button>'
+				+'<button class="updateButton btn btn-default" data-id="'+data.id+'">Update</button>'
+				);
+		cRow.push(data.id);
+		content.push(cRow);
+	} else {
+		// Array of books.
+		$.each(data.members, function(key, value) {
+			var cRow = [];
+			cRow.push('<span><button class="deleteButton btn btn-default" data-id="'+value.id+'">Delete</button>'
+					+'<button class="updateButton btn btn-default" data-id="'+value.id+'">Update</button>'
+					);
+			cRow.push(value.id);
+			cRow.push(value.name);
+			cRow.push(value.contactInfo.adress);
+			cRow.push(value.contactInfo.phone);
+			cRow.push(value.contactInfo.email);
+//			cRow.push(value.libraryCard);
+			content.push(cRow);
+		});		
+	}
+	$('#memberResultsTable').DataTable({
+		destroy : true,
+		data : content,
+		columns : [ {
+			title : "Operations"
+		}, {
+			title : "Id"
+		}, {
+			title : "Name"
+		}, {
+			title : "Adress"
+		}, {
+			title : "Phone"
+		}, {
+			title : "Email"
+		}
+		
+		]
+	});
+
+
+}
+
+
+$( "#searchMemberByNameForm" ).submit(function( event ) {
+
+	var dataArray = $( this ).serializeArray(),
+  dataObj = {};
+
+  $(dataArray).each(function(i, field){
+	  dataObj[field.name] = field.value;
+  });
+    
+   $.ajax({
+			type : "get",
+			dataType : "text",
+			url : "http://localhost:8080/member/findbyname/" + dataObj['name'],
+			success : function(data) {
+				console.log(data);
+				createMemberResultsTable(JSON.parse(data));
+			},
+			failure : function(errMsg) {
+				$("#res").html(errMsg);
+			}
+		});
+	   
+	  event.preventDefault();
+	});
+
+
+
+
 $("#searchId").click(
 // TODO Http error handling Bad request etc. Empty result is ok though.
 
@@ -141,12 +221,51 @@ $('#bookResultsTable').on("click", ".deleteButton", function(){
 	
 });
 
+
+$('#memberResultsTable').on("click", ".deleteButton", function(){
+    console.log($(this).parent());
+
+    // global scoped flag to make use of this-relative traversing possible instead of DOM search.
+    memberResultsTableDelete=true;
+	$.ajax({
+		type : "delete",
+		dataType : "text",
+		url : "http://localhost:8080/member/delete/" + $(this).attr('data-id'),
+		success : function(data) {
+		},
+		failure : function(errMsg) {
+			bookResultsTableDelete=false;
+			$("#res").html(errMsg);
+		}
+	});
+
+	if (memberResultsTableDelete) {
+		$(this).parents('tr').remove();
+	}
+	
+});
+
+
+
+
 $('#bookResultsTable').on("click", ".updateButton", function(){
     console.log($(this).parent()+"update");
 
-    location.href="http://localhost:8080/findToUpdate/" + $(this).attr('data-id');
+    // Load Thymeleaf page
+    location.href="http://localhost:8080/book/findToUpdate/" + $(this).attr('data-id');
 	
 });
+
+
+$('#memberResultsTable').on("click", ".updateButton", function(){
+    console.log($(this).parent()+"update");
+
+    // Load Thymeleaf page
+    location.href="http://localhost:8080/member/findToUpdate/" + $(this).attr('data-id');
+	
+});
+
+
 
 $('#bookResultsTable').on("click", ".cloneButton", function(){
     console.log($(this).parent()+"clone");

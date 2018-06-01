@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Book Search Form</title>
+	<title>Member Search Form</title>
 	<link rel="icon" href="../static/favicon.ico" th:href="@{/favicon.ico}" />
  	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
@@ -15,8 +15,8 @@
 <body>
 	<div class="topnav" id="myTopnav">
 		<a href="../templates/home.html" th:href="@{/}" class="colorHome">Home</a>
-		<a href="../templates/bookSearch.html" th:href="@{/book/searchForm}" class="colorSearch" >Search book</a>
-		<a href="../templates/bookCreate.html" th:href="@{/book/createForm}" class="colorCreate" >Create book</a>
+		<a href="../templates/memberSearch.html" th:href="@{/member/searchForm}" class="colorSearch" >Search member</a>
+		<a href="../templates/memberCreate.html" th:href="@{/member/createForm}" class="colorCreate" >Create member</a>
 		<a href="#help" class="colorHelp" >Help</a>
 		<a href="javascript:void(0);" class="icon" >
 			<i id="myBurger" class="fa fa-bars"></i>
@@ -24,32 +24,25 @@
 	</div>
 
 	<div id="searchDiv">
-		<form id="searchBookForm" th:method="get" th:action="@{/book/searchForm}"
-			th:object="${book}">
-			<div id=searchFields class="form-group">
-					<label for="id">Book Id</label>
-					<input type="text" th:field="*{id}" class="form-control" /> 
+		<form id="searchMemberByIdForm" >
+			<div class="form-group">
+					<label for="id">Member id</label>
+					<input type="text" id="id" name="id" class="form-control" /> 
 					<div class="searchFieldsSubmit">
-						<input type="button" id="searchId" value="Search" class="btn btn-default"/>
+						<input type="submit" value="Submit" class="btn btn-default" />						
 					</div>
-				<div id=searchITAFields>
-					<label for="isbn">ISBN</label>
-					<input type="text" th:field="*{isbn}" class="form-control" />
-					<label for="title">Title</label>
-					<input type="text" th:field="*{title}" class="form-control" />
-					<label for="author">Author</label>
-					<input type="text" th:field="*{author}" class="form-control" />
-					<div class="searchFieldsSubmit">
-						<!--   <input type="submit" id="search" value="(Submit)" />
-						-->
-						<input type="button" id="searchITA" value="Search" class="btn btn-default"/>
-					</div>
-				</div>
 			</div>
+		</form>
+		<form id="searchMemberByNameForm" >
+					<label for="name">Name</label>
+					<input type="text" id="name" name="name" class="form-control" />
+					<div class="searchFieldsSubmit">					
+						<input type="submit" value="Submit" class="btn btn-default" />						
+					</div>
 		</form>
 
 	</div>
-	<table id="bookResultsTable" class="table table-hover"></table>
+	<table id="memberResultsTable" class="table table-hover"></table>
   	<div id="res"></div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="../static/jq.js" th:src="@{/jq.js}"></script>

@@ -92,8 +92,12 @@ public class MemberManagementServiceMockImpl implements MemberManagementService 
 	}
 
 	@Override
-	public void updateMember(Member changedMember) throws MemberNotFoundException {
-		memberRepository.save(changedMember);
+	public Member updateMember(Member updatedMember) throws MemberNotFoundException {
+		if (null !=memberRepository.findById(updatedMember.getId()) ) {
+			return memberRepository.save(updatedMember);
+		} else {
+			throw new MemberNotFoundException("Member not found");
+		}
 	}
 
 

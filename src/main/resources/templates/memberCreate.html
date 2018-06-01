@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Book Create Form</title>
+	<title>Member Create Form</title>
 	<link rel="icon" href="../static/favicon.ico" th:href="@{/favicon.ico}" />
  	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -13,8 +13,8 @@
 <body>
 	<div class="topnav" id="myTopnav">
 		<a href="../templates/home.html" th:href="@{/}" class="colorHome">Home</a>
-		<a href="../templates/bookSearch.html" th:href="@{/book/searchForm}" class="colorSearch" >Search book</a>
-		<a href="../templates/bookCreate.html" th:href="@{/book/createForm}" class="colorCreate" >Create book</a>
+		<a href="../templates/memberSearch.html" th:href="@{/member/searchForm}" class="colorSearch" >Search member</a>
+		<a href="../templates/memberCreate.html" th:href="@{/member/createForm}" class="colorCreate" >Create member</a>
 		<a href="#help" class="colorHelp" >Help</a>
 		<a href="javascript:void(0);" class="icon" >
 			<i id="myBurger" class="fa fa-bars"></i>
@@ -22,24 +22,19 @@
 	</div>
 
 	<div id="createDiv">
-		<form id="createBookForm" method="post" th:action="@{/book/createForm}"
-			th:object="${book}">
+		<form id="createMemberForm" method="post" th:action="@{/member/createForm}"
+			th:object="${simpleMember}">
 			<div id=createFields class="form-group">
-				<label for="id">Book Id</label>
-				<input class="disabled form-control" type="text"
-					th:field="*{id}" readonly="readonly" />
-				<label for="isbn">ISBN</label>
-				<input type="text" th:field="*{isbn}" class="form-control" />
-				<label for="title">Title</label>
-				<input type="text" th:field="*{title}" class="form-control" />
-				<label for="author">Author</label>
-				<input type="text" th:field="*{author}" class="form-control" />
-				<label for="genre">Genre</label>
-				<input type="text" th:field="*{genre}" class="form-control" />
-				<label for="location">Location</label>
-				<input type="text" th:field="*{location}" class="form-control"/>
-				<label for="loanPeriod">Loan period</label>
-				<input type="text" th:field="*{loanPeriod}" class="form-control"/>
+					<label for="name">Name</label>
+					<input type="text" th:field="*{name}" class="form-control" />
+					
+					<label for="adress">Adress</label>
+					<input type="text" th:field="*{adress}" class="form-control" />
+					<label for="phone">Phone</label>
+					<input type="text" th:field="*{phone}" class="form-control" />
+					<label for="email">Email</label>
+					<input type="text" th:field="*{email}" class="form-control" />
+
 			</div>
 				
 			<div id="createFieldsSubmit">

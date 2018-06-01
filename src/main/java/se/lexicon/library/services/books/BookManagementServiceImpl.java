@@ -44,8 +44,12 @@ public class BookManagementServiceImpl implements BookManagementService {
 
 	@Override
 	public Book updateBook(Book updatedBook) throws BookNotFoundException {
+		if (null !=bookRepository.findById(updatedBook.getId()) ) {
+			return bookRepository.save(updatedBook);
+		} else {
+			throw new BookNotFoundException("Book not found");
 
-		return bookRepository.save(updatedBook);
+		}
 	}
 
 	@Override

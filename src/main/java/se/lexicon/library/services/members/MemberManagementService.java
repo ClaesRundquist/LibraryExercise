@@ -10,7 +10,7 @@ import se.lexicon.library.restcontrollers.SimpleMember;
 
 public interface MemberManagementService {
 	public Member createMember(SimpleMember newMember);
-
+	
 	public Optional<Member> searchForMemberById(Integer memberId);
 	
 	public Member addLibraryCard(AddLibraryCardWrapper addCardWrap) throws MemberNotFoundException;
@@ -20,7 +20,7 @@ public interface MemberManagementService {
 	public List<Member> searchForMembersByName(String name);
 	public List<Member> getAll();
 
-	public void updateMember(Member changedMember) throws MemberNotFoundException;
+	public Member updateMember(Member updatedMember) throws MemberNotFoundException;
 
 	public void deleteMember(Integer memberId) throws EmptyResultDataAccessException;
 }

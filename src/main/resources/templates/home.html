@@ -2,37 +2,71 @@
 <html lang="sv-se">
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>Library Home</title>
+ 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 	<link rel="icon" href="../static/favicon.ico" th:href="@{/favicon.ico}" />
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="../static/css/forms.css" th:href="@{/css/forms.css}">
 
 </head>
 <body>
 	<div class="topnav" id="myTopnav">
-		<a href="../templates/home.html" th:href="@{/home}" class="colorHome">Home</a>
-		<a href="../templates/bookSearch.html" th:href="@{/searchForm}" class="colorSearch" >Search book</a>
-		<a href="../templates/bookCreate.html" th:href="@{/createForm}" class="colorCreate" >Create book</a>
+		<a href="../templates/home.html" th:href="@{/}" class="colorHome">Home</a>
+		<a href="../templates/bookSearch.html" th:href="@{/book/searchForm}" class="colorSearch" >Search book</a>
+		<a href="../templates/bookCreate.html" th:href="@{/book/createForm}" class="colorCreate" >Create book</a>
 		<a href="#help" class="colorHelp" >Help</a>
 		<a href="javascript:void(0);" class="icon" >
 			<i id="myBurger" class="fa fa-bars"></i>
 		</a>
 	</div>
 
-	<div id="homeDiv" >
-		<div id="homeBook" >
-			<a href="../templates/bookSearch.html" th:href="@{/searchForm}" class="colorSearch" >Book</a> 
+	<div id="homeBody">
+		<div class="row">
+			<div id="homeBooks" class="col">
+				<a href="../templates/bookSearch.html" th:href="@{/book/searchForm}" class="colorSearch" >
+						<img src="../static/images/libraryBooks.png" th:src="@{/images/libraryBooks.png}" alt="Manage Books" height="200" width="200" />
+				</a> 
+			</div>
+			<div class="col">
+				<div></div>
+			</div>
+			<div class="col">
+				<div></div>
+			</div>
 		</div>
-		<div id="homeMember">
-			<a href="../templates/bookCreate.html" th:href="@{/createForm}" class="colorCreate" >Member (TODO)</a> 
+		<div class="row">
+			<div class="col">
+				<div></div>
+			</div>
+			<div id="homeMembers" class="col">
+				<a href="../templates/memberSearch.html" th:href="@{/member/searchForm}" class="colorCreate" >
+						<img src="../static/images/libraryMembers.png" th:src="@{/images/libraryMembers.png}" alt="Manage Books" height="200" width="200" />
+				</a> 
+			</div>
+			<div class="col">
+				<div></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div></div>
+			</div>
+			<div class="col">
+				<div></div>
+			</div>
+			<div id="homeLoans" class="col">
+				<a href="../templates/bookCreate.html" th:href="@{/loan/createForm}" class="colorCreate" >
+						<img src="../static/images/libraryLoans.png" th:src="@{/images/libraryLoans.png}" alt="Manage Books" height="200" width="200" />
+				</a> 
+			</div>
 		</div>
 	</div>
-	<div th:text="${res}"></div>
+		
+ 	<div th:text="${res}"></div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="../static/jq.js" th:src="@{/jq.js}"></script>
-  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 </body>
 
 </html>

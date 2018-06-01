@@ -120,4 +120,12 @@ public class Member {
 	}
 
 
+
+	@Override
+	public String toString() {
+		return "Member [id=" + id + ", name=" + name + ", since=" + since + ", contactInfo=" + contactInfo
+				+ ", libraryCard=" + libraryCard + ", loans=" + loans + "]";
+	}
+
+
 }

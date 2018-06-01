@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import se.lexicon.library.domain.Book;
 import se.lexicon.library.services.books.BookManagementService;
@@ -20,7 +20,8 @@ import se.lexicon.library.services.books.BookNotFoundException;
 import se.lexicon.library.services.books.NotUniqueException;
 
 @Controller
-public class createBookWebController {
+@RequestMapping("/book")
+public class BookWebController {
 
 	@Autowired
 	BookManagementService bookService;
