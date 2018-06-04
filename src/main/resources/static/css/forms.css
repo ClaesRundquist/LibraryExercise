@@ -420,19 +420,6 @@ label {
 }
 
 
-
-.rtButtonDelete {
-    background-color: #ff8080;
-	style="width:8%";	
-}
-.rtButtonUpdate {
-    background-color: #ffc9a5;
-	style="width:8%";	
-}
-.rtButtonClone {
-    background-color: #ffffc9;
-	style="width:8%";	
-}
 .rtId {
 	style="width:8%";	
 }
@@ -556,3 +543,47 @@ font-family: Verdana, Arial;
     text-align: left;
   }
 }
+
+
+/* my own trial on responsive table like presentation */
+
+#rrdivtest {
+	width: 100%;
+}
+.rrdiveven {
+	background-color: #eee;
+}
+.rrdivodd {
+	background-color: #fff;
+}
+
+
+.rtbtndelete {
+    background-color: #ff8080;
+	padding:2px;
+	line-height:1;
+    display: inline;
+}
+.rtbtnupdate {
+    background-color: #ffc9a5;
+	padding:2px;
+	line-height:1;
+    display: inline;
+}
+.rtbtnclone {
+    background-color: #ffffc9;
+	padding:2px;
+	line-height:1;
+    display: inline;
+}
+
+
+@media screen and (max-width: 600px) {
+
+}
+
+
+
+
+
+

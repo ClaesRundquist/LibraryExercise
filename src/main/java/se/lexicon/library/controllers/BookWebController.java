@@ -64,7 +64,7 @@ public class BookWebController {
 		m.addAttribute("bookList", books);
 		return "bookFindResults";
 	}
-
+/*
 	@DeleteMapping("/delete/{id}")
 	public String delete(@PathVariable("id") Integer id, Model m) {
 		Book book = new Book();
@@ -73,7 +73,7 @@ public class BookWebController {
 		// TODO  redirect to appropriate page
 		return "bookSearch";
 	}
-
+*/
 	@GetMapping("/findToUpdate/{id}")
 	public String getUpdateForm(@PathVariable("id") Integer id, Model m) throws BookNotFoundException {
 		Optional<Book> book=bookService.searchForBookById(id);
