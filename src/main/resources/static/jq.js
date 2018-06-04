@@ -80,44 +80,33 @@ function createBookResultsTable(data) {
 }
 */
 
-
-$( "#searchMemberByNameForm" ).submit(function( event ) {
-	var dataArray = $( this ).serializeArray(),
-  dataObj = {};
-
-  $(dataArray).each(function(i, field){
-	  dataObj[field.name] = field.value;
-  });
-
-   console.log( $( this ).serializeArray());
-   $.ajax({
-			type : "get",
-			dataType : "text",
-			url : $( this ).attr('action')+dataObj['name'],
-			success : function(data) {
-				console.log(data);
-				createMemberResultsTable(JSON.parse(data));
-			},
-			failure : function(errMsg) {
-				$("#res").html(errMsg);
-			}
-		});
-	   
-	  event.preventDefault();
-	});
+// TODO map these...
+booksTableContent=[];
+membersTableContent=[];
 
 
 function fillRespRows(rrDiv, headers, sizes) {
 	
 	var n=$("#"+rrDiv).children().length;
-	var evenOdd=(n%2==1)?"rrdivodd":"rrdiveven";
-	$( "#"+rrDiv ).append( '<div id="'+rrDiv+'row'+n+'" class="row '+evenOdd+'"></div>' );
+	
+	$( "#"+rrDiv ).append( '<div id="'+rrDiv+'row'+n+'" class="row"></div>' );
 	$.each(headers, function(i, str) {
 		$( "#"+rrDiv+"row"+n ).append( '<div class="'+sizes[i]+'" id="rrdiv'+n+'_'+i+'" >'+str+'</div>' );
 	});
-
 }
 
+function removeAllRespRows(rrDiv) {
+	var n=$("#"+rrDiv).children().remove();
+}
+
+function renderRespRows(rrDiv) {
+	$.each($("#"+rrDiv).children(), function(i, child) {
+		var evenOdd=(i%2==1)?"rrdivodd":"rrdiveven";
+		$(child).removeClass("rrdivodd");
+		$(child).removeClass("rrdiveven");
+		$(child).addClass(evenOdd);
+	});
+}
 
 function createBookResultsTable(data) {
 	var content=[];
@@ -126,9 +115,9 @@ function createBookResultsTable(data) {
 	} else if (data.books == undefined) {
 		// single row with book data
 		var cRow = [];
-		cRow.push('<nobr><button class="rtbtndelete btn btn-default" data-id="'+data.id+'">X</button>'
-				+'<button class="rtbtnupdate btn btn-default" data-id="'+data.id+'">*</button>'
-				+'<button class="rtbtnclone btn btn-default" data-id="'+data.id+'">+</button></nobr>');
+		cRow.push('<nobr><button class="rtbtndelete btn" data-id="'+data.id+'">X</button>'
+				+'<button class="rtbtnupdate btn" data-id="'+data.id+'">*</button>'
+				+'<button class="rtbtnclone btn" data-id="'+data.id+'">+</button></nobr>');
 		cRow.push(data.id);
 		cRow.push(data.isbn);
 		cRow.push(data.title);
@@ -155,36 +144,16 @@ function createBookResultsTable(data) {
 		});		
 	}
 
-	$.each(content, function(i, cRow) {
-		console.log("????");
-		fillRespRows("rrdivtest", cRow, ["col-md-1","col-md-1","col-md-2","col-md-2","col-md-2","col-md-2", "col-md-1", "col-md-1"]);
+	booksTableContent=content;
 	
-	
-});
-/*	
-	$('#bookResultsTable').DataTable({
-		destroy : true,
-		data : content,
-		columns : [ {
-			title : "Operations"
-		}, {
-			title : "Id"
-		}, {
-			title : "Title"
-		}, {
-			title : "Author"
-		}, {
-			title : "Genre"
-		}, {
-			title : "ISBN"
-		}, {
-			title : "Location"
-		}, {
-			title : "Loan Period"
-		} ]
+	removeAllRespRows("rrdivbooks");
+	fillRespRows("rrdivbooks", ["ops", "id", "title", "author", "isbn", "genre", "loc.", "period"], ["col-md-1","col-md-1","col-md-2","col-md-2","col-md-2","col-md-2", "col-md-1", "col-md-1"]);
+	$.each(booksTableContent, function(i, cRow) {
+		fillRespRows("rrdivbooks", cRow, ["col-md-1","col-md-1","col-md-2","col-md-2","col-md-2","col-md-2", "col-md-1", "col-md-1"]);
 	});
-*/
-
+	// add class to color every second row.
+	renderRespRows("rrdivbooks");
+	
 }
 
 
@@ -195,52 +164,44 @@ function createMemberResultsTable(data) {
 	if (data==null) {
 		; // do nothing, empty array will be passed to DataTable constructor.
 	} else if (data.members == undefined) {
-		// single row with book data
+		// single row with member data
 		var cRow = [];
-		cRow.push('<span><button class="deleteButton btn btn-default" data-id="'+data.id+'">Delete</button>'
-				+'<button class="updateButton btn btn-default" data-id="'+data.id+'">Update</button>'
+		cRow.push('<nobr><button class="rtbtndelete btn" data-id="'+data.id+'">X</button>'
+				+'<button class="rtbtnupdate btn" data-id="'+data.id+'">*</button></nobr>'
 				);
 		cRow.push(data.id);
+		cRow.push(data.name);
+		cRow.push(data.contactInfo.adress);
+		cRow.push(data.contactInfo.phone);
+		cRow.push(data.contactInfo.email);
+		cRow.push('fake card');
 		content.push(cRow);
 	} else {
-		// Array of books.
+		// Array of members.
 		$.each(data.members, function(key, value) {
 			var cRow = [];
-			cRow.push('<span><button class="deleteButton btn btn-default" data-id="'+value.id+'">Delete</button>'
-					+'<button class="updateButton btn btn-default" data-id="'+value.id+'">Update</button>'
+			cRow.push('<nobr><button class="rtbtndelete btn" data-id="'+data.id+'">X</button>'
+					+'<button class="rtbtnupdate btn" data-id="'+data.id+'">*</button></nobr>'
 					);
 			cRow.push(value.id);
 			cRow.push(value.name);
 			cRow.push(value.contactInfo.adress);
 			cRow.push(value.contactInfo.phone);
 			cRow.push(value.contactInfo.email);
-//			cRow.push(value.libraryCard);
+			cRow.push('fake card');
 			content.push(cRow);
 		});		
 	}
 	
+	memberTableContent=content;
 	
-	
-	$('#memberResultsTable').DataTable({
-		destroy : true,
-		data : content,
-		columns : [ {
-			title : "Operations"
-		}, {
-			title : "Id"
-		}, {
-			title : "Name"
-		}, {
-			title : "Adress"
-		}, {
-			title : "Phone"
-		}, {
-			title : "Email"
-		}
-		
-		]
+	removeAllRespRows("rrdivmembers");
+	fillRespRows("rrdivmembers", ["ops", "id", "name", "adress", "phone", "email","lib. card"], ["col-md-1","col-md-1","col-md-2","col-md-3","col-md-2","col-md-2","col-md-1"]);
+	$.each(memberTableContent, function(i, cRow) {
+		fillRespRows("rrdivmembers", cRow, ["col-md-1","col-md-1","col-md-2","col-md-3","col-md-2","col-md-2","col-md-1"]);
 	});
-
+	// add class to color every second row.
+	renderRespRows("rrdivmembers");
 
 }
 
@@ -255,8 +216,6 @@ $( "#searchBookByIdForm" ).submit(function( event ) {
   });
 console.log(JSON.stringify(dataObj));
 
-//fillRespRows("rrdivtest", ["ops", "id", "title", "author", "isbn", "genre", "loc", "per"], ["col-sm-1","col-sm-1","col-sm-2","col-sm-2","col-sm-2","col-sm-2", "col-sm-1", "col-sm-1"]);
-fillRespRows("rrdivtest", ["ops", "id", "title", "author", "isbn", "genre", "loc.", "period"], ["col-md-1","col-md-1","col-md-2","col-md-2","col-md-2","col-md-2", "col-md-1", "col-md-1"]);
 	$.ajax({
 		type : "get",
 		dataType : "text",
@@ -301,38 +260,18 @@ console.log(JSON.stringify(dataObj));
 
 
 
-$("#searchITA").click(
 
-		// TODO Http error handling Bad request etc. Empty result is ok though.
-		function() {
-console.log($( this ).serializeArray());
-			var body = '{"isbn":"' + $('#isbn').val() + '","title":"'
-					+ $('#title').val() + '","author":"' + $('#author').val()
-					+ '"}';
-			$.ajax({
-				type : "post",
-				contentType : "application/json; charset=utf-8",
-				dataType : "text",
-				data : body,
-				url : "http://localhost:8080/book/findlike",
-				success : function(data) {
-					createBookResultsTable(JSON.parse(data));
-				}
-			});
-
-		});
-
-
-
-$('#rrdivtest').on("click", ".deleteButton", function(){
+$('#rrdivbooks').on("click", ".rtbtndelete", function(){
     console.log($(this).parent());
 
+    var id=$(this).attr('data-id');
+    
     // global scoped flag to make use of this-relative traversing possible instead of DOM search.
     bookResultsTableDelete=true;
 	$.ajax({
 		type : "delete",
 		dataType : "text",
-		url : "http://localhost:8080/book/delete/" + $(this).attr('data-id'),
+		url : "http://localhost:8080/book/delete/" + id,
 		success : function(data) {
 		},
 		failure : function(errMsg) {
@@ -342,21 +281,91 @@ $('#rrdivtest').on("click", ".deleteButton", function(){
 	});
 
 	if (bookResultsTableDelete) {
-		$(this).parents('tr').remove();
+		// table.remove();
+		var iToRemove;
+		$.each(booksTableContent, function(i, cRow) {
+			if (cRow[1]==id) {
+			    iToRemove=i;
+			}
+		});
+	    booksTableContent.splice(iToRemove,1);
+
+		removeAllRespRows("rrdivbooks");
+		fillRespRows("rrdivbooks", ["ops", "id", "title", "author", "isbn", "genre", "loc.", "period"], ["col-md-1","col-md-1","col-md-2","col-md-2","col-md-2","col-md-2", "col-md-1", "col-md-1"]);
+		$.each(booksTableContent, function(i, cRow) {
+			fillRespRows("rrdivbooks", cRow, ["col-md-1","col-md-1","col-md-2","col-md-2","col-md-2","col-md-2", "col-md-1", "col-md-1"]);
+		});
+		// add class to color every second row.
+		renderRespRows("rrdivbooks");
+
 	}
 	
 });
 
 
+// Members ---------------------------
+$( "#searchMemberByIdForm" ).submit(function( event ) {
+	var dataArray = $( this ).serializeArray(),
+  dataObj = {};
+
+  $(dataArray).each(function(i, field){
+	  dataObj[field.name] = field.value;
+  });
+console.log(JSON.stringify(dataObj));
+
+	$.ajax({
+		type : "get",
+		dataType : "text",
+		url : "http://localhost:8080/member/findbyid/" + +dataObj['id'],
+		success : function(data) {
+			createMemberResultsTable(data=="null" ? null : JSON.parse(data));
+		},
+		failure : function(errMsg) {
+			$("#res").html(errMsg);
+		}
+	});
+	event.preventDefault();
+});
+
+
+$( "#searchMemberByNameForm" ).submit(function( event ) {
+	var dataArray = $( this ).serializeArray(),
+  dataObj = {};
+
+  $(dataArray).each(function(i, field){
+	  dataObj[field.name] = field.value;
+  });
+
+   console.log( $( this ).serializeArray());
+   $.ajax({
+			type : "get",
+			dataType : "text",
+//			url : $( this ).attr('action')+dataObj['name'],
+			url : "http://localhost:8080/member/findbyname/"+dataObj['name'],
+			success : function(data) {
+				console.log(data);
+				createMemberResultsTable(JSON.parse(data));
+			},
+			failure : function(errMsg) {
+				$("#res").html(errMsg);
+			}
+		});
+	   
+	  event.preventDefault();
+	});
+
+
 $('#memberResultsTable').on("click", ".rtbtndelete", function(){
     console.log($(this).parent());
+
+    var id=$(this).attr('data-id');
 
     // global scoped flag to make use of this-relative traversing possible instead of DOM search.
     memberResultsTableDelete=true;
 	$.ajax({
 		type : "delete",
 		dataType : "text",
-		url : "http://localhost:8080/member/delete/" + $(this).attr('data-id'),
+		url : "http://localhost:8080/member/delete/" + id,
 		success : function(data) {
 		},
 		failure : function(errMsg) {
@@ -366,7 +375,22 @@ $('#memberResultsTable').on("click", ".rtbtndelete", function(){
 	});
 
 	if (memberResultsTableDelete) {
-		$(this).parents('tr').remove();
+		// table.remove();
+		var iToRemove;
+		$.each(membersTableContent, function(i, cRow) {
+			if (cRow[1]==id) {
+			    iToRemove=i;
+			}
+		});
+	    membersTableContent.splice(iToRemove,1);
+
+		removeAllRespRows("rrdivmembers");
+		fillRespRows("rrdivmembers", ["ops", "id", "title", "author", "isbn", "genre", "loc.", "period"], ["col-md-1","col-md-1","col-md-2","col-md-2","col-md-2","col-md-2", "col-md-1", "col-md-1"]);
+		$.each(booksTableContent, function(i, cRow) {
+			fillRespRows("rrdivmembers", cRow, ["col-md-1","col-md-1","col-md-2","col-md-2","col-md-2","col-md-2", "col-md-1", "col-md-1"]);
+		});
+		// add class to color every second row.
+		renderRespRows("rrdivmembers");
 	}
 	
 });
@@ -374,7 +398,7 @@ $('#memberResultsTable').on("click", ".rtbtndelete", function(){
 
 
 
-$('#rrdivtest').on("click", ".rtbtnupdate", function(){
+$('#rrdivbooks').on("click", ".rtbtnupdate", function(){
     console.log($(this).parent()+"update");
 
     // Load Thymeleaf page
@@ -383,7 +407,7 @@ $('#rrdivtest').on("click", ".rtbtnupdate", function(){
 });
 
 
-$('#memberResultsTable').on("click", ".rtbtnupdate", function(){
+$('#rrdivmembers').on("click", ".rtbtnupdate", function(){
     console.log($(this).parent()+"update");
 
     // Load Thymeleaf page
@@ -393,8 +417,7 @@ $('#memberResultsTable').on("click", ".rtbtnupdate", function(){
 
 
 
-$('#rrdivtest').on("click", ".rtbtnclone", function(){
-    console.log($(this).parent()+"clone");
+$('#rrdivbooks').on("click", ".rtbtnclone", function(){
 
 	$.ajax({
 		type : "post",
@@ -403,13 +426,12 @@ $('#rrdivtest').on("click", ".rtbtnclone", function(){
 		data : $(this).attr('data-id'),
 		url : "http://localhost:8080/book/clone",
 		success : function(data) {
-			var table = $('#bookResultsTable').DataTable();
 
 			var value=JSON.parse(data);
 			var cRow = [];
-			cRow.push('<span><button class="rtbtndelete btn btn-default" data-id="'+value.id+'">Delete</button>'
-					+'<button class="rtbtnupdate btn btn-default" data-id="'+value.id+'">Update</button>'
-					+'<button class="rtbtnclone btn btn-default" data-id="'+value.id+'">Clone</button></span>');
+			cRow.push('<nobr><button class="rtbtndelete btn" data-id="'+value.id+'">X</button>'
+					+'<button class="rtbtnupdate btn" data-id="'+value.id+'">*</button>'
+					+'<button class="rtbtnclone btn" data-id="'+value.id+'">+</button></nobr>');
 			cRow.push(value.id);
 			cRow.push(value.isbn);
 			cRow.push(value.title);
@@ -418,7 +440,15 @@ $('#rrdivtest').on("click", ".rtbtnclone", function(){
 			cRow.push(value.location);
 			cRow.push(value.loanPeriod);
 			
-			table.row.add(cRow).draw();
+			// table.add(cRow)
+			booksTableContent.push(cRow);
+			removeAllRespRows("rrdivbooks");
+			fillRespRows("rrdivbooks", ["ops", "id", "title", "author", "isbn", "genre", "loc.", "period"], ["col-md-1","col-md-1","col-md-2","col-md-2","col-md-2","col-md-2", "col-md-1", "col-md-1"]);
+			$.each(booksTableContent, function(i, cRow) {
+				fillRespRows("rrdivbooks", cRow, ["col-md-1","col-md-1","col-md-2","col-md-2","col-md-2","col-md-2", "col-md-1", "col-md-1"]);
+			});
+			// add class to color every second row.
+			renderRespRows("rrdivbooks");
 
 		}
 	});

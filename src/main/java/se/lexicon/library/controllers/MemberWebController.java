@@ -43,4 +43,8 @@ import se.lexicon.library.services.members.MemberManagementService;
 			return "memberSearch";
 		}
 
+		
+		
+		// TODO 
+		// update member
 }

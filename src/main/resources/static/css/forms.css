@@ -550,6 +550,10 @@ font-family: Verdana, Arial;
 #rrdivtest {
 	width: 100%;
 }
+
+.rrdivrow {
+	
+}
 .rrdiveven {
 	background-color: #eee;
 }
@@ -560,19 +564,19 @@ font-family: Verdana, Arial;
 
 .rtbtndelete {
     background-color: #ff8080;
-	padding:2px;
+	padding:4px;
 	line-height:1;
     display: inline;
 }
 .rtbtnupdate {
     background-color: #ffc9a5;
-	padding:2px;
+	padding:4px;
 	line-height:1;
     display: inline;
 }
 .rtbtnclone {
     background-color: #ffffc9;
-	padding:2px;
+	padding:4px;
 	line-height:1;
     display: inline;
 }
@@ -580,6 +584,25 @@ font-family: Verdana, Arial;
 
 @media screen and (max-width: 600px) {
 
+.rtbtndelete {
+	padding-top: 4px;
+    padding-right: 48px;
+    padding-bottom: 4px;
+    padding-left: 48px;
+}
+.rtbtnupdate {
+	padding-top: 4px;
+    padding-right: 48px;
+    padding-bottom: 4px;
+    padding-left: 48px;
+}
+.rtbtnclone {
+	padding-top: 4px;
+    padding-right: 48px;
+    padding-bottom: 4px;
+    padding-left: 48px;
+}
+	
 }
 
 
