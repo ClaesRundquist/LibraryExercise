@@ -18,71 +18,11 @@ function populate(frm, data) {
 		$('[name=' + key + ']', frm).val(value);
 	});
 }
-/*
-function createBookResultsTable(data) {
-	var content=[];
-	if (data==null) {
-		; // do nothing, empty array will be passed to DataTable constructor.
-	} else if (data.books == undefined) {
-		// single row with book data
-		var cRow = [];
-		cRow.push('<span><button class="deleteButton btn btn-default" data-id="'+data.id+'">Delete</button>'
-				+'<button class="updateButton btn btn-default" data-id="'+data.id+'">Update</button>'
-				+'<button class="cloneButton btn btn-default" data-id="'+data.id+'">Clone</button></span>');
-		cRow.push(data.id);
-		cRow.push(data.isbn);
-		cRow.push(data.title);
-		cRow.push(data.author);
-		cRow.push(data.genre);
-		cRow.push(data.location);
-		cRow.push(data.loanPeriod);
-		content.push(cRow);
-	} else {
-		// Array of books.
-		$.each(data.books, function(key, value) {
-			var cRow = [];
-			cRow.push('<span><button class="deleteButton btn btn-default" data-id="'+value.id+'">Delete</button>'
-					+'<button class="updateButton btn btn-default" data-id="'+value.id+'">Update</button>'
-					+'<button class="cloneButton btn btn-default" data-id="'+value.id+'">Clone</button></span>');
-			cRow.push(value.id);
-			cRow.push(value.isbn);
-			cRow.push(value.title);
-			cRow.push(value.author);
-			cRow.push(value.genre);
-			cRow.push(value.location);
-			cRow.push(value.loanPeriod);
-			content.push(cRow);
-		});		
-	}
-	$('#bookResultsTable').DataTable({
-		destroy : true,
-		data : content,
-		columns : [ {
-			title : "Operations"
-		}, {
-			title : "Id"
-		}, {
-			title : "Title"
-		}, {
-			title : "Author"
-		}, {
-			title : "Genre"
-		}, {
-			title : "ISBN"
-		}, {
-			title : "Location"
-		}, {
-			title : "Loan Period"
-		} ]
-	});
-
-
-}
-*/
 
 // TODO map these...
 booksTableContent=[];
 membersTableContent=[];
+loansTableContent=[];
 
 
 function fillRespRows(rrDiv, headers, sizes) {
@@ -206,6 +146,47 @@ function createMemberResultsTable(data) {
 }
 
 
+function createLoanResultsTable(data) {
+	var content=[];
+	if (data==null) {
+		; // do nothing, empty array will be passed to DataTable constructor.
+	} else if (data.loans == undefined) {
+		// single row with loan data
+		var cRow = [];
+		cRow.push(data.id);
+		cRow.push(data.book.id);
+		cRow.push(data.book.title);		
+		cRow.push(data.dueDate);
+		cRow.push(data.member.id);
+		content.push(cRow);
+	} else {
+		// Array of loans.
+		$.each(data.loans, function(key, value) {
+			var cRow = [];
+			cRow.push(value.id);
+			cRow.push(value.book.id);
+			cRow.push(value.book.title);		
+			cRow.push(value.dueDate);
+			cRow.push(value.member.id);
+			content.push(cRow);
+		});		
+	}
+	
+	loanTableContent=content;
+	
+	removeAllRespRows("rrdivloans");
+	fillRespRows("rrdivloans", ["id", "book id", "title", "due date", "member id"], ["col-md-1","col-md-1","col-md-3","col-md-2","col-md-1"]);
+	$.each(loanTableContent, function(i, cRow) {
+		fillRespRows("rrdivloans", cRow, ["col-md-1","col-md-1","col-md-3","col-md-2","col-md-1"]);
+	});
+	// add class to color every second row.
+	renderRespRows("rrdivloans");
+
+}
+
+
+
+
 
 $( "#searchBookByIdForm" ).submit(function( event ) {
 	var dataArray = $( this ).serializeArray(),
@@ -312,11 +293,10 @@ $( "#searchMemberByIdForm" ).submit(function( event ) {
 	  dataObj[field.name] = field.value;
   });
 console.log(JSON.stringify(dataObj));
-
 	$.ajax({
 		type : "get",
 		dataType : "text",
-		url : "http://localhost:8080/member/findbyid/" + +dataObj['id'],
+		url : "http://localhost:8080/member/findbyid/" + dataObj['id'],
 		success : function(data) {
 			createMemberResultsTable(data=="null" ? null : JSON.parse(data));
 		},
@@ -340,14 +320,13 @@ $( "#searchMemberByNameForm" ).submit(function( event ) {
    $.ajax({
 			type : "get",
 			dataType : "text",
-//			url : $( this ).attr('action')+dataObj['name'],
 			url : "http://localhost:8080/member/findbyname/"+dataObj['name'],
 			success : function(data) {
 				console.log(data);
 				createMemberResultsTable(JSON.parse(data));
 			},
 			failure : function(errMsg) {
-				$("#res").html(errMsg);
+				createMemberResultsTable([]);
 			}
 		});
 	   
@@ -370,7 +349,7 @@ $('#memberResultsTable').on("click", ".rtbtndelete", function(){
 		},
 		failure : function(errMsg) {
 			bookResultsTableDelete=false;
-			$("#res").html(errMsg);
+			createMemberResultsTable([]);
 		}
 	});
 
@@ -396,6 +375,63 @@ $('#memberResultsTable').on("click", ".rtbtndelete", function(){
 });
 
 
+// Loans -----------------------------
+$( "#searchLoanByCardIdForm" ).submit(function( event ) {
+	var dataArray = $( this ).serializeArray(),
+  dataObj = {};
+
+  $(dataArray).each(function(i, field){
+	  dataObj[field.name] = field.value;
+  });
+console.log(JSON.stringify(dataObj));
+
+	$.ajax({
+		type : "get",
+		dataType : "text",
+		url : "http://localhost:8080/loan/findbycardid/" + dataObj['cardId'],
+		success : function(data) {
+			createLoanResultsTable(data=="null" ? null : JSON.parse(data));
+		},
+		failure : function(errMsg) {
+			createLoanResultsTable([]);
+		}
+	});
+	event.preventDefault();
+});
+
+
+$( "#searchLoanByBookIdForm" ).submit(function( event ) {
+	var dataArray = $( this ).serializeArray(),
+  dataObj = {};
+
+  $(dataArray).each(function(i, field){
+	  dataObj[field.name] = field.value;
+  });
+
+   console.log( $( this ).serializeArray());
+   $.ajax({
+			type : "get",
+			dataType : "text",
+			url : "http://localhost:8080/loan/findbybookid/"+dataObj['bookId'],
+			success : function(data) {
+				console.log(data);
+				createLoanResultsTable(JSON.parse(data));
+			},
+			failure : function(errMsg) {
+				createLoanResultsTable([]);
+			}
+		});
+	   
+	  event.preventDefault();
+	});
+
+
+
+
+
+
+
+
 
 
 $('#rrdivbooks').on("click", ".rtbtnupdate", function(){
@@ -419,6 +455,7 @@ $('#rrdivmembers').on("click", ".rtbtnupdate", function(){
 
 $('#rrdivbooks').on("click", ".rtbtnclone", function(){
 
+	console.log("clone"+$(this).attr('data-id'));
 	$.ajax({
 		type : "post",
 		contentType : "application/json; charset=utf-8",

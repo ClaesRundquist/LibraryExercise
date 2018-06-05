@@ -89,17 +89,17 @@ public class BookWebController {
 	public String fillUpdateForm(Book book, Model m) throws BookNotFoundException {
 
 		Book res = bookService.updateBook(book);
-		m.addAttribute("book", res);
-		// TODO  maybe we should not return a result as ....
-		return "bookUpdate";
+//		m.addAttribute("book", res);
+		return "bookSearch";
 	}
 
-	
-	@PostMapping("/clone/{id}")
+// ???? TODO check this out forgot ...	
+/*	@PostMapping("/clone/{id}")
 	public String fillClone(@PathVariable("id") Integer id, Model m) throws BookNotFoundException {
 		Book book = bookService.cloneBook(id);
 		m.addAttribute("book", book);
 		// TODO  redirect to appropriate page
 		return "bookCreate";
 	}
+	*/
 }

@@ -38,6 +38,10 @@ public class LibraryCard {
 	}
 
 
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	@JsonGetter("isvalid")
 	public boolean isValid() {
 		return !LocalDate.now().isAfter((issued.plusYears(period)));

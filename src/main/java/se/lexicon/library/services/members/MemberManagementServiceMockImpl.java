@@ -100,10 +100,17 @@ public class MemberManagementServiceMockImpl implements MemberManagementService 
 		if (mOpt.isPresent()) {
 			Member member=mOpt.get();
 			member.setName(updatedMemberDTO.getName());
-			member.setSince(updatedMemberDTO.getSince());
-			member.setContactInfo(new ContactInfo(updatedMemberDTO.getAdress(), updatedMemberDTO.getPhone(), updatedMemberDTO.getEmail()));
+			member.getContactInfo().setAdress(updatedMemberDTO.getAdress());
+			member.getContactInfo().setPhone(updatedMemberDTO.getPhone());
+			member.getContactInfo().setEmail(updatedMemberDTO.getEmail());
 			if (null != updatedMemberDTO.getLibraryCardId()) {
-				member.setLibraryCard(new LibraryCard(updatedMemberDTO.getLibraryCardId(), member));
+				LibraryCard lc=member.getLibraryCard();
+				if (null == lc) {
+					lc=new LibraryCard(updatedMemberDTO.getLibraryCardId(), member);
+				} else {
+					lc.setId(updatedMemberDTO.getLibraryCardId());
+				}
+				member.setLibraryCard(lc);
 			}
 			return memberRepository.save(member);
 		} else {

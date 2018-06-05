@@ -66,9 +66,9 @@ import se.lexicon.library.services.members.MemberNotFoundException;
 		public String fillUpdateForm(MemberDTO memberDTO, Model m) throws MemberNotFoundException {
 
 			Member res = memberService.updateMember(memberDTO);
-			MemberDTO memberDTORes=new MemberDTO(res);
-			m.addAttribute("memberDTO", memberDTORes);
-			return "memberUpdate";
+//			MemberDTO memberDTORes=new MemberDTO(res);
+//			m.addAttribute("memberDTO", memberDTORes);
+			return "memberSearch";
 		}
 
 

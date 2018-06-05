@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="sv-se">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Loan Create Form</title>
+	<link rel="icon" href="../static/favicon.ico" th:href="@{/favicon.ico}" />
+ 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../static/css/forms.css" th:href="@{/css/forms.css}">
+
+</head>
+<body>
+	<div class="topnav" id="myTopnav">
+		<a href="../templates/home.html" th:href="@{/}" class="colorHome">Home</a>
+		<a href="../templates/loanSearch.html" th:href="@{/loan/searchForm}" class="colorSearch" >Search loan</a>
+		<a href="../templates/loanCreate.html" th:href="@{/loan/createForm}" class="colorCreate" >Create loan</a>
+		<a href="../templates/loanReturn.html" th:href="@{/loan/returnForm}" class="colorReturn" >Return book</a>
+		<a href="#help" class="colorHelp" >Help</a>
+		<a href="javascript:void(0);" class="icon" >
+			<i id="myBurger" class="fa fa-bars"></i>
+		</a>
+	</div>
+
+	<div id="createDiv">
+		<form id="createLoanForm" method="post" th:action="@{/loan/createForm}"
+			th:object="${loanWrap}">
+			<div id=createFields class="form-group">
+					<label for="bookId">Book id</label>
+					<input type="text" th:field="*{bookId}" class="form-control" />
+			
+					<label for="libraryCardId">Library card id</label>
+					<input type="text" th:field="*{libraryCardId}" class="form-control" />					
+			</div>
+				
+			<div id="createFieldsSubmit">
+				<input type="submit" id="create" value="Create" class="btn btn-default" />
+			</div>
+		</form>
+
+	</div>
+	<div th:text="${res}"></div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="../static/jq.js" th:src="@{/jq.js}"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+</body>
+
+</html>

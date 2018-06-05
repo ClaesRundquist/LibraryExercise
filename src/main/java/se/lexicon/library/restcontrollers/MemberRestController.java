@@ -64,14 +64,15 @@ public class MemberRestController {
 	@GetMapping("/findbyid/{memberId}")
 	public ResponseEntity<Optional<Member>> findById(@PathVariable("memberId") Integer memberId) {
 
-		Optional<Member> res;
+/*		Optional<Member> res;
 		res = memberService.searchForMemberById(memberId);
 		if (res.isPresent()) {
 			return ResponseEntity.ok(res);
 		} else {
 			return new ResponseEntity<Optional<Member>>(HttpStatus.NOT_FOUND);
 		}
-
+*/
+		return ResponseEntity.ok(memberService.searchForMemberById(memberId));
 	}
 
 	@GetMapping("/findbycardid/{libraryCardId}")
