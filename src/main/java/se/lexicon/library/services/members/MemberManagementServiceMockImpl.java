@@ -8,10 +8,12 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import se.lexicon.library.domain.ContactInfo;
 import se.lexicon.library.domain.LibraryCard;
 import se.lexicon.library.domain.Member;
 import se.lexicon.library.repositories.LibraryCardRepository;
 import se.lexicon.library.repositories.MemberRepository;
+import se.lexicon.library.restcontrollers.MemberDTO;
 import se.lexicon.library.restcontrollers.SimpleMember;
 
 @Transactional
@@ -92,9 +94,18 @@ public class MemberManagementServiceMockImpl implements MemberManagementService 
 	}
 
 	@Override
-	public Member updateMember(Member updatedMember) throws MemberNotFoundException {
-		if (null !=memberRepository.findById(updatedMember.getId()) ) {
-			return memberRepository.save(updatedMember);
+	public Member updateMember(MemberDTO updatedMemberDTO) throws MemberNotFoundException {
+		Optional<Member> mOpt;
+		mOpt=memberRepository.findById(updatedMemberDTO.getId());
+		if (mOpt.isPresent()) {
+			Member member=mOpt.get();
+			member.setName(updatedMemberDTO.getName());
+			member.setSince(updatedMemberDTO.getSince());
+			member.setContactInfo(new ContactInfo(updatedMemberDTO.getAdress(), updatedMemberDTO.getPhone(), updatedMemberDTO.getEmail()));
+			if (null != updatedMemberDTO.getLibraryCardId()) {
+				member.setLibraryCard(new LibraryCard(updatedMemberDTO.getLibraryCardId(), member));
+			}
+			return memberRepository.save(member);
 		} else {
 			throw new MemberNotFoundException("Member not found");
 		}

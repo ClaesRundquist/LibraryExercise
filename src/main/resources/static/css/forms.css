@@ -404,17 +404,17 @@ label {
 	
 }
 
-.deleteButton,.colorDelete {
+.colorDelete {
     background-color: #ff8080;
 	
 }
 
-.updateButton,.colorUpdate {
+.colorUpdate {
     background-color: #ffc9a5;
 	
 }
 
-.cloneButton,.colorCreate  {
+.colorCreate  {
     background-color: #ffffc9;
 	
 }

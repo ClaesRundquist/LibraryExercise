@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.dao.EmptyResultDataAccessException;
 
 import se.lexicon.library.domain.Member;
+import se.lexicon.library.restcontrollers.MemberDTO;
 import se.lexicon.library.restcontrollers.SimpleMember;
 
 public interface MemberManagementService {
@@ -20,7 +21,7 @@ public interface MemberManagementService {
 	public List<Member> searchForMembersByName(String name);
 	public List<Member> getAll();
 
-	public Member updateMember(Member updatedMember) throws MemberNotFoundException;
+	public Member updateMember(MemberDTO updatedMemberDTO) throws MemberNotFoundException;
 
 	public void deleteMember(Integer memberId) throws EmptyResultDataAccessException;
 }

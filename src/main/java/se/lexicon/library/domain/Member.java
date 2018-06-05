@@ -43,13 +43,13 @@ public class Member {
 
 
 
-	public Member(String name, LocalDate since, ContactInfo contactInfo, LibraryCard libraryCard, Set<Loan> loans) {
+	public Member(String name, LocalDate since, ContactInfo contactInfo, LibraryCard libraryCard) {
 		super();
 		this.name = name;
 		this.since = since;
 		this.contactInfo = contactInfo;
 		this.libraryCard = libraryCard;
-		this.loans = loans;
+//		this.loans = loans;
 	}
 
 

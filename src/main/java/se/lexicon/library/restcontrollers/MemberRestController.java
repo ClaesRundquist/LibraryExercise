@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import se.lexicon.library.domain.Book;
 import se.lexicon.library.domain.Member;
-import se.lexicon.library.services.books.BookNotFoundException;
 import se.lexicon.library.services.members.AddLibraryCardWrapper;
 import se.lexicon.library.services.members.MemberManagementService;
 import se.lexicon.library.services.members.MemberNotFoundException;
@@ -37,9 +35,9 @@ public class MemberRestController {
 	}
 
 	@PatchMapping("/update")
-	public ResponseEntity<Member> update(@RequestBody Member updatedMember) throws MemberNotFoundException {
+	public ResponseEntity<Member> update(@RequestBody MemberDTO updatedMemberDTO) throws MemberNotFoundException {
 
-		return ResponseEntity.ok(memberService.updateMember(updatedMember));
+		return ResponseEntity.ok(memberService.updateMember(updatedMemberDTO));
 
 	}
 	
