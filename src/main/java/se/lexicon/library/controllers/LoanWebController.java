@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -29,9 +30,10 @@ public class LoanWebController {
 
 	@PostMapping("/createForm")
 	public String fillCreateForm(LoanWrapper loanWrap, Model m) {
+
+		m.addAttribute("loanWrap", new LoanWrapper());
 		try {
 			Loan res = loanService.createLoan(loanWrap);
-			m.addAttribute("loanWrap", new LoanWrapper());
 			m.addAttribute("res", res);
 		} catch (CreateLoanException e) {
 			m.addAttribute("res", "Loan not created - " + e.getMessage());
@@ -53,13 +55,13 @@ public class LoanWebController {
 		return "loanReturn";
 	}
 
-	@PostMapping("/returnForm")
+	@PatchMapping("/returnForm")
 	public String returnBook(BookId bookId, Model m) {
 		String idInputClass="";
 		try {
 			loanService.returnBook(bookId.getValue());
-			m.addAttribute("bookId", new BookId(null));
 			m.addAttribute("res", "Book was returned, thank you!");
+			m.addAttribute("bookId", new BookId(null));
 		} catch (LoanNotFoundException e) {
 			m.addAttribute("res", "Loan not found - " + e.getMessage());
 			idInputClass="notfound";

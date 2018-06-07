@@ -25,7 +25,7 @@
 	</div>
 
 	<div id="loanReturnDiv">
-		<form id="loanReturnForm" th:method="post" th:action="@{/loan/returnForm}" th:object="${bookId}">
+		<form id="loanReturnForm" th:method="patch" th:action="@{/loan/returnForm}" th:object="${bookId}">
 					<label for="bookId">Book id</label>
 					<input type="text" th:field="${bookId.value}" class="form-control"  />
 					<div class="searchFieldsSubmit">					
