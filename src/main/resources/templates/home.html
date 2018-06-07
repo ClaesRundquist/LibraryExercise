@@ -13,8 +13,9 @@
 <body>
 	<div class="topnav" id="myTopnav">
 		<a href="../templates/home.html" th:href="@{/}" class="colorHome">Home</a>
-		<a href="../templates/bookSearch.html" th:href="@{/book/searchForm}" class="colorSearch" >Search book</a>
-		<a href="../templates/bookCreate.html" th:href="@{/book/createForm}" class="colorCreate" >Create book</a>
+		<a href="../templates/bookSearch.html" th:href="@{/book/searchForm}" class="colorBooks" >Find book</a>
+		<a href="../templates/memberSearch.html" th:href="@{/member/searchForm}" class="colorMembers" >Find member</a>
+		<a href="../templates/loanCreate.html" th:href="@{/loan/createForm}" class="colorLoans" >Create Loan</a>
 		<a href="#help" class="colorHelp" >Help</a>
 		<a href="javascript:void(0);" class="icon" >
 			<i id="myBurger" class="fa fa-bars"></i>
@@ -56,7 +57,7 @@
 				<div></div>
 			</div>
 			<div id="homeLoans" class="col">
-				<a href="../templates/loanSearch.html" th:href="@{/loan/searchForm}" class="colorCreate" >
+				<a href="../templates/loanCreate.html" th:href="@{/loan/createForm}" class="colorCreate" >
 						<img src="../static/images/libraryLoans.png" th:src="@{/images/libraryLoans.png}" alt="Manage loans" height="200" width="200" />
 				</a> 
 			</div>

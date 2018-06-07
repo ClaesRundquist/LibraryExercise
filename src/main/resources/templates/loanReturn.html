@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Book Search Form</title>
+	<title>Loan Return Form</title>
 	<link rel="icon" href="../static/favicon.ico" th:href="@{/favicon.ico}" />
  	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
@@ -15,44 +15,26 @@
 <body>
 	<div class="topnav" id="myTopnav">
 		<a href="../templates/home.html" th:href="@{/}" class="colorHome">Home</a>
-		<a href="../templates/bookSearch.html" th:href="@{/book/searchForm}" class="colorSearch" >Find book</a>
-		<a href="../templates/bookCreate.html" th:href="@{/book/createForm}" class="colorCreate" >Create book</a>
+		<a href="../templates/loanSearch.html" th:href="@{/loan/searchForm}" class="colorSearch" >Find loan</a>
+		<a href="../templates/loanCreate.html" th:href="@{/loan/createForm}" class="colorCreate" >Create loan</a>
+		<a href="../templates/loanReturn.html" th:href="@{/loan/returnForm}" class="colorReturn" >Return book</a>
 		<a href="#help" class="colorHelp" >Help</a>
 		<a href="javascript:void(0);" class="icon" >
 			<i id="myBurger" class="fa fa-bars"></i>
 		</a>
 	</div>
 
-	<div id="searchDiv">
-		<form id="searchBookByIdForm" action="http://localhost:8080/book/findbyid/">
-
-			<div id=searchIdFields class="form-group">
-				<label for="id">Book Id</label>
-				<input type="text" name="id" class="form-control" /> 
-				<div class="searchFieldsSubmit">
-					<input type="submit" value="Submit" class="btn btn-default" />
-				</div>
-			</div>
+	<div id="loanReturnDiv">
+		<form id="loanReturnForm" th:method="post" th:action="@{/loan/returnForm}" th:object="${bookId}">
+					<label for="bookId">Book id</label>
+					<input type="text" th:field="${bookId.value}" class="form-control" />
+					<div class="searchFieldsSubmit">					
+						<input type="submit" value="Submit" class="btn btn-default" />						
+					</div>
 		</form>
 
-		<div id=searchITAFields class="form-group">
-			<form id="searchBooksByITAForm" action="http://localhost:8080/book/findlike/">
-				<label for="isbn">ISBN</label>
-				<input type="text" name="isbn" class="form-control" />
-				<label for="title">Title</label>
-				<input type="text" name="title" class="form-control" />
-				<label for="author">Author</label>
-				<input type="text" name="author" class="form-control" />
-				<div class="searchFieldsSubmit">
-		
-					<input type="submit" value="Submit" class="btn btn-default" />
-				</div>
-			</form>
-		</div>
 	</div>
-	<div id="rrdivbooks" class="container" ></div>
-	<table id="bookResultsTable" class="table table-hover"></table>
-  	<div id="res"></div>
+  	<div id="res"><p th:text="${res}"><p></div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="../static/jq.js" th:src="@{/jq.js}"></script>
   	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>

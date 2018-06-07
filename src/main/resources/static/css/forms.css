@@ -387,6 +387,18 @@ label {
 
 } 
 
+#loanReturnDiv {
+ /*   background-color: #ff99cc; */
+	background-color: #b3ffc6;
+    opacity:0.92;
+	left:5%;
+	top:5%;
+	font-family: verdana, "Lucida Grande", arial, helvetica, sans-serif;	
+	color:black;	
+	text-align: left;
+	font-size: 2em;
+}
+
 #searchITAFields {
 
 	
@@ -415,6 +427,11 @@ label {
 
 .colorCreate  {
     background-color: #ffffc9;
+	
+}
+
+.colorReturn {
+	background-color: #b3ffc6;
 	
 }
 
@@ -469,12 +486,14 @@ font-family: Verdana, Arial;
 
 
 
-/* Navigation at home page */
-#homeBooks {
+.colorBooks {
+	background-color: #f6da40;
 }
-#homeMembers {
-}
-#homeLoans {
+.colorMembers {
+	background-color: #3b68ea;
+	}
+.colorLoans {
+	background-color: #eac2c2;
 }
 
 #homeBody {

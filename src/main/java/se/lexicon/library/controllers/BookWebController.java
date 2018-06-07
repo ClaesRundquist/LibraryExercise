@@ -64,16 +64,7 @@ public class BookWebController {
 		m.addAttribute("bookList", books);
 		return "bookFindResults";
 	}
-/*
-	@DeleteMapping("/delete/{id}")
-	public String delete(@PathVariable("id") Integer id, Model m) {
-		Book book = new Book();
-		bookService.deleteBook(id);
-		m.addAttribute("book", book);
-		// TODO  redirect to appropriate page
-		return "bookSearch";
-	}
-*/
+
 	@GetMapping("/findToUpdate/{id}")
 	public String getUpdateForm(@PathVariable("id") Integer id, Model m) throws BookNotFoundException {
 		Optional<Book> book=bookService.searchForBookById(id);
@@ -89,17 +80,6 @@ public class BookWebController {
 	public String fillUpdateForm(Book book, Model m) throws BookNotFoundException {
 
 		Book res = bookService.updateBook(book);
-//		m.addAttribute("book", res);
 		return "bookSearch";
 	}
-
-// ???? TODO check this out forgot ...	
-/*	@PostMapping("/clone/{id}")
-	public String fillClone(@PathVariable("id") Integer id, Model m) throws BookNotFoundException {
-		Book book = bookService.cloneBook(id);
-		m.addAttribute("book", book);
-		// TODO  redirect to appropriate page
-		return "bookCreate";
-	}
-	*/
 }
