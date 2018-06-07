@@ -55,13 +55,16 @@ public class LoanWebController {
 
 	@PostMapping("/returnForm")
 	public String returnBook(BookId bookId, Model m) {
+		String idInputClass="";
 		try {
 			loanService.returnBook(bookId.getValue());
 			m.addAttribute("bookId", new BookId(null));
 			m.addAttribute("res", "Book was returned, thank you!");
 		} catch (LoanNotFoundException e) {
 			m.addAttribute("res", "Loan not found - " + e.getMessage());
+			idInputClass="notfound";
 		}
+		m.addAttribute("idInputClass", idInputClass);
 		return "loanReturn";
 	}
 }

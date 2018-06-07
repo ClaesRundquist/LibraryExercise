@@ -463,9 +463,9 @@ color: black;
 font-family: "Courier New", Verdana, Arial;
 }
 
-.modified
+.notfound
 {
-background-color: #f2ee85;
+background-color: #ff8080;
 color: black;
 font-family: Verdana, Arial;
 }

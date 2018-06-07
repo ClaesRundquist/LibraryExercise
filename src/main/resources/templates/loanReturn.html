@@ -27,14 +27,14 @@
 	<div id="loanReturnDiv">
 		<form id="loanReturnForm" th:method="post" th:action="@{/loan/returnForm}" th:object="${bookId}">
 					<label for="bookId">Book id</label>
-					<input type="text" th:field="${bookId.value}" class="form-control" />
+					<input type="text" th:field="${bookId.value}" class="form-control"  />
 					<div class="searchFieldsSubmit">					
 						<input type="submit" value="Submit" class="btn btn-default" />						
 					</div>
 		</form>
 
 	</div>
-  	<div id="res"><p th:text="${res}"><p></div>
+  	<div id="res"><p th:text="${res}" th:classappend="${idInputClass}"><p></div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="../static/jq.js" th:src="@{/jq.js}"></script>
   	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
