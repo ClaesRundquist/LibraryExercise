@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="sv-se" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Login Form</title>
+	<link rel="icon" href="../static/favicon.ico" th:href="@{/favicon.ico}" />
+ 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../static/css/forms.css" th:href="@{/css/forms.css}">
+	
+</head>
+<body>
+	<div class="topnav" id="myTopnav">
+		<a href="../templates/home.html" th:href="@{/}" class="colorHome">Home</a>
+		<a href="../templates/bookSearch.html" th:href="@{/book/searchForm}" class="colorBooks" >Find book</a>
+		<a href="../templates/memberSearch.html" th:href="@{/member/searchForm}" class="colorMembers" >Find member</a>
+		<a href="../templates/loanCreate.html" th:href="@{/loan/createForm}" class="colorLoans" >Create Loan</a>
+		<a href="#help" class="colorHelp" >Help</a>
+		<a href="javascript:void(0);" class="icon" >
+			<i id="myBurger" class="fa fa-bars"></i>
+		</a>
+	</div>
+
+	<div  id="homeBody">
+
+
+       <p th:if="${loginError}" class="error">Wrong user or password</p>
+        <form th:action="@{/login}" method="post">
+            <label for="username">Username</label>:
+            <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
+            <label for="password">Password</label>:
+            <input type="password" id="password" name="password" /> <br />
+            <input type="submit" value="Log in" />
+        </form>
+        
+        
+   	<div>
+</body>
+</html>
+
+
+
+  	<div id="res"></div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="../static/jq.js" th:src="@{/jq.js}"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+</body>
+
+</html>        

@@ -21,26 +21,26 @@ import se.lexicon.library.services.books.BookNotFoundException;
 import se.lexicon.library.services.books.NotUniqueException;
 
 @RestController
-@RequestMapping("/book")
+@RequestMapping("/api")
 public class BookRestController {
 
 	@Autowired
 	BookManagementService bookService;
 
-	@PostMapping("/create")
+	@PostMapping("/book/create")
 	public ResponseEntity<Book> create(@RequestBody Book book) throws NotUniqueException {
 
 		return ResponseEntity.ok(bookService.createBook(book));
 
 	}
 
-	@PostMapping("/clone")
+	@PostMapping("/book/clone")
 	public ResponseEntity<Optional<Book>> clone(@RequestBody Integer id) throws BookNotFoundException {
 		return ResponseEntity.ok(Optional.of(bookService.cloneBook(id)));
 
 	}
 
-	@GetMapping("/findbytitle/{title}")
+	@GetMapping("/book/findbytitle/{title}")
 	public ResponseEntity<BooksWrapper> findByTitle(@PathVariable("title") String title) {
 
 		BooksWrapper res;
@@ -51,7 +51,7 @@ public class BookRestController {
 	}
 
 	// this one return copies of books with designated ISBN
-	@GetMapping("/findbyisbn/{isbn}")
+	@GetMapping("/book/findbyisbn/{isbn}")
 	public ResponseEntity<BooksWrapper> findByIsbn(@PathVariable("isbn") String isbn) {
 
 		BooksWrapper res;
@@ -62,7 +62,7 @@ public class BookRestController {
 	}
 
 	// bookId is unique therefore one or zero books are returned.
-	@GetMapping("/findbyid/{bookId}")
+	@GetMapping("/book/findbyid/{bookId}")
 	public ResponseEntity<Optional<Book>> findById(@PathVariable("bookId") Integer bookId) throws BookNotFoundException {
 
 		return ResponseEntity.ok(bookService.searchForBookById(bookId));
@@ -71,7 +71,7 @@ public class BookRestController {
 	}
 
 	
-	@GetMapping("/findbyauthor/{author}")
+	@GetMapping("/book/findbyauthor/{author}")
 	public ResponseEntity<BooksWrapper> findByAuthor(@PathVariable("author") String author) throws BookNotFoundException {
 
 		BooksWrapper res;
@@ -81,7 +81,7 @@ public class BookRestController {
 
 	}
 	
-	@PostMapping("/findlike")
+	@PostMapping("/book/findlike")
 	public ResponseEntity<BooksWrapper> findLike(@RequestBody Book book) throws BookNotFoundException {
 
 		BooksWrapper res;
@@ -93,7 +93,7 @@ public class BookRestController {
 	
 	
 	
-	@GetMapping("/all")
+	@GetMapping("/book/all")
 	public ResponseEntity<BooksWrapper> getAll() {
 		BooksWrapper res;
 		res = new BooksWrapper(bookService.getAll());
@@ -104,14 +104,14 @@ public class BookRestController {
 
 	
 	
-	@PatchMapping("/update")
+	@PatchMapping("/book/update")
 	public ResponseEntity<Book> update(@RequestBody Book book) throws BookNotFoundException {
 
 		return ResponseEntity.ok(bookService.updateBook(book));
 
 	}
 
-	@DeleteMapping("/delete/{bookId}")
+	@DeleteMapping("/book/delete/{bookId}")
 	public ResponseEntity<Boolean> delete(@PathVariable("bookId") Integer bookId) {
 		try {
 			bookService.deleteBook(bookId);

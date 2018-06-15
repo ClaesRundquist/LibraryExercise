@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="sv-se">
+<html lang="sv-se" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,6 +22,13 @@
 			<i id="myBurger" class="fa fa-bars"></i>
 		</a>
 	</div>
+
+
+      <div th:substituteby="home::logout"></div>
+        <h1>This is a secured page!</h1>
+        <p><a href="/home" th:href="@{/home}">Back to index page</a></p>
+
+
 
 	<div id="searchDiv">
 		<form id="searchBookByIdForm" action="http://localhost:8080/book/findbyid/">

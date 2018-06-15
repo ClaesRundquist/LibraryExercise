@@ -21,7 +21,7 @@ import se.lexicon.library.services.members.MemberManagementService;
 import se.lexicon.library.services.members.MemberNotFoundException;
 
 @RestController
-@RequestMapping("/member")
+@RequestMapping("/api/member")
 public class MemberRestController {
 
 	@Autowired

@@ -200,7 +200,7 @@ console.log(JSON.stringify(dataObj));
 	$.ajax({
 		type : "get",
 		dataType : "text",
-		url : "http://localhost:8080/book/findbyid/" + +dataObj['id'],
+		url : "http://localhost:8080/api/book/findbyid/" + +dataObj['id'],
 		success : function(data) {
 			createBookResultsTable(data=="null" ? null : JSON.parse(data));
 		},
@@ -229,7 +229,7 @@ console.log(JSON.stringify(dataObj));
 				contentType : "application/json; charset=utf-8",
 				dataType : "text",
 				data : body,
-				url : "http://localhost:8080/book/findlike",
+				url : "http://localhost:8080/api/book/findlike",
 				success : function(data) {
 					createBookResultsTable(JSON.parse(data));
 				}
@@ -252,7 +252,7 @@ $('#rrdivbooks').on("click", ".rtbtndelete", function(){
 	$.ajax({
 		type : "delete",
 		dataType : "text",
-		url : "http://localhost:8080/book/delete/" + id,
+		url : "http://localhost:8080/api/book/delete/" + id,
 		success : function(data) {
 		},
 		failure : function(errMsg) {
@@ -296,7 +296,7 @@ console.log(JSON.stringify(dataObj));
 	$.ajax({
 		type : "get",
 		dataType : "text",
-		url : "http://localhost:8080/member/findbyid/" + dataObj['id'],
+		url : "http://localhost:8080/api/member/findbyid/" + dataObj['id'],
 		success : function(data) {
 			createMemberResultsTable(data=="null" ? null : JSON.parse(data));
 		},
@@ -320,7 +320,7 @@ $( "#searchMemberByNameForm" ).submit(function( event ) {
    $.ajax({
 			type : "get",
 			dataType : "text",
-			url : "http://localhost:8080/member/findbyname/"+dataObj['name'],
+			url : "http://localhost:8080/api/member/findbyname/"+dataObj['name'],
 			success : function(data) {
 				console.log(data);
 				createMemberResultsTable(JSON.parse(data));
@@ -344,7 +344,7 @@ $('#memberResultsTable').on("click", ".rtbtndelete", function(){
 	$.ajax({
 		type : "delete",
 		dataType : "text",
-		url : "http://localhost:8080/member/delete/" + id,
+		url : "http://localhost:8080/api/member/delete/" + id,
 		success : function(data) {
 		},
 		failure : function(errMsg) {
@@ -388,7 +388,7 @@ console.log(JSON.stringify(dataObj));
 	$.ajax({
 		type : "get",
 		dataType : "text",
-		url : "http://localhost:8080/loan/findbycardid/" + dataObj['cardId'],
+		url : "http://localhost:8080/api/loan/findbycardid/" + dataObj['cardId'],
 		success : function(data) {
 			createLoanResultsTable(data=="null" ? null : JSON.parse(data));
 		},
@@ -412,7 +412,7 @@ $( "#searchLoanByBookIdForm" ).submit(function( event ) {
    $.ajax({
 			type : "get",
 			dataType : "text",
-			url : "http://localhost:8080/loan/findbybookid/"+dataObj['bookId'],
+			url : "http://localhost:8080/api/loan/findbybookid/"+dataObj['bookId'],
 			success : function(data) {
 				console.log(data);
 				createLoanResultsTable(JSON.parse(data));
@@ -438,7 +438,7 @@ $('#rrdivbooks').on("click", ".rtbtnupdate", function(){
     console.log($(this).parent()+"update");
 
     // Load Thymeleaf page
-    location.href="http://localhost:8080/book/findToUpdate/" + $(this).attr('data-id');
+    location.href="http://localhost:8080/api/book/findToUpdate/" + $(this).attr('data-id');
 	
 });
 
@@ -447,7 +447,7 @@ $('#rrdivmembers').on("click", ".rtbtnupdate", function(){
     console.log($(this).parent()+"update");
 
     // Load Thymeleaf page
-    location.href="http://localhost:8080/member/findToUpdate/" + $(this).attr('data-id');
+    location.href="http://localhost:8080/api/member/findToUpdate/" + $(this).attr('data-id');
 	
 });
 

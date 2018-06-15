@@ -22,7 +22,7 @@ import se.lexicon.library.services.members.MemberManagementService;
 import se.lexicon.library.services.members.MemberNotFoundException;
 
 @RestController
-@RequestMapping("/loan")
+@RequestMapping("/api/loan")
 public class LoanRestController {
 
 	@Autowired
